@@ -6,7 +6,7 @@ Installer & smart package manager for Meteor
 
 ## Summary
 
-Until meteor core comes up with their own smart package install solution meteorite is here to make life easier. You specify dependencies in your project app/smart-package with JSON in a file called `depend.json`. When `meteorite` runs it launches a project-specific copy of `meteor` with all required smart packages installed. `meteorite` takes a `--system` flag for running (and installing into) the `meteor` found on your system path.
+Until meteor core comes up with their own smart package install solution meteorite is here to make life easier. You specify dependencies in your project app/smart-package with JSON in a file called `depend.json`. When `meteorite` runs it launches a project-specific copy of `meteor` with all required smart packages installed.
 
 ## Installation
 
@@ -45,8 +45,3 @@ Just install everything listed in `depend.js`
 Show the path to the project specific copy of `meteor`
 
     meteorite home
-
-If for some reason you want to use your system `meteor` installation run meteorite like this
-
-    meteorite run --system
-    meteorite install --system

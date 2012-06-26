@@ -9,14 +9,14 @@ var showUsage = function() {
   process.exit();
 };
 
-var install = function() {
-  new Installer().run(function() {
+var installer = function() {
+  return new Installer().run(function() {
     console.log('Installation complete!');
   });
 };
 
-var run = function() {
-  new Runner().run(function() {
+var runner = function() {
+  return new Runner().run(function() {
     console.log('Running meteor!');
   });
 };
@@ -29,12 +29,12 @@ var command = argv._[0] || 'run';
 switch(command) {
 
   case 'run':
-    install();
-    run();
+    installer();
+    runner();
     break;
 
   case 'install':
-    install();
+    installer();
     break;
 
   case 'home':
