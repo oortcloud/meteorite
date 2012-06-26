@@ -57,3 +57,7 @@ Just install everything listed in `depend.js`
 Show the path to the project specific copy of `meteor`
 
     mrt home
+
+Use `--impotent` to bypass all meteorite love
+
+    mrt run --importent
