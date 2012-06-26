@@ -30,7 +30,7 @@ Any dependency listed without specifying a branch, tag or ref will use the repo'
 
 ## Usage
 
-Get inline help
+See usage for all commands
 
     meteorite --help
 
