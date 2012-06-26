@@ -28,6 +28,10 @@ A sample `depend.js`
 
 ## Usage
 
+Get inline help
+
+    meteorite --help
+
 Install everything in `depend.js` and run a project-specific copy of `meteor` (*run* is the default and therefore optional)
 
     meteorite run
