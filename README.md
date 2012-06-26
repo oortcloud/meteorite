@@ -26,6 +26,8 @@ A sample `depend.js`
       }
     }
 
+Any dependency listed without specifying a branch, tag or ref will use the repo's master branch. If `meteor` is not specified at all the latest release will be used.
+
 ## Usage
 
 Get inline help
@@ -44,9 +46,7 @@ Show the path to the project specific copy of `meteor`
 
     meteorite home
 
-If for some reason you want to use your system `meteor` installation do this:
+If for some reason you want to use your system `meteor` installation run meteorite like this
 
     meteorite run --system
     meteorite install --system
-
-You can include `meteor` as a dependency if you want to specify a version, ref, branch or tag. Otherwise the master branch (latest release) will be used.
