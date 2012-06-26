@@ -6,11 +6,27 @@ Installer & smart package manager for Meteor
 
 ## Summary
 
-Until meteor core comes up with their own smart package install solution meteorite is here to make life easier. You specify dependencies in your project app/smart-package with JSON in a file called `depend.json`. Then you use `mrt` command line utility to build and launch a project-specific copy of `meteor` with all required smart packages installed.
+Until meteor core comes up with their own smart package install solution meteorite is here to make life easier.
+
+Meteorite installs a command line utility called `mrt` that works just like `meteor` except it
+
+  * Installs a project specific copy of meteor
+
+  * Installs smart package dependencies listed in `depend.json` in the project's `meteor/packages`
+
+  * Runs the meteor command using the project specific copy of meteor (duh!)
+
+  * Includes a subcommand `mrt install` that allows you to do the installation prior to runtime
 
 ## Installation
 
     npm install -g meteorite
+
+## Get help
+
+See usage for all commands
+
+    mrt --help
 
 ## Configuration
 
@@ -29,10 +45,6 @@ A sample `depend.json`
 Any dependency listed without specifying a branch, tag or ref will use the repo's master branch. If `meteor` is not specified at all the latest release will be used.
 
 ## Usage
-
-See usage for all commands
-
-    mrt --help
 
 Install everything in `depend.js` and run a project-specific copy of `meteor` (*run* is the default and therefore optional)
 
