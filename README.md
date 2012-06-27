@@ -36,9 +36,15 @@ A sample `smart.json`
       "meteor": {
         "branch": "devel"
       },
-      "demostrap": {
-        "git": "https://github.com/possibilities/meteor-demostrap.git",
-        "tag": "v0.0.1"
+      "packages": {
+        "simple-secure": {
+          "git": "https://github.com/possibilities/simple-secure.git",
+          "branch": "experimental"
+        },
+        "demostrap": {
+          "git": "https://github.com/possibilities/meteor-demostrap.git",
+          "tag": "v0.0.1"
+        }
       }
     }
 

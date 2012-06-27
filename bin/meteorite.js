@@ -17,14 +17,15 @@ var command = argv._[0] || 'run';
 switch(command) {
 
   case 'run':
-    new Project().run(function(project) {
+    var project = new Project();
+    project.run(function() {
       console.log('Project running!');
-      
     });
     break;
 
   case 'install':
-    new Project().install(function() {
+    var project = new Project();
+    project.install(function() {
       console.log('Project installed!');
     });
     break;
