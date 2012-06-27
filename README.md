@@ -12,7 +12,7 @@ Meteorite installs a command line utility called `mrt` that works just like `met
 
   * Installs a project specific copy of meteor
 
-  * Installs smart package dependencies listed in `depend.json` in the project's `meteor/packages`
+  * Installs smart package dependencies listed in `smart.json` in the project's `meteor/packages`
 
   * Runs the meteor command using the project specific copy of meteor (duh!)
 
@@ -30,7 +30,7 @@ See usage for all commands
 
 ## Configuration
 
-A sample `depend.json`
+A sample `smart.json`
 
     {
       "meteor": {
