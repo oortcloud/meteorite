@@ -52,11 +52,11 @@ Any dependency listed without specifying a branch, tag or ref will use the repo'
 
 ## Usage
 
-Install everything in `depend.js` and run a project-specific copy of `meteor` (*run* is the default and therefore optional)
+Install everything in `smart.json` and run a project-specific copy of `meteor` (*run* is the default and therefore optional)
 
     mrt run
     
-Just install everything listed in `depend.js`
+Just install everything listed in `smart.json`
 
     mrt install
 
