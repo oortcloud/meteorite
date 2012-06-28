@@ -63,7 +63,3 @@ Just install everything listed in `smart.json`
 Show the path to the project specific copy of `meteor`
 
     mrt home
-
-Use `--impotent` to bypass all meteorite love
-
-    mrt run --impotent
