@@ -2,8 +2,11 @@
 
 mrt.js $@:1
 
-if [[ $1 == "run" ]]
+COMMAND=`mrt.js command ${@:1}`
+COMMAND_PARTS=( $COMMAND )
+COMMAND_MODE=${COMMAND_PARTS[*]:1:1}
+
+if [[ $COMMAND_MODE == "run" ]]
 then
-  COMMAND=`mrt.js command ${@:1}`
   `$COMMAND`
 fi
