@@ -5,7 +5,6 @@ var Runner = require('../lib/runner');
 var argv = require('optimist').argv;
 
 var showUsage = function() {
-  console.log('show usage');
   process.exit();
 };
 
