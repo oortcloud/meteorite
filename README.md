@@ -2,8 +2,6 @@
 
 Installer & smart package manager for Meteor
 
-*Note: [Most of this works poorly or not at all, stay tuned](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html) (;*
-
 ## Summary
 
 Until meteor core comes up with their own smart package install solution meteorite is here to make life easier.
