@@ -19,11 +19,15 @@ var project = new Project();
 switch(command) {
 
   case 'run':
-    project.install(function() {});
+    project.install(function() {
+      console.log('Running app!');
+    });
     break;
 
   case 'install':
-    project.install(function() {});
+    project.install(function() {
+      console.log('Installed app!');
+    });
     break;
 
   case 'home':
