@@ -8,9 +8,9 @@ $MRTJS $@:1
 COMMAND=`$MRTJS command ${@:1}`
 
 COMMAND_PARTS=( $COMMAND )
-COMMAND_MODE=${COMMAND_PARTS[*]:1:1}
+MODE=${COMMAND_PARTS[*]:1:1}
 
-if [[ $COMMAND_MODE == "run" ]]
+if [[ $MODE != "install" ]]
 then
   bash $COMMAND
 fi
