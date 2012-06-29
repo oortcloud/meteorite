@@ -4,7 +4,7 @@ Installer & smart package manager for Meteor
 
 ## Summary
 
-Meteorite makes life easier until Meteor core has it's own smart package install solution
+Meteorite makes life easier until Meteor core has it's own smart package installer
 
 ## Installation
 
