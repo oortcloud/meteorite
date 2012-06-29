@@ -4,9 +4,15 @@ Installer & smart package manager for Meteor
 
 ## Summary
 
-Until meteor core comes up with their own smart package install solution meteorite is here to make life easier.
+Meteorite makes life easier until Meteor core has it's own smart package install solution
 
-Meteorite installs a command line utility called `mrt` that works just like `meteor` except it
+## Installation
+
+    npm install -g meteorite
+
+## Command line
+
+Meteorite installs a utility called `mrt` that works just like `meteor` except it
 
   * Installs a project specific instance of meteor
 
@@ -15,10 +21,6 @@ Meteorite installs a command line utility called `mrt` that works just like `met
   * Runs the `meteor` command using the project's meteor instance. You can use the `run`, `deploy`, `update`, `add`, `list`, `remove`, `bundle` and `reset` subcommands.
 
   * Includes a subcommand `mrt install` that allows runs the installation prior to runtime
-
-## Installation
-
-    npm install -g meteorite
 
 ## Get help
 
