@@ -10,13 +10,13 @@ Until meteor core comes up with their own smart package install solution meteori
 
 Meteorite installs a command line utility called `mrt` that works just like `meteor` except it
 
-  * Installs a project specific copy of meteor
+  * Installs a project specific instance of meteor
 
-  * Installs smart package dependencies listed in `smart.json` in the project's `meteor/packages`
+  * Installs smart package dependencies listed in `smart.json` in the project's meteor instance
 
-  * Runs the meteor command using the project specific copy of meteor (duh!)
+  * Runs the `meteor` command using the project's meteor instance. You can use the `run`, `deploy`, `update`, `add`, `list`, `remove`, `bundle` and `reset` subcommands.
 
-  * Includes a subcommand `mrt install` that allows you to do the installation prior to runtime
+  * Includes a subcommand `mrt install` that allows runs the installation prior to runtime
 
 ## Installation
 
@@ -24,7 +24,7 @@ Meteorite installs a command line utility called `mrt` that works just like `met
 
 ## Get help
 
-See usage for all commands
+TODO See usage for all commands
 
     mrt --help
 
