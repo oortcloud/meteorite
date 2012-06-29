@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var Project = require('../lib/project');
-var Runner = require('../lib/runner');
 var argv = require('optimist').argv;
 var path = require('path');
 
