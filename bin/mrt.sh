@@ -9,5 +9,5 @@ COMMAND_MODE=${COMMAND_PARTS[*]:1:1}
 
 if [[ $COMMAND_MODE == "run" ]]
 then
-  `$COMMAND`
+  bash $COMMAND
 fi
