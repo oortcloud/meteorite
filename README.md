@@ -52,13 +52,9 @@ Install everything in `smart.json` and run a project-specific copy of `meteor` (
 
     mrt run
     
-Just install everything listed in `smart.json`
+Just install everything listed in `smart.json`, but don't run any underlying `meteor` command
 
     mrt install
-
-Show the path to the project specific copy of `meteor`
-
-    mrt home
 
 See usage for all commands
 
