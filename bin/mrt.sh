@@ -8,5 +8,11 @@ SUB_COMMAND=${@:1:1}
 
 if [[ $SUB_COMMAND != "install" ]]
 then
-  bash ./.meteor/meteorite/meteor/meteor $@
+
+  if [[ $SUB_COMMAND == "create" ]]
+  then
+    echo "Error: create not yet supported"
+  else
+    bash ./.meteor/meteorite/meteor/meteor $@
+  fi
 fi
