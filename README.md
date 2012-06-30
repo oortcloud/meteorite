@@ -24,12 +24,6 @@ Meteorite installs a utility called `mrt` that works just like `meteor` except i
 
   5) Includes a subcommand `mrt install` that runs the installation steps (1-3) running `meteor`
 
-## Get help
-
-TODO See usage for all commands
-
-    mrt --help
-
 ## Configuration
 
 A sample `smart.json`
@@ -65,3 +59,7 @@ Just install everything listed in `smart.json`
 Show the path to the project specific copy of `meteor`
 
     mrt home
+
+See usage for all commands
+
+    mrt --help # TODO this doesn't work yet
