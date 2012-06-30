@@ -33,7 +33,9 @@ if (command === 'uninstall') {
   var smartJsonPath = path.join(appPath, 'smart.json');
 
   // Make a default smart.json for the new project
-  fs.writeFile(smartJsonPath, '{"packages": {}}', function(err) {
+  var defaultSmartJson = {packages: {}};
+  var smartJsonString = JSON.stringify(defaultSmartJson, null, 2) + "\n";
+  fs.writeFile(smartJsonPath, smartJsonString, function(err) {
     if(err) {
       console.log("Error: could not create smart.json", err);
     }
