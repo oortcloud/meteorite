@@ -6,6 +6,11 @@ var path = require('path');
 
 var command = argv._[0] || 'run';
 
+if (command === 'uninstall') {
+  new Project().uninstall();
+  return;
+}
+
 new Project().install(function() {
 
   switch(command) {
