@@ -26,11 +26,6 @@ new Project().install(function() {
       console.log(this.meteor.installRoot);
       break;
 
-    case 'command':
-      var args = process.argv.slice(3);
-      console.log(path.join(this.meteor.installRoot, 'meteor'), args.join(' '));
-      break;
-
     default:
       process.exit();
 

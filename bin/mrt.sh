@@ -5,12 +5,10 @@ MRTJS="$BASEDIR/mrt.js"
 
 $MRTJS $@:1
 
-COMMAND=`$MRTJS command ${@:1}`
+COMMAND=${@:1:1}
 
-COMMAND_PARTS=( $COMMAND )
-MODE=${COMMAND_PARTS[*]:1:1}
-
-if [[ $MODE != "install" ]]
+if [[ $COMMAND != "install" ]]
 then
-  bash $COMMAND
+  echo $@
+  bash ./.meteor/meteorite/meteor/meteor $@
 fi
