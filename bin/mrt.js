@@ -6,10 +6,6 @@ var path = require('path');
 
 var command = argv._[0] || 'run';
 
-if (command === 'home' || (!argv.verbose && !argv.v)) {
-  console.info = function() {};
-}
-
 new Project().install(function() {
 
   switch(command) {
