@@ -22,7 +22,7 @@ Meteorite installs a utility called `mrt` that works just like `meteor` except i
 
   4) Runs the `meteor` command using the project's meteor instance. `mrt` supports all of `meteor`'s subcommands (e.g. `run`, `deploy`, etc). 
 
-  5) Includes a subcommand `mrt install` that runs the installation steps (1-3) running `meteor`
+  5) Includes a subcommand `mrt install` that runs the installation steps (1-3) without running `meteor`
 
 ## Configuration
 
