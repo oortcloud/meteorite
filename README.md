@@ -10,19 +10,17 @@ Meteorite makes life easier until Meteor core has it's own smart package install
 
     npm install -g meteorite
 
-## Command line
+## How does it work?
 
-Meteorite installs a utility called `mrt` that works just like `meteor` except it
+Meteorite installs a utility called `mrt` that works just like `meteor` except when it runs it does a few extra things for you. When you use it to run your app:
 
-  1) Installs a project specific instance of meteor this first time you run an app
+  1) The first time it installs an app specific instance of `meteor`
 
-  2) Installs smart package dependencies listed in `smart.json` in the project's meteor instance
+  2) Then it installs the app's smart package dependencies which you specifiy in a file called `smart.json`
   
-  3) Installs smart packages recursively if your app uses packages that have their own `smart.json`
+  3) If the app's smart packages have dependencies of their own (also defined in `smart.json`) they're installed, recursively.
 
-  4) Runs the `meteor` command using the project's meteor instance. `mrt` supports all of `meteor`'s subcommands (e.g. `run`, `deploy`, etc). 
-
-  5) Includes a subcommand `mrt install` that runs the installation steps (1-3) without running `meteor`
+  4) With everything installed the app's `meteor` instance takes over and runs your app. All of `meteor`'s subcommands are supported (e.g. `run`, `deploy`, etc). 
 
 ## Configuration
 
@@ -48,13 +46,13 @@ A sample `smart.json`
 
 Any dependency listed without specifying a branch, tag or ref will use the repo's master branch. If `meteor` is not specified at all the latest release will be used.
 
-## Usage
+## Example usage
 
-Install everything in `smart.json` and run a project-specific copy of `meteor` (*run* is the default and therefore optional)
+See looks and works just like `meteor`!
 
-    mrt run
+    mrt run --port=8888
     
-Just install everything listed in `smart.json`, but don't run any underlying `meteor` command
+You can also *just* install everything listed in `smart.json` without running any underlying `meteor` command
 
     mrt install
 
