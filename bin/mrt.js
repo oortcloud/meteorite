@@ -37,7 +37,7 @@ if (command === 'uninstall') {
   var defaultSmartJson = {packages: {}};
   var smartJsonString = JSON.stringify(defaultSmartJson, null, 2) + "\n";
   fs.writeFile(smartJsonPath, smartJsonString, function(err) {
-    if(err) {
+    if (err) {
       console.log("Error: could not create smart.json", err);
     }
   });
