@@ -14,5 +14,5 @@
   { "type" : "git"
   , "url" : "https://github.com/possibilities/meteorite.git"
   }
-, "bin" : { "mrt" : "./bin/mrt.sh", "mrt.js" : "./bin/mrt.js" }
+, "bin" : { "mrt" : "./bin/mrt.js" }
 }
