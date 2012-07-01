@@ -60,4 +60,4 @@ Just install everything listed in `smart.json`, but don't run any underlying `me
 
 ## Contributing
 
-See [Contributing](wiki/Contributing)
+See [Contributing](https://github.com/possibilities/meteorite/wiki/Contributing)
