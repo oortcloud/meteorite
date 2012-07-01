@@ -26,7 +26,7 @@ Meteorite installs a utility called `mrt` that works just like `meteor` except i
 
 ## Configuration
 
-*Note: We only support git repositories right now. We plan to add the ability to specify a path to `smart.json` also.*
+*Note: We only support git repositories right now. We plan to add the ability to specify a path to a local package also.*
 
 A sample `smart.json`
 
