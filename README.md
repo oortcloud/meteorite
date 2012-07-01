@@ -57,3 +57,7 @@ Install everything in `smart.json` and run a project-specific copy of `meteor` (
 Just install everything listed in `smart.json`, but don't run any underlying `meteor` command
 
     mrt install
+
+## Contributing
+
+See [Contributing](wiki/Contributing)
