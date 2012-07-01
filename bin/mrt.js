@@ -22,8 +22,9 @@ if (command === 'uninstall') {
   // Get ready for `meteor create` by checking out
   // a copy of meteor
   // TODO allow specifying fork/branch/tag/ref/etc
-  if (appName)
-    new Meteor({ branch: 'master' }).repo.fetch(function() {});
+  if (appName) {
+    new Meteor({ branch: 'master' }).prepare(function() {});
+  }
 
 } else if (command === 'post_create') {
 
