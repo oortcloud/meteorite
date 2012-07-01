@@ -26,7 +26,9 @@ then
     APP_PATH=`$MRTJS post_create $@`
   
     # Install meteorite in new proj
-    cd $APP_PATH && $MRTJS install
+    if [ -d "$APP_PATH" ]; then
+      cd $APP_PATH && $MRTJS install
+    fi
 
   else
 
