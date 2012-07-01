@@ -14,4 +14,4 @@ var meteorite = new Meteorite();
 var subCommand = meteorite[subCommandName];
 
 // Run it!
-subCommand(function() {});
+subCommand.call(meteorite, function() {});
