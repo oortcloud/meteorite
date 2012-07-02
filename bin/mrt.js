@@ -10,8 +10,5 @@ var subCommandName = args._[0] || 'run';
 // Build a Meteorite instance
 var meteorite = new Meteorite();
 
-// Get the user's subcommand
-var subCommand = meteorite[subCommandName];
-
-// Run it!
-subCommand.call(meteorite, function() {});
+// Run user's subcommand
+meteorite[subCommandName](function() {});
