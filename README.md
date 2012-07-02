@@ -24,8 +24,6 @@ Meteorite installs a utility called `mrt` that works just like `meteor` except w
 
 ## Configuration
 
-*Note: We only support git repositories right now. We plan to add the ability to specify a path to a local package also.*
-
 A sample `smart.json`
 
     {
@@ -40,6 +38,9 @@ A sample `smart.json`
         "demostrap": {
           "git": "https://github.com/possibilities/meteor-demostrap.git",
           "tag": "v0.0.1"
+        },
+        "test-package": {
+          "path": "/path/to/local/package"
         }
       }
     }
