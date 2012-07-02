@@ -11,4 +11,4 @@ var subCommandName = args._[0] || 'run';
 var meteorite = new Meteorite();
 
 // Run user's subcommand
-meteorite[subCommandName](function() {});
+meteorite[subCommandName](_.identity);
