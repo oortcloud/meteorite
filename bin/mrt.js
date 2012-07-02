@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+var _ = require('underscore');
+
 var Meteorite = require('../lib/meteorite');
 var args = require('optimist').argv;
 
