@@ -2,7 +2,6 @@ var http = require('http');
 var fs = require('fs');
 var path = require('path');
 var connect = require('connect');
-var mime = require('mime');
 
 var verbose = false;
 
