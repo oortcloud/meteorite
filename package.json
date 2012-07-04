@@ -10,6 +10,10 @@
   , "fstream": ">=0.1.18"
   , "optimist": ">=0.3.4"
   }
+, "devDependencies": 
+  { "mocha": ">=1.2.2"
+  , "connect": ">=2.3.6"
+  }
 , "repository":
   { "type" : "git"
   , "url" : "https://github.com/possibilities/meteorite.git"
