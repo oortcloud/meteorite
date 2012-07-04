@@ -67,7 +67,8 @@ var killProcessFamily = function(patriachPid, fn) {
         process.kill(pid);
       } catch(e) {}
     });
-    fn();
+
+    setTimeout(fn, 0);
   });
 };
 
