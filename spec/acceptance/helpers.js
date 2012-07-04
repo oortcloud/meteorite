@@ -5,7 +5,7 @@ var _ = require('underscore');
 var TestServer = require('../support/http/test');
 var Meteorite = require('../../lib/meteorite');
 
-var verbose = false;
+var verbose = true;
 
 var uninstall = function(fn) {
   var root = Meteorite.root();
