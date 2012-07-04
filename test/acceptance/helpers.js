@@ -89,7 +89,7 @@ var invoke = function(command, directory, options, fn) {
   var output = '';
   mrt.stdout.on('data', function(data) {
     output = output + data.toString();
-      if (output.indexOf(options.expect) >= 0) {
+      if (output.indexOf(options.waitForOutput) >= 0) {
       killProcessFamily(mrt.pid, fn);
     }
   });
