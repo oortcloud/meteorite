@@ -23,8 +23,8 @@ var killProcessFamily = function(patriachPid, fn) {
     var children = [];
     _.each(output.split('\n'), function(rawPs) {
       var psParts = rawPs.split(' ');
-      var currentPid = parseInt(psParts[1]);
-      var currentParentPid = parseInt(psParts[2]);
+      var currentPid = parseInt(psParts[0]);
+      var currentParentPid = parseInt(psParts[1]);
       if (currentParentPid === parentPid) {
         children.push(currentPid);
         children = _.uniq(children);
@@ -34,7 +34,7 @@ var killProcessFamily = function(patriachPid, fn) {
   };
 
   var getChildPidsFor = function(pid, done) {
-    var ps = spawn('ps', ['j']);
+    var ps = spawn('ps', ['-opid', '-oppid']);
     
     var output = '';
     ps.stdout.on('data', function(data) {
