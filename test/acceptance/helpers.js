@@ -62,15 +62,12 @@ var killProcessFamily = function(patriachPid, fn) {
   };
   
   getChildPidsFor(patriachPid, function() {
-
-    setTimeout(function() {
-      _.each(pids, function(pid) {
-        try {
-          process.kill(pid);
-        } catch(e) {}
-      });
-      fn();
-    }, 5000);
+    _.each(pids, function(pid) {
+      try {
+        process.kill(pid);
+      } catch(e) {}
+    });
+    fn();
   });
 };
 
@@ -92,7 +89,7 @@ var invoke = function(command, directory, options, fn) {
   var output = '';
   mrt.stdout.on('data', function(data) {
     output = output + data.toString();
-    if (output.indexOf(options.expect) >= 0) {
+      if (output.indexOf(options.expect) >= 0) {
       killProcessFamily(mrt.pid, fn);
     }
   });
