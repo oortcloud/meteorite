@@ -15,7 +15,7 @@ var startServer = function(onStarted) {
   onStarted();
 };
 
-var prepareFS = function(onPrepared) {
+var getDevBundle = function(onPrepared) {
   var root = path.join(__dirname, 'files');
   var fileName = 'dev_bundle_Darwin_x86_64_0.1.5.tar.gz';
   var filePath = path.join(root, fileName);
@@ -42,7 +42,7 @@ var prepareFS = function(onPrepared) {
 
 TestServer = {
   start: function(onStarted) {
-    prepareFS(function() {
+    getDevBundle(function() {
       startServer(onStarted);
     });
   }
