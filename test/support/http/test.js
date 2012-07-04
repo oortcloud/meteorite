@@ -8,7 +8,7 @@ var verbose = false;
 TestServer = {
   start: function(onStarted) {
     var app = connect();
-    app.use(connect.static(__dirname));
+    app.use(connect.static(path.join(__dirname, 'files')));
     app.listen(7357);
     if (verbose)
       console.log('Test server running at http://127.0.0.1:7357/');
