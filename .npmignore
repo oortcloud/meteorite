@@ -1,0 +1,7 @@
+.git
+.gitignore
+.gitmodules
+.npmignore
+.travis.yml
+node_modules
+spec
