@@ -8,7 +8,6 @@ var args = _.map(process.argv.slice(2), function(arg) {
     arg = arg.replace('https', 'http');
     arg = arg.replace('github.com', 'localhost:7357');
     arg = arg.replace(/.git$/, '/.git');
-    console.log(arg);
     return arg;
   }
   return arg;

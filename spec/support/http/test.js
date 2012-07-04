@@ -1,6 +1,7 @@
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
+var wrench = require('wrench');
 var connect = require('connect');
 var spawn = require('child_process').spawn;
 
@@ -15,7 +16,7 @@ var startServer = function(onStarted) {
   onStarted();
 };
 
-var getDevBundle = function(onPrepared) {
+var fetchDevBundle = function(onFetched) {
   var root = path.join(__dirname, 'files');
   var fileName = 'dev_bundle_Darwin_x86_64_0.1.5.tar.gz';
   var filePath = path.join(root, fileName);
@@ -30,20 +31,81 @@ var getDevBundle = function(onPrepared) {
     });
 
     curl.on('exit', function() {
-      onPrepared();
+      onFetched();
     });
   };
   
   if (path.existsSync(filePath))
-    onPrepared();
+    onFetched();
   else
     prepare();
 };
 
+var fetchMeteorRepo = function(onFetched) {
+  var repoPath = path.resolve('spec/support/http/files/meteor/meteor');
+
+  var _onFetched = function() {
+    var git = spawn('/usr/local/bin/git', ['update-server-info'], {
+      cwd: repoPath
+    });
+
+    git.on('exit', function() {
+      onFetched();
+    });
+  };
+
+  if (!path.existsSync(repoPath)) {
+    var url = 'https://github.com/meteor/meteor';
+    var git = spawn('/usr/local/bin/git', ['clone', url, repoPath]);
+
+    git.on('exit', function() {
+      _onFetched();
+    });
+  } else {
+    _onFetched();
+  }
+};
+
+var fetchSmartPackageRepo = function(onFetched) {
+  var repoPath = path.resolve('spec/support/http/files/possibilities/meteorite-test-package');
+
+  var _onFetched = function() {
+    var git = spawn('/usr/local/bin/git', ['update-server-info'], {
+      cwd: repoPath
+    });
+
+    git.on('exit', function() {
+      onFetched();
+    });
+  };
+
+  if (!path.existsSync(repoPath)) {
+    wrench.mkdirSyncRecursive(path.dirname(repoPath));
+    var url = 'https://github.com/possibilities/meteorite-test-package';
+    var git = spawn('/usr/local/bin/git', ['clone', url, repoPath]);
+
+    git.on('exit', function() {
+      _onFetched();
+    });
+  } else {
+    _onFetched();
+  }
+};
+
+var fetchGitRepos = function(onFetched) {
+  fetchMeteorRepo(function() {
+    fetchSmartPackageRepo(function() {
+      onFetched();
+    });
+  });
+};
+
 TestServer = {
   start: function(onStarted) {
-    getDevBundle(function() {
-      startServer(onStarted);
+    fetchDevBundle(function() {
+      fetchGitRepos(function() {
+        startServer(onStarted);
+      });
     });
   }
 };
