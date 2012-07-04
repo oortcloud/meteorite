@@ -4,8 +4,7 @@
   },
   "packages": {
     "test-package": {
-      "git": "https://github.com/possibilities/meteorite-test-package.git",
-      "branch": "test-branch"
+      "git": "https://github.com/possibilities/meteorite-test-package.git"
     }
   }
 }
