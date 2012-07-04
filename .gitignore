@@ -1,2 +1,2 @@
 node_modules
-test/support/http/files/*.gz
+spec/support/http/files/*.gz

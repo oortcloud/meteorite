@@ -73,13 +73,13 @@ var killProcessFamily = function(patriachPid, fn) {
 
 var port = 7777;
 var invoke = function(command, directory, options, fn) {
-  directory = path.resolve(path.join('test', 'support', 'apps', directory));
+  directory = path.resolve(path.join('spec', 'support', 'apps', directory));
   var args = command.split(' ');
   
   args.push('--port=' + port);
   port = port + 10;
   
-  process.env.PATH = [path.resolve(path.join('test', 'support', 'bin')), process.env.PATH].join(':')
+  process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(':')
 
   var mrt = spawn('mrt', args, { cwd: directory });
 
