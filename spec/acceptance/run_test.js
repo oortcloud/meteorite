@@ -3,7 +3,7 @@ var path = require('path');
 var mrt = require('./helpers');
 var Meteorite = require('../../lib/meteorite');
 
-describe('mrt run', function() {
+describe('`mrt run`', function() {
   
   before(function(done) {
     TestServer.start(done);
