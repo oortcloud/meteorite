@@ -3,15 +3,9 @@
     "branch": "devel"
   },
   "packages": {
-    "simple-secure": {
-      "git": "https://github.com/possibilities/meteor-simple-secure.git"
-    },
     "test-package": {
       "git": "https://github.com/possibilities/meteorite-test-package.git",
       "branch": "test-branch"
-    },
-    "demostrap": {
-      "git": "https://github.com/possibilities/meteor-demostrap.git"
     }
   }
 }

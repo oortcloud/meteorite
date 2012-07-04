@@ -1,3 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-/usr/local/bin/git $@
+var spawn = require('child_process').spawn;
+var _ = require('underscore');
+
+var args = _.map(process.argv.slice(2), function(arg) {
+  if (arg.indexOf('github.com') >= 0) {
+    arg = arg.replace('https', 'http');
+    arg = arg.replace('github.com', 'localhost:7357');
+    arg = arg.replace(/.git$/, '/.git');
+    console.log(arg);
+    return arg;
+  }
+  return arg;
+});
+
+var git = spawn('/usr/local/bin/git', args, function() {
+  
+});
+
+git.stderr.pipe(process.stderr);
+git.stdout.pipe(process.stdout);
+  
