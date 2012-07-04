@@ -14,6 +14,8 @@
   { "mocha": ">=1.2.2"
   , "connect": ">=2.3.6"
   }
+, "scripts": { "test": "rm -rf spec/support/apps/app-with-smart-json/.meteor/meteorite && mocha spec/acceptance -t 10000"
+}
 , "repository":
   { "type" : "git"
   , "url" : "https://github.com/possibilities/meteorite.git"
