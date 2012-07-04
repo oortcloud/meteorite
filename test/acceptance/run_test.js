@@ -29,13 +29,14 @@ describe('mrt run', function() {
     })
   });
 
-
   describe('invoked in a meteor project with a smart.json', function(done) {
-    it("should install all dependencies", function(done) {
-      mrt.invoke('run', 'app-with-smart-json', {
-        waitForOutput: "Running on: http://localhost:"
-      }, done);
-    })
+    describe('and the smart.json specifies a smart package dependency', function(done) {
+      it("should install all dependencies", function(done) {
+        mrt.invoke('run', 'app-with-smart-json', {
+          waitForOutput: "Running on: http://localhost:"
+        }, done);
+      })
+    });
   });
 
 });
