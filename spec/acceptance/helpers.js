@@ -96,5 +96,29 @@ var invoke = function(command, directory, options, fn) {
   });
 };
 
+var getSystemInfo = function(fn) {
+  var uname = spawn('uname', []);
+
+  var unameOutput = '';
+  uname.stdout.on('data', function(data) {
+    unameOutput = unameOutput + data.toString().replace(/^\s+|\s+$/g, '');
+  });
+
+  uname.on('exit', function() {
+    if (unameOutput === 'Darwin')
+      return fn('Darwin', 'x86_64');
+
+    var archOutput = '';
+    var arch = spawn('uname', ['-m'], function() {});
+    arch.stdout.on('data', function(data) {
+      archOutput = archOutput + data.toString().replace(/^\s+|\s+$/g, '');
+    });
+    arch.on('exit', function() {
+      fn(unameOutput, archOutput);
+    });
+  });
+};
+
 exports.uninstall = uninstall;
 exports.invoke = invoke;
+exports.getSystemInfo = getSystemInfo;

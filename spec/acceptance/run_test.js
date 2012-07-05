@@ -1,7 +1,4 @@
-var assert = require('assert');
-var path = require('path');
 var mrt = require('./helpers');
-var Meteorite = require('../../lib/meteorite');
 
 describe('`mrt run`', function() {
   

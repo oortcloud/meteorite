@@ -4,6 +4,7 @@ var path = require('path');
 var wrench = require('wrench');
 var connect = require('connect');
 var spawn = require('child_process').spawn;
+var mrt = require('../../acceptance/helpers');
 var _ = require('underscore');
 
 var verbose = false;
@@ -17,29 +18,37 @@ var startServer = function(onStarted) {
   onStarted();
 };
 
+var getDevBundleFileName = function(fn) {
+  mrt.getSystemInfo(function(uname, arch) {
+    fn('dev_bundle_' + uname + '_' + arch + '_0.1.5.tar.gz');
+  });
+};
+
 var fetchDevBundle = function(onFetched) {
   var root = path.join(__dirname, 'files');
-  var fileName = 'dev_bundle_Darwin_x86_64_0.1.5.tar.gz';
-  var filePath = path.join(root, fileName);
-
-  var prepare = function() {
-
-    var url = 'http://d3sqy0vbqsdhku.cloudfront.net/' + fileName;
-    console.log("Fetching test suite dependency:", url);
-
-    var curl = spawn('curl', ['-#', '-O', url], {
-      cwd: root
-    });
-
-    curl.on('exit', function() {
-      onFetched();
-    });
-  };
   
-  if (path.existsSync(filePath))
-    onFetched();
-  else
-    prepare();
+  getDevBundleFileName(function(fileName) {
+    var filePath = path.join(root, fileName);
+
+    var prepare = function() {
+
+      var url = 'http://d3sqy0vbqsdhku.cloudfront.net/' + fileName;
+      console.log("Fetching test suite dependency:", url);
+
+      var curl = spawn('curl', ['-#', '-O', url], {
+        cwd: root
+      });
+
+      curl.on('exit', function() {
+        onFetched();
+      });
+    };
+  
+    if (path.existsSync(filePath))
+      onFetched();
+    else
+      prepare();
+  });
 };
 
 var fetchRepo = function(url, onFetched) {
