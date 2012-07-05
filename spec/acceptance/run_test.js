@@ -31,7 +31,7 @@ describe('`mrt run`', function() {
 
   describe('invoked in a meteor project with a smart.json', function(done) {
     describe('and the smart.json specifies a smart package dependency', function(done) {
-      it("should install all dependencies", function(done) {
+      it("should install the smart package", function(done) {
         mrt.invoke('run', 'app-with-smart-json', {
           waitForOutput: "meteorite test package installed!"
         }, done);
