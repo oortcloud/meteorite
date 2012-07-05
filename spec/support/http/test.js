@@ -82,17 +82,13 @@ var fetchRepos = function(repos, fn) {
   });
 };
 
-var fetchGitRepos = function(onFetched) {
-  fetchRepos([
-    'https://github.com/possibilities/meteorite-test-package',
-    'https://github.com/meteor/meteor'
-  ], onFetched);
-};
-
 TestServer = {
   start: function(onStarted) {
     fetchDevBundle(function() {
-      fetchGitRepos(function() {
+      fetchRepos([
+        'https://github.com/possibilities/meteorite-test-package',
+        'https://github.com/meteor/meteor'
+      ], function() {
         startServer(onStarted);
       });
     });

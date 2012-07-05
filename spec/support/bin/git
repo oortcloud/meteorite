@@ -19,4 +19,3 @@ var git = spawn('/usr/local/bin/git', args, function() {
 
 git.stderr.pipe(process.stderr);
 git.stdout.pipe(process.stdout);
-  
