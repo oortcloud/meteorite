@@ -3,9 +3,31 @@
 var spawn = require('child_process').spawn;
 var _ = require('underscore');
 
-var curl = spawn('/usr/bin/curl', ['-#', 'http://localhost:7357/dev_bundle_Darwin_x86_64_0.1.5.tar.gz'], function() {
-  
+var uname = spawn('uname', [], function() {});
+
+var onReady = function(uname, arch) {
+  var curl = spawn('/usr/bin/curl', ['-#', 'http://localhost:7357/dev_bundle_Darwin_x86_64_0.1.5.tar.gz'], function() {
+    
+  });
+  curl.stderr.pipe(process.stderr);
+  curl.stdout.pipe(process.stdout);
+};
+
+var unameOutput = '';
+uname.stdout.on('data', function(data) {
+  unameOutput = unameOutput + data.toString();
 });
 
-curl.stderr.pipe(process.stderr);
-curl.stdout.pipe(process.stdout);
+uname.on('exit', function() {
+  if (unameOutput === 'Darwin')
+    return onReady('Darwin', 'x86_64');
+
+  var archOutput = '';
+  var arch = spawn('uname', ['-m'], function() {});
+  arch.stdout.on('data', function(data) {
+    archOutput = archOutput + data.toString();
+  });
+  arch.on('exit', function() {
+    onReady(unameOutput, archOutput);
+  });
+});
