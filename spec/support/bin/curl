@@ -1,3 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-/usr/bin/curl -# http://localhost:7357/dev_bundle_Darwin_x86_64_0.1.5.tar.gz
+var spawn = require('child_process').spawn;
+var _ = require('underscore');
+
+var curl = spawn('/usr/bin/curl', ['-#', 'http://localhost:7357/dev_bundle_Darwin_x86_64_0.1.5.tar.gz'], function() {
+  
+});
+
+curl.stderr.pipe(process.stderr);
+curl.stdout.pipe(process.stdout);
