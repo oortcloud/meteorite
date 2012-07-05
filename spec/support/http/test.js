@@ -22,9 +22,9 @@ var fetchDevBundle = function(onFetched) {
   var filePath = path.join(root, fileName);
 
   var prepare = function() {
-    console.log("First run: downloading dev bundle for testing");
 
     var url = 'http://d3sqy0vbqsdhku.cloudfront.net/' + fileName;
+    console.log("Fetching test suite dependency:", url);
 
     var curl = spawn('curl', ['-#', '-O', url], {
       cwd: root
@@ -41,8 +41,11 @@ var fetchDevBundle = function(onFetched) {
     prepare();
 };
 
-var fetchMeteorRepo = function(onFetched) {
-  var repoPath = path.resolve('spec/support/http/files/meteor/meteor');
+var fetchRepo = function(url, onFetched) {
+  var urlParts = url.split('/');
+  var repo = urlParts.pop();
+  var user = urlParts.pop();
+  var repoPath = path.resolve('spec/support/http/files/' + user + '/' + repo);
 
   var _onFetched = function() {
     var git = spawn('/usr/local/bin/git', ['update-server-info'], {
@@ -55,33 +58,7 @@ var fetchMeteorRepo = function(onFetched) {
   };
 
   if (!path.existsSync(repoPath)) {
-    var url = 'https://github.com/meteor/meteor';
-    var git = spawn('/usr/local/bin/git', ['clone', url, repoPath]);
-
-    git.on('exit', function() {
-      _onFetched();
-    });
-  } else {
-    _onFetched();
-  }
-};
-
-var fetchSmartPackageRepo = function(onFetched) {
-  var repoPath = path.resolve('spec/support/http/files/possibilities/meteorite-test-package');
-
-  var _onFetched = function() {
-    var git = spawn('/usr/local/bin/git', ['update-server-info'], {
-      cwd: repoPath
-    });
-
-    git.on('exit', function() {
-      onFetched();
-    });
-  };
-
-  if (!path.existsSync(repoPath)) {
-    wrench.mkdirSyncRecursive(path.dirname(repoPath));
-    var url = 'https://github.com/possibilities/meteorite-test-package';
+    console.log("Fetching test suite dependency:", url);
     var git = spawn('/usr/local/bin/git', ['clone', url, repoPath]);
 
     git.on('exit', function() {
@@ -93,8 +70,8 @@ var fetchSmartPackageRepo = function(onFetched) {
 };
 
 var fetchGitRepos = function(onFetched) {
-  fetchMeteorRepo(function() {
-    fetchSmartPackageRepo(function() {
+  fetchRepo('https://github.com/meteor/meteor', function() {
+    fetchRepo('https://github.com/possibilities/meteorite-test-package', function() {
       onFetched();
     });
   });
