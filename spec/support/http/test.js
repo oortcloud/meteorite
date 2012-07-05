@@ -4,6 +4,7 @@ var path = require('path');
 var wrench = require('wrench');
 var connect = require('connect');
 var spawn = require('child_process').spawn;
+var _ = require('underscore');
 
 var verbose = false;
 
@@ -69,12 +70,23 @@ var fetchRepo = function(url, onFetched) {
   }
 };
 
-var fetchGitRepos = function(onFetched) {
-  fetchRepo('https://github.com/meteor/meteor', function() {
-    fetchRepo('https://github.com/possibilities/meteorite-test-package', function() {
-      onFetched();
-    });
+var fetchRepos = function(repos, fn) {
+  var fetchCount = 0;
+  var onFetched = function() {
+    fetchCount++;
+    if (fetchCount >= repos.length)
+      fn();
+  }
+  _.each(repos, function(repo) {
+    fetchRepo(repo, onFetched);
   });
+};
+
+var fetchGitRepos = function(onFetched) {
+  fetchRepos([
+    'https://github.com/possibilities/meteorite-test-package',
+    'https://github.com/meteor/meteor'
+  ], onFetched);
 };
 
 TestServer = {
