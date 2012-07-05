@@ -36,7 +36,7 @@ describe('`mrt run`', function() {
       })
     });
     
-    describe("and the smart.json specifies a smart package repo by branch", function(done) {
+    describe("and the smart.json specifies a smart package pinned to a branch", function(done) {
       it("should install the smart package pinned to a specified branch", function(done) {
         mrt.invoke('run', 'app-with-smart-pkg-pinned-to-branch', {
           waitForOutput: "Test package 1 installed (branch/test-branch)"
@@ -44,7 +44,7 @@ describe('`mrt run`', function() {
       })
     });
     
-    describe("and the smart.json specifies a smart package repo by tag", function(done) {
+    describe("and the smart.json specifies a smart package repo pinned to a tag", function(done) {
       it("should install the smart package pinned to a specified tag", function(done) {
         mrt.invoke('run', 'app-with-smart-pkg-pinned-to-tag', {
           waitForOutput: "Test package 1 installed (tag/test-tag-1)"
@@ -52,7 +52,7 @@ describe('`mrt run`', function() {
       })
     });
     
-    describe("and the smart.json specifies a smart package repo by git sha1 ref", function(done) {
+    describe("and the smart.json specifies a smart package repo pinned to a git sha ref", function(done) {
       it("should install the smart package pinned to a specified ref", function(done) {
         mrt.invoke('run', 'app-with-smart-pkg-pinned-to-ref', {
           waitForOutput: "Test package 1 installed (ref)"
