@@ -14,7 +14,7 @@
   { "mocha": ">=1.2.2"
   , "connect": ">=2.3.6"
   }
-, "scripts": { "test": "rm -rf spec/support/apps/app-with-smart-json/.meteor/meteorite && mocha spec/acceptance -t 240000"
+, "scripts": { "test": "rm -rf spec/support/apps/app-with-smart-json/.meteor/meteorite && mocha spec/acceptance -t 240000 -R spec"
 }
 , "repository":
   { "type" : "git"
