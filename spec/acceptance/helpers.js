@@ -87,10 +87,21 @@ var invoke = function(command, directory, options, fn) {
   if (verbose) mrt.stderr.pipe(process.stderr);
   if (verbose) mrt.stdout.pipe(process.stdout);
 
+  var unmatched = _.isArray(options.waitForOutput) ? _.clone(options.waitForOutput) : [options.waitForOutput];
+
+  var matchesOutput = function(output) {
+    if (output.indexOf(unmatched[0]) >= 0) {
+      unmatched.shift();
+      if (unmatched.length === 0) {
+        return true;
+      }
+    }
+  };
+
   var output = '';
   mrt.stdout.on('data', function(data) {
     output = output + data.toString();
-    if (output.indexOf(options.waitForOutput) >= 0) {
+    if (matchesOutput(output)) {
       killProcessFamily(mrt.pid, fn);
     }
   });

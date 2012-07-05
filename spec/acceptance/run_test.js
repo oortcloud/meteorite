@@ -43,7 +43,7 @@ describe('`mrt run`', function() {
         }, done);
       })
     });
-
+    
     describe("and the smart.json specifies a smart package repo by tag", function(done) {
       it("should install the smart package pinned to a specified tag", function(done) {
         mrt.invoke('run', 'app-with-smart-pkg-pinned-to-tag', {
@@ -51,11 +51,22 @@ describe('`mrt run`', function() {
         }, done);
       })
     });
-
+    
     describe("and the smart.json specifies a smart package repo by git sha1 ref", function(done) {
       it("should install the smart package pinned to a specified ref", function(done) {
         mrt.invoke('run', 'app-with-smart-pkg-pinned-to-ref', {
           waitForOutput: "Test package 1 installed (ref)"
+        }, done);
+      })
+    });
+
+    describe("and the smart.json specifies a smart package repo with it's own smart package dependency", function(done) {
+      it("should discover and install smart packages recursively", function(done) {
+        mrt.invoke('run', 'app-with-nested-smart-pkg-deps', {
+          waitForOutput: [
+            "Test package 1 installed (branch/master)",
+            "Test package 2 installed (branch/master)"
+          ]
         }, done);
       })
     });
