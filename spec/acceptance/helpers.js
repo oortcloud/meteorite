@@ -16,8 +16,8 @@ var uninstall = function(fn) {
   fn();
 };
 
-var killProcessFamily = function(patriachPid, fn) {
-  var pids = [patriachPid];
+var killProcessFamily = function(grandparentId, fn) {
+  var pids = [grandparentId];
 
   var getChildPidsFromRawPidData = function(parentPid, output) {
     var children = [];
@@ -61,7 +61,7 @@ var killProcessFamily = function(patriachPid, fn) {
     });
   };
   
-  getChildPidsFor(patriachPid, function() {
+  getChildPidsFor(grandparentId, function() {
     _.each(pids, function(pid) {
       try {
         process.kill(pid);
