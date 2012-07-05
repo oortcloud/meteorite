@@ -1,6 +1,6 @@
 if (Meteor.is_client) {
   Template.hello.greeting = function () {
-    return "Welcome to app-with-smart-json.";
+    return "Welcome to app.";
   };
 
   Template.hello.events = {

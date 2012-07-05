@@ -4,12 +4,12 @@ var spawn = require('child_process').spawn;
 var _ = require('underscore');
 
 var args = _.map(process.argv.slice(2), function(arg) {
-  if (arg.indexOf('github.com') >= 0) {
-    arg = arg.replace('https', 'http');
-    arg = arg.replace('github.com', 'localhost:7357');
-    arg = arg.replace(/.git$/, '/.git');
-    return arg;
-  }
+  // if (arg.indexOf('github.com') >= 0) {
+  //   arg = arg.replace('https', 'http');
+  //   arg = arg.replace('github.com', 'localhost:7357');
+  //   arg = arg.replace(/.git$/, '/.git');
+  //   return arg;
+  // }
   return arg;
 });
 

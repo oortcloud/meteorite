@@ -95,7 +95,7 @@ TestServer = {
   start: function(onStarted) {
     fetchDevBundle(function() {
       fetchRepos([
-        'https://github.com/possibilities/meteorite-test-package',
+        'https://github.com/possibilities/mrt-test-pkg1',
         'https://github.com/meteor/meteor'
       ], function() {
         startServer(onStarted);
