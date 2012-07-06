@@ -21,7 +21,7 @@ var killProcessFamily = function(grandparentId, fn) {
   var getChildPidsFromRawPidData = function(parentPid, output) {
     var children = [];
     _.each(output.split('\n'), function(rawPs) {
-      var psParts = rawPs.split(' ');
+      var psParts = rawPs.split(/\w+/);
       var currentPid = parseInt(psParts[0]);
       var currentParentPid = parseInt(psParts[1]);
       if (currentParentPid === parentPid) {
