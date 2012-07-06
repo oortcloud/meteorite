@@ -14,8 +14,10 @@
   { "mocha": ">=1.2.2"
   , "connect": ">=2.3.6"
   }
-, "scripts": { "test": "mocha spec/acceptance -t 240000 -R spec"
-}
+, "scripts":
+  { "test": "mocha spec/acceptance -t 240000 -R spec"
+  , "flushcache": "rm -rf spec/support/cache"
+  }
 , "repository":
   { "type" : "git"
   , "url" : "https://github.com/possibilities/meteorite.git"
