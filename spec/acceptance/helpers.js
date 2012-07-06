@@ -2,7 +2,6 @@ var spawn = require('child_process').spawn;
 var path = require('path');
 var wrench = require('wrench');
 var _ = require('underscore');
-var TestServer = require('../support/http/test');
 var Meteorite = require('../../lib/meteorite');
 
 var verbose = false;
@@ -87,15 +86,18 @@ var invoke = function(command, directory, options, fn) {
   if (verbose) mrt.stderr.pipe(process.stderr);
   if (verbose) mrt.stdout.pipe(process.stdout);
 
-  var unmatched = _.isArray(options.waitForOutput) ? _.clone(options.waitForOutput) : [options.waitForOutput];
+  var searchStrings = _.isArray(options.waitForOutput) ? _.clone(options.waitForOutput) : [options.waitForOutput];
 
   var matchesOutput = function(output) {
-    if (output.indexOf(unmatched[0]) >= 0) {
-      unmatched.shift();
-      if (unmatched.length === 0) {
-        return true;
-      }
-    }
+
+    _.each(_.clone(searchStrings), function(searchString) {
+      if (output.indexOf(searchString) >= 0)
+        searchStrings.shift();
+    });
+
+    if (searchStrings.length === 0)
+      return true;
+
   };
 
   var output = '';
@@ -127,6 +129,12 @@ var getSystemInfo = function(fn) {
     arch.on('exit', function() {
       fn(unameOutput, archOutput);
     });
+  });
+};
+
+var getDevBundleFileName = function(fn) {
+  mrt.getSystemInfo(function(uname, arch) {
+    fn('dev_bundle_' + uname + '_' + arch + '_0.1.5.tar.gz');
   });
 };
 

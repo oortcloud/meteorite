@@ -1,21 +1,54 @@
 #!/usr/bin/env node
 
 var spawn = require('child_process').spawn;
+var path = require('path');
+var fs = require('fs');
+var wrench = require('wrench');
 var _ = require('underscore');
 
-var args = _.map(process.argv.slice(2), function(arg) {
-  // if (arg.indexOf('github.com') >= 0) {
-  //   arg = arg.replace('https', 'http');
-  //   arg = arg.replace('github.com', 'localhost:7357');
-  //   arg = arg.replace(/.git$/, '/.git');
-  //   return arg;
-  // }
-  return arg;
-});
+var args = process.argv.slice(2);
 
-var git = spawn('/usr/local/bin/git', args, function() {
+var command = _.first(args);
+
+var linkRepo = function(from, to) {
+
+  wrench.mkdirSyncRecursive(path.dirname(to));
   
-});
+  if (path.existsSync(to))
+    fs.unlink(to);
 
-git.stderr.pipe(process.stderr);
-git.stdout.pipe(process.stdout);
+  fs.symlinkSync(from, to);
+};
+
+if (command === 'clone') {
+  var cachePath = path.join(__dirname, '..', 'cache');
+
+  if (!path.existsSync(cachePath))
+    wrench.mkdirSyncRecursive(cachePath);
+
+  var repoUrl = args[1];
+  var repoParts = repoUrl.replace('.git', '').split('/');
+  var repoName = repoParts.pop();
+  var repoUser = repoParts.pop();
+  var destPath = args[2];
+  var repoCachePath = path.join(cachePath, repoUser, repoName);
+
+  if (!path.existsSync(repoCachePath)) {
+
+    var git = spawn('/usr/local/bin/git', ['clone', repoUrl, repoCachePath]);
+
+    git.on('exit', function() {
+      linkRepo(repoCachePath, destPath);
+    });
+
+  } else {
+    linkRepo(repoCachePath, destPath);
+  }
+
+
+} else {
+  var git = spawn('/usr/local/bin/git', args);
+
+  git.stderr.pipe(process.stderr);
+  git.stdout.pipe(process.stdout);
+}

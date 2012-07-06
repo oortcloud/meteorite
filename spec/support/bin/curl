@@ -1,15 +1,29 @@
 #!/usr/bin/env node
 
 var spawn = require('child_process').spawn;
-var mrt = require('../../acceptance/helpers');
-var _ = require('underscore');
+var fs = require('fs');
+var path = require('path');
+var wrench = require('wrench');
 
-var doCurl = function(uname, arch) {
-  var curl = spawn('/usr/bin/curl', ['-#', 'http://localhost:7357/dev_bundle_' + uname + '_' + arch + '_0.1.5.tar.gz'], function() {
-    
-  });
-  curl.stderr.pipe(process.stderr);
-  curl.stdout.pipe(process.stdout);
+var args = process.argv.slice(2);
+var cachePath = path.join(__dirname, '..', 'cache');
+var devBundlePath = path.join(cachePath, 'dev_bundle_Darwin_x86_64_0.1.5.tar.gz');
+
+var outputFile = function() {
+  fs.createReadStream(devBundlePath).pipe(process.stdout);
 };
 
-mrt.getSystemInfo(doCurl);
+if (!path.existsSync(devBundlePath)) {
+
+  if (!path.existsSync(cachePath))
+    wrench.mkdirSyncRecursive(cachePath);
+
+  var url = process.argv[process.argv.length - 1];
+
+  var curlCache = spawn('/usr/bin/curl', ['-O', url], { cwd: cachePath }, function() {});
+
+  curlCache.on('exit', outputFile);  
+
+} else {
+  outputFile();
+}

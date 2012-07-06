@@ -2,10 +2,6 @@ var mrt = require('./helpers');
 
 describe('`mrt run`', function() {
   
-  before(function(done) {
-    TestServer.start(done);
-  });
-  
   beforeEach(function(done) {
     mrt.uninstall(done);
   });
