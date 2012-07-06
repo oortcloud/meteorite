@@ -6,7 +6,7 @@ var Meteorite = require('../../lib/meteorite');
 
 var verbose = false;
 
-var uninstall = function(fn) {
+var cleanup = function(fn) {
   var root = Meteorite.root();
 
   if (path.existsSync(root))
@@ -140,6 +140,6 @@ var getDevBundleFileName = function(fn) {
   });
 };
 
-exports.uninstall = uninstall;
+exports.cleanup = cleanup;
 exports.invoke = invoke;
 exports.getSystemInfo = getSystemInfo;
