@@ -85,7 +85,7 @@ var invoke = function(command, directory, options, fn) {
 
   var mrt = spawn('mrt', args, { cwd: directory });
 
-  if (verbose) mrt.stderr.pipe(process.stderr);
+  mrt.stderr.pipe(process.stderr);
   if (verbose) mrt.stdout.pipe(process.stdout);
 
   var searchStrings = _.isArray(options.waitForOutput) ? _.clone(options.waitForOutput) : [options.waitForOutput];
