@@ -12,8 +12,6 @@ var cleanup = function(fn) {
   if (path.existsSync(root))
     wrench.rmdirSyncRecursive(root);
 
-  console.log(123);
-
   fn();
 };
 
