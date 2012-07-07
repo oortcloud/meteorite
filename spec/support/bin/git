@@ -10,14 +10,9 @@ var args = process.argv.slice(2);
 
 var command = _.first(args);
 
-var linkRepo = function(from, to) {
-
+var copyRepo = function(from, to) {
   wrench.mkdirSyncRecursive(path.dirname(to));
-  
-  if (path.existsSync(to))
-    fs.unlink(to);
-
-  fs.symlinkSync(from, to);
+  var git = spawn('cp', ['-r', from, to]);
 };
 
 if (command === 'clone') {
@@ -38,11 +33,11 @@ if (command === 'clone') {
     var git = spawn('/usr/local/bin/git', ['clone', repoUrl, repoCachePath]);
 
     git.on('exit', function() {
-      linkRepo(repoCachePath, destPath);
+      copyRepo(repoCachePath, destPath);
     });
 
   } else {
-    linkRepo(repoCachePath, destPath);
+    copyRepo(repoCachePath, destPath);
   }
 
 
