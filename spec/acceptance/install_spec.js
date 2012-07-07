@@ -1,8 +1,7 @@
 var mrt = require('./helpers');
 
-
-///// NOTE ///////
-// All real install tests are done on run because install is just a subset of run but run gives us simpler ways of verifying behavior.
+///// IMPORTANT NOTE!
+// All real `install` tests are done on run because `install` is just a subset of `run` but `run` gives us simpler ways to verify behavior.
 
 describe('`mrt install`', function() {
   
