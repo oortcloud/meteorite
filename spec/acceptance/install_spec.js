@@ -11,7 +11,7 @@ describe('`mrt install`', function() {
   });
 
   // Just a superficial test to make sure install is working
-  it("should install meteor and the app's smart pacakge", function(done) {
+  it("should install meteor and the app's smart package", function(done) {
     mrt.invoke('run', 'app-with-smart-pkg', {
       waitForOutput: [
         "Fetching package mrt-test-pkg1 (branch: master)",
