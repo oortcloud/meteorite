@@ -12,7 +12,7 @@ var command = _.first(args);
 
 var copyRepo = function(from, to) {
   wrench.mkdirSyncRecursive(path.dirname(to));
-  var git = spawn('cp', ['-r', from, to]);
+  spawn('cp', ['-r', from, to]);
 };
 
 if (command === 'clone') {
