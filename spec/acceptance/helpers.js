@@ -21,7 +21,7 @@ var killProcessFamily = function(grandparentId, fn) {
   var getChildPidsFromRawPidData = function(parentPid, output) {
     var children = [];
     _.each(output.split('\n'), function(rawPs) {
-      var psParts = rawPs.split(/\s+/);
+      var psParts = rawPs.trim().split(/\s+/);
       var currentPid = parseInt(psParts[0]);
       var currentParentPid = parseInt(psParts[1]);
       if (currentParentPid === parentPid) {
@@ -116,7 +116,7 @@ var getSystemInfo = function(fn) {
 
   var unameOutput = '';
   uname.stdout.on('data', function(data) {
-    unameOutput = unameOutput + data.toString().replace(/^\s+|\s+$/g, '');
+    unameOutput = unameOutput + data.toString().trim();
   });
 
   uname.on('exit', function() {
@@ -126,7 +126,7 @@ var getSystemInfo = function(fn) {
     var archOutput = '';
     var arch = spawn('uname', ['-m'], function() {});
     arch.stdout.on('data', function(data) {
-      archOutput = archOutput + data.toString().replace(/^\s+|\s+$/g, '');
+      archOutput = archOutput + data.toString().trim();
     });
     arch.on('exit', function() {
       fn(unameOutput, archOutput);
