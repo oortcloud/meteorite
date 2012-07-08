@@ -30,8 +30,10 @@ describe("mrt uninstall --system", function(done) {
     var installDir = path.resolve('spec/support/home/.meteorite');
     
     // put something in there
-    fs.mkdir(installDir);
-    fs.mkdir(path.join(installDir, 'foo'));
+    if (!path.existsSync(installDir)) {
+      fs.mkdirSync(installDir);
+      fs.mkdirSync(path.join(installDir, 'foo'));
+    }
     assert.equal(path.existsSync(installDir), true);
     console.log(installDir);
     
