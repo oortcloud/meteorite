@@ -31,11 +31,14 @@ describe("mrt uninstall --system", function(done) {
     
     // put something in there
     if (!path.existsSync(installDir)) {
+      console.log(installDir);
       fs.mkdirSync(installDir);
-      fs.mkdirSync(path.join(installDir, 'foo'));
     }
+    // why doesn't this work?
+    console.log(path.join(installDir, 'foo'));
+    fs.mkdirSync(path.join(installDir, 'foo'));
+    
     assert.equal(path.existsSync(installDir), true);
-    console.log(installDir);
     
     mrt.invoke('uninstall --system', 'empty-dir', {
       waitForOutput: 'Deleting ~/.meteorite'
