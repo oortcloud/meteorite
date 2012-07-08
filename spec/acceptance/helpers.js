@@ -81,8 +81,9 @@ var invoke = function(command, directory, options, fn) {
     port = port + 10;
   }
 
-  process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(':')
-
+  process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(':');
+  process.env.HOME = [path.resolve(path.join('spec', 'support', 'home'))];
+  
   var mrt = spawn('mrt', args, { cwd: directory });
 
   mrt.stderr.pipe(process.stderr);
