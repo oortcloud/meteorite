@@ -49,7 +49,7 @@ Any dependency listed without specifying a branch, tag or ref will use the repo'
 
 ## Example usage
 
-See looks and works just like `meteor`!
+See! Looks and works just like `meteor`!
 
     mrt run --port=8888
     
