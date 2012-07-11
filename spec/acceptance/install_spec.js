@@ -25,17 +25,20 @@ describe('invoking `mrt install`', function() {
 });
 
 describe("invoking `mrt uninstall --system`", function(done) {
+
+  beforeEach(function(done) {
+    mrt.cleanup(done);
+  });
+
   it("should delete everything in ~/.meteorite", function(done) {
     
     var installDir = path.resolve('spec/support/home/.meteorite');
     
     // put something in there
-    if (!path.existsSync(installDir)) {
-      console.log(installDir);
+    if (!path.existsSync(installDir))
       fs.mkdirSync(installDir);
-    }
+
     // why doesn't this work?
-    console.log(path.join(installDir, 'foo'));
     fs.mkdirSync(path.join(installDir, 'foo'));
     
     assert.equal(path.existsSync(installDir), true);
