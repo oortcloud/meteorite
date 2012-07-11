@@ -9,7 +9,7 @@ var assert = require('assert');
 describe('invoking `mrt install`', function() {
   
   beforeEach(function(done) {
-    mrt.cleanup(done);
+    mrt.prepare(done);
   });
   
   // Just a superficial test to make sure install is working
@@ -27,7 +27,7 @@ describe('invoking `mrt install`', function() {
 describe("invoking `mrt uninstall --system`", function() {
 
   beforeEach(function(done) {
-    mrt.cleanup(done);
+    mrt.prepare(done);
   });
 
   it("should delete everything in ~/.meteorite", function(done) {

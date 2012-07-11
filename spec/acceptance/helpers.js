@@ -4,11 +4,14 @@ var wrench = require('wrench');
 var _ = require('underscore');
 var Meteorite = require('../../lib/meteorite');
 
-var verbose = false;
+var verbose = true;
 
-var cleanup = function(fn) {
+var prepare = function(fn) {
+  process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(':');
+  process.env.HOME = [path.resolve(path.join('spec', 'support', 'home'))];
+  
   var root = Meteorite.root();
-
+  
   if (path.existsSync(root))
     wrench.rmdirSyncRecursive(root);
 
@@ -81,9 +84,6 @@ var invoke = function(command, directory, options, fn) {
     port = port + 10;
   }
 
-  process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(':');
-  process.env.HOME = [path.resolve(path.join('spec', 'support', 'home'))];
-  
   var mrt = spawn('mrt', args, { cwd: directory });
 
   mrt.stderr.pipe(process.stderr);
@@ -141,6 +141,6 @@ var getDevBundleFileName = function(fn) {
   });
 };
 
-exports.cleanup = cleanup;
+exports.prepare = prepare;
 exports.invoke = invoke;
 exports.getSystemInfo = getSystemInfo;

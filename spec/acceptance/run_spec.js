@@ -3,7 +3,7 @@ var mrt = require('./helpers');
 describe('invoking `mrt run`', function() {
   
   beforeEach(function(done) {
-    mrt.cleanup(done);
+    mrt.prepare(done);
   });
 
   describe('in a non-meteor project directory', function() {
