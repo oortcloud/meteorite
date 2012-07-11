@@ -6,7 +6,7 @@ var assert = require('assert');
 ///// IMPORTANT NOTE!
 // All real `install` tests are done on `run` because `install` is just a subset of `run` but `run` gives us simpler ways to verify behavior.
 
-describe('`mrt install`', function() {
+describe('invoking `mrt install`', function() {
   
   beforeEach(function(done) {
     mrt.cleanup(done);
@@ -24,7 +24,7 @@ describe('`mrt install`', function() {
   
 });
 
-describe("mrt uninstall --system", function(done) {
+describe("invoking `mrt uninstall --system`", function(done) {
   it("should delete everything in ~/.meteorite", function(done) {
     
     var installDir = path.resolve('spec/support/home/.meteorite');
