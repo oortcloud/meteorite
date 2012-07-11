@@ -41,9 +41,9 @@ if (command === 'clone') {
   }
 
 
-} else {
+} else if (command == 'checkout') {
   var git = spawn('/usr/local/bin/git', args);
 
   git.stderr.pipe(process.stderr);
   git.stdout.pipe(process.stdout);
-}
+} // if command == 'pull' do nothing
