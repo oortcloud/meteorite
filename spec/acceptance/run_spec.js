@@ -57,7 +57,7 @@ describe('invoking `mrt run`', function() {
     });
     
     describe("and the smart.json specifies a smart package from a path", function() {
-      it("should install the smart package linked to the the path", function(done) {
+      it("should install the smart package linked to thie path", function(done) {
         mrt.invoke('run', 'app-with-smart-pkg-specified-by-path', {
           waitForOutput: "Test package 1 installed (from a fixed path)"
         }, done);
