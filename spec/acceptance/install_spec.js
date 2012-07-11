@@ -24,7 +24,7 @@ describe('invoking `mrt install`', function() {
   
 });
 
-describe("invoking `mrt uninstall --system`", function(done) {
+describe("invoking `mrt uninstall --system`", function() {
 
   beforeEach(function(done) {
     mrt.cleanup(done);
@@ -50,5 +50,5 @@ describe("invoking `mrt uninstall --system`", function(done) {
       done();
     });
         
-  }, done);
+  });
 });
