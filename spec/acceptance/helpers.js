@@ -35,7 +35,7 @@ var cleanup = function(fn) {
   fs.mkdirSync(new_apps);
   
   fn();
-}
+};
 
 var killProcessFamily = function(grandparentId, fn) {
   var pids = [grandparentId];
@@ -44,8 +44,8 @@ var killProcessFamily = function(grandparentId, fn) {
     var children = [];
     _.each(output.split('\n'), function(rawPs) {
       var psParts = rawPs.trim().split(/\s+/);
-      var currentPid = parseInt(psParts[0]);
-      var currentParentPid = parseInt(psParts[1]);
+      var currentPid = parseInt(psParts[0], 10);
+      var currentParentPid = parseInt(psParts[1], 10);
       if (currentParentPid === parentPid) {
         children.push(currentPid);
         children = _.uniq(children);
@@ -118,7 +118,7 @@ var invoke = function(command, directory, options, fn) {
       matched = true;
       killProcessFamily(mrt.pid, fn);
     }
-  }
+  };
   
   var matchesOutput = function(output) {
     

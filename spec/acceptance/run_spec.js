@@ -11,7 +11,7 @@ describe('invoking `mrt run`', function() {
       mrt.invoke('run', 'empty-dir', {
         waitForOutput: "You're not in a Meteor project directory"
       }, done);
-    })
+    });
   });
   
   describe('in a meteor project without a smart.json', function() {
@@ -19,7 +19,7 @@ describe('invoking `mrt run`', function() {
       mrt.invoke('run', 'app-without-smart-json', {
         waitForOutput: "Running on: http://localhost:"
       }, done);
-    })
+    });
   });
 
   describe('in a meteor project with a smart.json', function() {
@@ -29,7 +29,7 @@ describe('invoking `mrt run`', function() {
         mrt.invoke('run', 'app-with-smart-pkg', {
           waitForOutput: "Test package 1 installed (branch/master)"
         }, done);
-      })
+      });
     });
     
     describe("and the smart.json specifies a smart package pinned to a branch", function() {
@@ -37,7 +37,7 @@ describe('invoking `mrt run`', function() {
         mrt.invoke('run', 'app-with-smart-pkg-pinned-to-branch', {
           waitForOutput: "Test package 1 installed (branch/test-branch)"
         }, done);
-      })
+      });
     });
     
     describe("and the smart.json specifies a smart package repo pinned to a tag", function() {
@@ -45,7 +45,7 @@ describe('invoking `mrt run`', function() {
         mrt.invoke('run', 'app-with-smart-pkg-pinned-to-tag', {
           waitForOutput: "Test package 1 installed (tag/test-tag-1)"
         }, done);
-      })
+      });
     });
     
     describe("and the smart.json specifies a smart package repo pinned to a git sha ref", function() {
@@ -53,7 +53,7 @@ describe('invoking `mrt run`', function() {
         mrt.invoke('run', 'app-with-smart-pkg-pinned-to-ref', {
           waitForOutput: "Test package 1 installed (ref)"
         }, done);
-      })
+      });
     });
     
     describe("and the smart.json specifies a smart package from a path", function() {
@@ -61,7 +61,7 @@ describe('invoking `mrt run`', function() {
         mrt.invoke('run', 'app-with-smart-pkg-specified-by-path', {
           waitForOutput: "Test package 1 installed (from a fixed path)"
         }, done);
-      })
+      });
     });
     
     describe("and the smart.json specifies a smart package repo with it's own smart package dependency", function() {
@@ -72,7 +72,7 @@ describe('invoking `mrt run`', function() {
             "Test package 2 installed (branch/master)"
           ]
         }, done);
-      })
+      });
     });
 
   });

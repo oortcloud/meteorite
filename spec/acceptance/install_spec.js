@@ -20,7 +20,7 @@ describe('invoking `mrt install`', function() {
         "Fetching Meteor (branch: master)"
       ]
     }, done);
-  })
+  });
   
 });
 
