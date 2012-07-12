@@ -4,7 +4,7 @@ var wrench = require('wrench');
 var _ = require('underscore');
 var Meteorite = require('../../lib/meteorite');
 
-var verbose = true;
+var verbose = false;
 
 var prepare = function(fn) {
   process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(':');
