@@ -110,11 +110,12 @@ var invoke = function(command, directory, options, fn) {
 
   var searchStrings = _.isArray(options.waitForOutput) ? _.clone(options.waitForOutput) : [options.waitForOutput];
   
-  var output = '';
+  var output = '', matched = false;
   var processOutput = function(data) {
     
     output = output + data.toString();
-    if (matchesOutput(output)) {
+    if (!matched &&matchesOutput(output)) {
+      matched = true;
       killProcessFamily(mrt.pid, fn);
     }
   }
