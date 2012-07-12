@@ -1,5 +1,11 @@
 var mrt = require('./helpers');
 
+// TODO -- these tests should probably use alternate versions of meteor which output
+// different things rather than relying on 'fetching meteor' type messages
+//
+// TODO -- test the smart.json created
+// TODO -- test with path
+
 describe('invoking `mrt create`', function() {
   beforeEach(function(done) {
     mrt.prepare(done);
