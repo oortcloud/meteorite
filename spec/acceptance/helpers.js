@@ -1,22 +1,41 @@
 var spawn = require('child_process').spawn;
 var path = require('path');
+var fs = require('fs');
 var wrench = require('wrench');
 var _ = require('underscore');
 var Meteorite = require('../../lib/meteorite');
 
 var verbose = false;
 
+// delete all data and fake out ENV vars
 var prepare = function(fn) {
   process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(':');
   process.env.HOME = [path.resolve(path.join('spec', 'support', 'home'))];
   
+  cleanup(fn);
+};
+
+// delete all data from
+//  1. the fake home dir
+//  2. the meteorite directories of each app
+//  3. the new_apps directory
+var cleanup = function(fn) {
+  // 1.
   var root = Meteorite.root();
-  
   if (path.existsSync(root))
     wrench.rmdirSyncRecursive(root);
-
+  
+  // 2.
+  // TODO
+  
+  // 3. delete and recreate
+  var new_apps = path.resolve(path.join('spec', 'support', 'apps', 'new_apps'));
+  if (path.existsSync(new_apps))
+    wrench.rmdirSyncRecursive(new_apps);
+  fs.mkdirSync(new_apps);
+  
   fn();
-};
+}
 
 var killProcessFamily = function(grandparentId, fn) {
   var pids = [grandparentId];
@@ -90,9 +109,18 @@ var invoke = function(command, directory, options, fn) {
   if (verbose) mrt.stdout.pipe(process.stdout);
 
   var searchStrings = _.isArray(options.waitForOutput) ? _.clone(options.waitForOutput) : [options.waitForOutput];
-
+  
+  var output = '';
+  var processOutput = function(data) {
+    
+    output = output + data.toString();
+    if (matchesOutput(output)) {
+      killProcessFamily(mrt.pid, fn);
+    }
+  }
+  
   var matchesOutput = function(output) {
-
+    
     _.each(_.clone(searchStrings), function(searchString) {
       if (output.indexOf(searchString) >= 0)
         searchStrings.shift();
@@ -103,13 +131,8 @@ var invoke = function(command, directory, options, fn) {
 
   };
 
-  var output = '';
-  mrt.stdout.on('data', function(data) {
-    output = output + data.toString();
-    if (matchesOutput(output)) {
-      killProcessFamily(mrt.pid, fn);
-    }
-  });
+  mrt.stdout.on('data', processOutput);
+  mrt.stderr.on('data', processOutput);
 };
 
 var getSystemInfo = function(fn) {
@@ -142,5 +165,6 @@ var getDevBundleFileName = function(fn) {
 };
 
 exports.prepare = prepare;
+exports.cleanup = cleanup;
 exports.invoke = invoke;
 exports.getSystemInfo = getSystemInfo;
