@@ -35,18 +35,18 @@ describe("invoking `mrt uninstall --system`", function() {
     var installDir = path.resolve('spec/support/home/.meteorite');
     
     // put something in there
-    if (!path.existsSync(installDir))
+    if (!fs.existsSync(installDir))
       fs.mkdirSync(installDir);
 
     // why doesn't this work?
     fs.mkdirSync(path.join(installDir, 'foo'));
     
-    assert.equal(path.existsSync(installDir), true);
+    assert.equal(fs.existsSync(installDir), true);
     
     mrt.invoke('uninstall --system', 'empty-dir', {
       waitForOutput: 'Deleting ~/.meteorite'
     }, function() {
-      assert.equal(path.existsSync(installDir), false, "~/.meteorite wasn't uninstalled");
+      assert.equal(fs.existsSync(installDir), false, "~/.meteorite wasn't uninstalled");
       done();
     });
         

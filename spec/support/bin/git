@@ -2,7 +2,7 @@
 
 var spawn = require('child_process').spawn;
 var path = require('path');
-var fs = require('fs');
+var fs = require('../../../lib/utils/fs');
 var wrench = require('wrench');
 var _ = require('underscore');
 
@@ -18,7 +18,7 @@ var copyRepo = function(from, to) {
 if (command === 'clone') {
   var cachePath = path.join(__dirname, '..', 'cache');
 
-  if (!path.existsSync(cachePath))
+  if (!fs.existsSync(cachePath))
     wrench.mkdirSyncRecursive(cachePath);
 
   var repoUrl = args[1];
@@ -28,7 +28,7 @@ if (command === 'clone') {
   var destPath = args[2];
   var repoCachePath = path.join(cachePath, repoUser, repoName);
 
-  if (!path.existsSync(repoCachePath)) {
+  if (!fs.existsSync(repoCachePath)) {
 
     var git = spawn('/usr/local/bin/git', ['clone', repoUrl, repoCachePath]);
 
