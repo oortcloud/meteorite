@@ -15,6 +15,17 @@ var prepare = function(fn) {
   cleanup(fn);
 };
 
+var clearTestAppMeteoriteDirs = function() {
+  var appsPath = path.resolve(path.join('spec', 'support', 'apps'));
+  var apps = fs.readdirSync(appsPath);
+  _.each(apps, function(app) {
+    var appPath = path.join(appsPath, app);
+    var meteoritePath = path.join(appPath, '.meteor', 'meteorite'); 
+    if (fs.existsSync(meteoritePath))
+      wrench.rmdirSyncRecursive(meteoritePath);
+  });
+};
+
 // delete all data from
 //  1. the fake home dir
 //  2. the meteorite directories of each app
@@ -26,7 +37,7 @@ var cleanup = function(fn) {
     wrench.rmdirSyncRecursive(root);
   
   // 2.
-  // TODO
+  clearTestAppMeteoriteDirs();
   
   // 3. delete and recreate
   var newApps = path.resolve(path.join('spec', 'support', 'apps', 'new_apps'));
