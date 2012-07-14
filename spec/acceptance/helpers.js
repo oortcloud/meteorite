@@ -29,10 +29,10 @@ var cleanup = function(fn) {
   // TODO
   
   // 3. delete and recreate
-  var new_apps = path.resolve(path.join('spec', 'support', 'apps', 'new_apps'));
-  if (fs.existsSync(new_apps))
-    wrench.rmdirSyncRecursive(new_apps);
-  fs.mkdirSync(new_apps);
+  var newApps = path.resolve(path.join('spec', 'support', 'apps', 'new_apps'));
+  if (fs.existsSync(newApps))
+    wrench.rmdirSyncRecursive(newApps);
+  fs.mkdirSync(newApps);
   
   fn();
 };
