@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var spawn = require('child_process').spawn;
-var fs = require('fs');
+var fs = require('../../../lib/utils/fs');
 var path = require('path');
 var wrench = require('wrench');
 
@@ -13,9 +13,9 @@ var outputFile = function() {
   fs.createReadStream(devBundlePath).pipe(process.stdout);
 };
 
-if (!path.existsSync(devBundlePath)) {
+if (!fs.existsSync(devBundlePath)) {
 
-  if (!path.existsSync(cachePath))
+  if (!fs.existsSync(cachePath))
     wrench.mkdirSyncRecursive(cachePath);
 
   var url = process.argv[process.argv.length - 1];

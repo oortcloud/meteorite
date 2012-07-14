@@ -1,6 +1,6 @@
 var spawn = require('child_process').spawn;
 var path = require('path');
-var fs = require('fs');
+var fs = require('../../lib/utils/fs');
 var wrench = require('wrench');
 var _ = require('underscore');
 var Meteorite = require('../../lib/meteorite');
@@ -22,17 +22,17 @@ var prepare = function(fn) {
 var cleanup = function(fn) {
   // 1.
   var root = Meteorite.root();
-  if (path.existsSync(root))
+  if (fs.existsSync(root))
     wrench.rmdirSyncRecursive(root);
   
   // 2.
   // TODO
   
   // 3. delete and recreate
-  var new_apps = path.resolve(path.join('spec', 'support', 'apps', 'new_apps'));
-  if (path.existsSync(new_apps))
-    wrench.rmdirSyncRecursive(new_apps);
-  fs.mkdirSync(new_apps);
+  var newApps = path.resolve(path.join('spec', 'support', 'apps', 'new_apps'));
+  if (fs.existsSync(newApps))
+    wrench.rmdirSyncRecursive(newApps);
+  fs.mkdirSync(newApps);
   
   fn();
 };
