@@ -5,7 +5,7 @@ var wrench = require('wrench');
 var _ = require('underscore');
 var Meteorite = require('../../lib/meteorite');
 
-var verbose = false;
+var verbose = true;
 
 // delete all data and fake out ENV vars
 var prepare = function(fn) {
@@ -133,14 +133,18 @@ var invoke = function(command, directory, options, fn) {
   
   var matchesOutput = function(output) {
     
-    _.each(_.clone(searchStrings), function(searchString) {
+    var i;
+    // reverse search to ensure no funny buggers
+    for (i = searchStrings.length - 1; i >= 0; i--) {
+      var searchString = searchStrings[i];
+      
       if (output.indexOf(searchString) >= 0)
-        searchStrings.shift();
-    });
-
+        searchStrings.splice(i, 1);
+    }
+    
     if (searchStrings.length === 0)
       return true;
-
+    
   };
 
   mrt.stdout.on('data', processOutput);
