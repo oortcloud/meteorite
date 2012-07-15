@@ -79,6 +79,45 @@ describe('Writing smart.lock', function() {
     });
   });
   
+  describe('for dependencies with more complex basePackages', function() {
+    var deps, expected;
+    before(function(done) {
+      
+      expected = {
+        packages: {
+          "mrt-test-pkg2": {
+            "git": "https://github.com/possibilities/mrt-test-pkg2.git",
+            "branch": "master",
+            "commit": "223e2266b1c593abcdeaace1d5b0955b372e0f34"
+          },
+          "mrt-test-pkg1": {
+            "git": "https://github.com/possibilities/mrt-test-pkg1.git",
+            "branch": "master",
+            "commit": "3ab9c811313dbedc48269f39a78b86617653fa91"
+          }
+        }, 
+        basePackages: {
+          "mrt-test-pkg2": {
+            "git": "https://github.com/possibilities/mrt-test-pkg2.git",
+            "branch": "master"
+          }
+        }
+      };
+      
+      deps = new Dependencies('/', expected.basePackages);
+      deps.resolve(done);
+    });
+    
+    it('Should output correct lockJson', function() {
+      assert.ok(_.isEqual(expected, deps.lockJson()), 'Unexpected lock JSON');
+    });
+    
+    it('Should recreate from lockJson', function() {
+      var newDeps = Dependencies.newFromLockJson(project, expected);
+      
+      assertDependenciesEqual(deps, newDeps);
+    });
+  });
   
   
 });
