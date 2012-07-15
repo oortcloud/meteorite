@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var assert = require('assert');
+var Meteorite = require('../../lib/meteorite');
 var Dependencies = require('../../lib/dependencies/dependencies');
 
 // testing mock
@@ -26,8 +27,8 @@ describe('Dependencies object', function() {
       dependencies = new Dependencies('/', {});
     });
     
-    it('should have an empty base_packages object', function() {
-      assert.ok(_.isEmpty(dependencies.base_packages));
+    it('should have an empty basePackages object', function() {
+      assert.ok(_.isEmpty(dependencies.basePackages));
     });
     
     if ('should resolve', function(done) {
@@ -50,8 +51,8 @@ describe('Dependencies object', function() {
       }});
     });
     
-    it('should have the package in the base_packages object', function() {
-      assert.ok(_.isEqual(['mrt-test-pkg1'], _.keys(dependencies.base_packages)));
+    it('should have the package in the basePackages object', function() {
+      assert.ok(_.isEqual(['mrt-test-pkg1'], _.keys(dependencies.basePackages)));
     });
     
     if ('should resolve', function(done) {
@@ -74,8 +75,8 @@ describe('Dependencies object', function() {
       }});
     });
     
-    it('should have the package in the base_packages object', function() {
-      assert.ok(_.isEqual(['mrt-test-pkg2'], _.keys(dependencies.base_packages)));
+    it('should have the package in the basePackages object', function() {
+      assert.ok(_.isEqual(['mrt-test-pkg2'], _.keys(dependencies.basePackages)));
     });
     
     if ('should resolve', function(done) {
@@ -103,8 +104,8 @@ describe('Dependencies object', function() {
       });
     });
     
-    it('should have the package in the base_packages object', function() {
-      assert.ok(_.isEqual(['mrt-test-pkg1', 'mrt-test-pkg2'], _.keys(dependencies.base_packages)));
+    it('should have the package in the basePackages object', function() {
+      assert.ok(_.isEqual(['mrt-test-pkg1', 'mrt-test-pkg2'], _.keys(dependencies.basePackages)));
     });
     
     it('should fail to resolve', function() {
