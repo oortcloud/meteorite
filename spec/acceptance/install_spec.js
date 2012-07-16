@@ -11,16 +11,30 @@ describe('invoking `mrt install`', function() {
   beforeEach(function(done) {
     mrt.prepare(done);
   });
-  
-  // Just a superficial test to make sure install is working
-  it("should install meteor and the app's smart package", function(done) {
-    mrt.invoke('run', 'app-with-smart-pkg', {
-      waitForOutput: [
-        "Fetching package mrt-test-pkg1 (branch: master)",
-        "Fetching Meteor (branch: master)"
-      ]
-    }, done);
+  afterEach(function(done) {
+    mrt.cleanup(done);
   });
+  
+  describe('in an uninstalled app without a smart.lock', function() {
+    
+    // Just a superficial test to make sure install is working
+    it("should install meteor and the app's smart package", function(done) {
+      mrt.invoke('install', 'app-with-smart-pkg', {
+        waitForOutput: [
+          "Fetching package mrt-test-pkg1 (branch: master)",
+          "Fetching Meteor (branch: master)",
+          "Installed"
+        ]
+      }, function() {
+        
+        var appDir = path.join('spec', 'support', 'apps', 'app-with-smart-pkg');
+        assert.ok(fs.existsSync(path.join(appDir, 'smart.lock')), "Didn't create smart.lock");
+        assert.ok(fs.existsSync(path.join(appDir, '.meteor', 'meteorite')), "Didn't create meteor directory");
+        done();
+      });
+    });
+  })
+  
   
 });
 
@@ -29,7 +43,7 @@ describe("invoking `mrt uninstall --system`", function() {
   beforeEach(function(done) {
     mrt.prepare(done);
   });
-
+  
   it("should delete everything in ~/.meteorite", function(done) {
     
     var installDir = path.resolve('spec/support/home/.meteorite');
