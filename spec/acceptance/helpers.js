@@ -3,6 +3,7 @@ var path = require('path');
 var fs = require('../../lib/utils/fs');
 var wrench = require('wrench');
 var _ = require('underscore');
+var assert = require('assert');
 var Meteorite = require('../../lib/meteorite');
 
 var verbose = false;
@@ -53,6 +54,11 @@ var cleanup = function(fn) {
   
   fn();
 };
+
+var copyLockfileToApp = function(lockName, appName) {
+  var lockData = fs.readFileSync(path.join('spec', 'support', 'resources', 'smart.lock.'+lockName));
+  fs.writeFileSync(path.join('spec', 'support', 'apps', appName, 'smart.lock'), lockData);
+}
 
 var killProcessFamily = function(grandparentId, fn) {
   var pids = [grandparentId];
@@ -125,32 +131,43 @@ var invoke = function(command, directory, options, fn) {
   if (verbose) mrt.stderr.pipe(process.stderr);
   if (verbose) mrt.stdout.pipe(process.stdout);
 
-  var searchStrings = _.isArray(options.waitForOutput) ? _.clone(options.waitForOutput) : [options.waitForOutput];
+  var searchStrings, failStrings;
   
-  var output = '', matched = false;
+  if (options.waitForOutput)
+    searchStrings = _.isArray(options.waitForOutput) ? _.clone(options.waitForOutput) : [options.waitForOutput];
+  if (options.assertNoOutput)
+    failStrings  = _.isArray(options.assertNoOutput) ? _.clone(options.assertNoOutput) : [options.assertNoOutput];
+  
+  var output = '', matched = false, failed = false;
   var processOutput = function(data) {
     
     output = output + data.toString();
-    if (!matched &&matchesOutput(output)) {
+    if (!matched && searchStrings && matchesOutput(output, searchStrings)) {
       matched = true;
       killProcessFamily(mrt.pid, fn);
     }
+    
+    if (!failed && failStrings && matchesOutput(output, failStrings)) {
+      failed = true;
+      killProcessFamily(mrt.pid, function() {
+        assert.ok(false, 'Output incorrectly matched' + failStrings.join(','));
+      });
+    }
   };
   
-  var matchesOutput = function(output) {
+  var matchesOutput = function(output, strings) {
     
     var i;
     // reverse search to ensure no funny buggers
-    for (i = searchStrings.length - 1; i >= 0; i--) {
-      var searchString = searchStrings[i];
+    for (i = strings.length - 1; i >= 0; i--) {
+      var searchString = strings[i];
       
       if (output.indexOf(searchString) >= 0)
-        searchStrings.splice(i, 1);
+        strings.splice(i, 1);
     }
     
-    if (searchStrings.length === 0)
+    if (strings.length === 0)
       return true;
-    
   };
 
   mrt.stdout.on('data', processOutput);
@@ -188,5 +205,6 @@ var getDevBundleFileName = function(fn) {
 
 exports.prepare = prepare;
 exports.cleanup = cleanup;
+exports.copyLockfileToApp = copyLockfileToApp;
 exports.invoke = invoke;
 exports.getSystemInfo = getSystemInfo;

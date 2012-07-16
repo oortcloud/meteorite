@@ -1,0 +1,22 @@
+{
+  "meteor": {
+    "git": "https://github.com/meteor/meteor.git",
+    "branch": "master",
+    "commit": "7510b8430e2f22f8f396e853e0d243238e2bbc53"
+  },
+  "dependencies": {
+    "basePackages": {
+      "mrt-test-pkg1": {
+        "git": "https://github.com/possibilities/mrt-test-pkg1.git",
+        "branch": "master"
+      }
+    },
+    "packages": {
+      "mrt-test-pkg1": {
+        "git": "https://github.com/possibilities/mrt-test-pkg1.git",
+        "branch": "master",
+        "commit": "e9c26bcd8d0207ebc41f1ee3d5dae41a9c4c21f7"
+      }
+    }
+  }
+}
