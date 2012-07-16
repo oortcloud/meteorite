@@ -5,7 +5,7 @@ var wrench = require('wrench');
 var _ = require('underscore');
 var Meteorite = require('../../lib/meteorite');
 
-var verbose = true;
+var verbose = false;
 
 // delete all data and fake out ENV vars
 var prepare = function(fn) {
