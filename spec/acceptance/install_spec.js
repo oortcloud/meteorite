@@ -23,7 +23,7 @@ describe('invoking `mrt install`', function() {
         waitForOutput: [
           "Fetching package mrt-test-pkg1 (branch: master)",
           "Fetching Meteor (branch: master)",
-          "Installed"
+          "Meteor installed"
         ]
       }, function() {
         
@@ -33,15 +33,15 @@ describe('invoking `mrt install`', function() {
         done();
       });
     });
-  })
+  });
   
   describe('in an app with a consistent smart.lock and smart.json', function() {
     
     it("should not resolve dependencies", function(done) {
-      mrt.copyLockfileToApp('app-with-smart-pkg', 'app-with-smart-pkg')
+      mrt.copyLockfileToApp('app-with-smart-pkg', 'app-with-smart-pkg');
       mrt.invoke('install', 'app-with-smart-pkg', {
         assertNoOutput: [
-          "Resolving",
+          "Resolving"
         ]
       }, function() {
 
@@ -54,7 +54,7 @@ describe('invoking `mrt install`', function() {
   
   describe('in an app with an out-of-date smart.lock', function() {
     it("should re-resolve dependencies", function(done) {
-      mrt.copyLockfileToApp('app-with-smart-pkg-pinned-to-branch', 'app-with-smart-pkg')
+      mrt.copyLockfileToApp('app-with-smart-pkg-pinned-to-branch', 'app-with-smart-pkg');
       mrt.invoke('install', 'app-with-smart-pkg', {
         waitForOutput: [
           "smart.json changed..",
@@ -85,7 +85,7 @@ describe('invoking `mrt update`', function() {
   describe('in an app with a consistent smart.lock and smart.json', function() {
     
     it("should re-resolve dependencies", function(done) {
-      mrt.copyLockfileToApp('app-with-smart-pkg', 'app-with-smart-pkg')
+      mrt.copyLockfileToApp('app-with-smart-pkg', 'app-with-smart-pkg');
       mrt.invoke('update', 'app-with-smart-pkg', {
         waitForOutput: [
           "Resolving",
