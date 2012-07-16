@@ -15,20 +15,26 @@ var prepare = function(fn) {
   cleanup(fn);
 };
 
-var clearTestAppMeteoriteDirs = function() {
+var clearTestFiles = function() {
   var appsPath = path.resolve(path.join('spec', 'support', 'apps'));
   var apps = fs.readdirSync(appsPath);
   _.each(apps, function(app) {
     var appPath = path.join(appsPath, app);
+
     var meteoritePath = path.join(appPath, '.meteor', 'meteorite'); 
     if (fs.existsSync(meteoritePath))
       wrench.rmdirSyncRecursive(meteoritePath);
+
+    var smartJsonPath = path.join(appPath, 'smart.lock');
+    if (fs.existsSync(smartJsonPath))
+      fs.unlinkSync(smartJsonPath);
+
   });
 };
 
 // delete all data from
 //  1. the fake home dir
-//  2. the meteorite directories of each app
+//  2. the meteorite directories and smart.lock of each app
 //  3. the new_apps directory
 var cleanup = function(fn) {
   // 1.
@@ -37,7 +43,7 @@ var cleanup = function(fn) {
     wrench.rmdirSyncRecursive(root);
   
   // 2.
-  clearTestAppMeteoriteDirs();
+  clearTestFiles();
   
   // 3. delete and recreate
   var newApps = path.resolve(path.join('spec', 'support', 'apps', 'new_apps'));
