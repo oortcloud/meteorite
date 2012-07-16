@@ -24,7 +24,7 @@ describe('invoking `mrt run`', function() {
 
   describe('in a meteor project with a smart.json', function() {
 
-    describe('and the smart.json specifies a smart package dependency', function() {
+    describe('and the smart.json specifies a simple smart package dependency', function() {
       it("should install the smart package", function(done) {
         mrt.invoke('run', 'app-with-smart-pkg', {
           waitForOutput: "Test package 1 installed (branch/master)"
