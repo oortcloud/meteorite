@@ -173,6 +173,12 @@ var invoke = function(command, directory, options, fn) {
 
   mrt.stdout.on('data', processOutput);
   mrt.stderr.on('data', processOutput);
+  
+  // if it exits of it's own accord
+  mrt.on('exit', function() {
+    if (!matched && !failed)
+      fn()
+  });
 };
 
 var getSystemInfo = function(fn) {
