@@ -41,7 +41,8 @@ if (command === 'clone') {
   }
 
 
-} else {
+} else if (command !== 'pull') { // we will skip pulls, expensive and redudant.
+  
   var git = spawn('/usr/local/bin/git', args);
 
   git.stderr.pipe(process.stderr);
