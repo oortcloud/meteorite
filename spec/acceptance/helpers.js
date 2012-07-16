@@ -6,7 +6,8 @@ var _ = require('underscore');
 var assert = require('assert');
 var Meteorite = require('../../lib/meteorite');
 
-var verbose = false;
+// is this the wrong way to do it?
+var verbose = require('optimist').argv.verbose;
 
 // delete all data and fake out ENV vars
 var prepare = function(fn) {
