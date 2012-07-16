@@ -74,6 +74,17 @@ describe('invoking `mrt run`', function() {
         }, done);
       });
     });
+    
+    describe("and the smart.json specifies a smart package from a path with it's own smart package dependency from a path", function() {
+      it("should discover and install smart packages recursively", function(done) {
+        mrt.invoke('run', 'app-with-nested-smart-pkg-deps-specified-by-paths', {
+          waitForOutput: [
+            "Test package 1 installed (from a fixed path)",
+            "Test package 2 installed (from a fixed path)"
+          ]
+        }, done);
+      });
+    });
 
   });
 
