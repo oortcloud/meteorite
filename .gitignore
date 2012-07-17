@@ -3,3 +3,4 @@ spec/support/cache
 spec/support/home
 spec/support/apps/new_apps
 spec/support/apps/**/smart.lock
+.DS_Store
