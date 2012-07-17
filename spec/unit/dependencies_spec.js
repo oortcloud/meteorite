@@ -102,4 +102,36 @@ describe('Dependencies object', function() {
     });
   });
   
+  
+  
+  describe('with two packages specified that are clash but are ok', function() {
+    var dependencies;
+    before(function() {
+      dependencies = new Dependencies('/', {
+        'mrt-test-pkg1': {
+          "git": "https://github.com/possibilities/mrt-test-pkg1.git"
+        },
+        'mrt-test-pkg2': { // depends on mrt-test-pkg1 version
+          "git": "https://github.com/possibilities/mrt-test-pkg2.git"
+        }
+      });
+    });
+    
+    it('should have the package in the basePackages object', function() {
+      assert.ok(_.isEqual(['mrt-test-pkg1', 'mrt-test-pkg2'], _.keys(dependencies.basePackages)));
+    });
+    
+    it('should resolve', function(done) {
+      // FIXME -- this actually throws an error but we don't see it because of async-ness
+      dependencies.resolve(done);
+    });
+    
+    it('should have an two packages after resolving', function(done) {
+      dependencies.resolve(function() {
+        assert.ok(_.isEqual(['mrt-test-pkg1', 'mrt-test-pkg2'], _.keys(dependencies.packages)));
+        done();
+      });
+    });
+  });
+  
 });
