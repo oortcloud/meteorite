@@ -1,4 +1,7 @@
 var mrt = require('./helpers');
+var path = require('path');
+var fs = require('fs');
+var assert = require('assert');
 
 // TODO -- these tests should probably use alternate versions of meteor which output
 // different things rather than relying on 'fetching meteor' type messages
@@ -20,6 +23,17 @@ describe('invoking `mrt create`', function() {
       mrt.invoke('create app-from-default-meteor', 'new_apps', {
         waitForOutput: ['Fetching Meteor (branch: master)', 'app-from-default-meteor: created']      
       }, done);
+    });
+
+    it("should add a smart.json to newly created app", function(done) {
+      mrt.invoke('create new-app-with-smart-json', 'new_apps', {
+        waitForOutput: ['Fetching Meteor (branch: master)', 'new-app-with-smart-json: created']
+      }, function() {
+        var appDir = path.resolve('spec/support/apps/new_apps/new-app-with-smart-json');
+        var smartJsonPath = path.join(appDir, 'smart.json');
+        assert.ok(fs.existsSync(smartJsonPath));
+        done();
+      });
     });
   });
   

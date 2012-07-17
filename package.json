@@ -15,7 +15,7 @@
   , "connect": ">=2.3.6"
   }
 , "scripts":
-  { "test": "mocha spec/acceptance -t 240000 -R spec"
+  { "test": "mocha spec/unit spec/acceptance -t 240000 -R spec"
   , "flushcache": "rm -rf spec/support/cache"
   }
 , "repository":

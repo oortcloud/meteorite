@@ -3,9 +3,11 @@ var path = require('path');
 var fs = require('../../lib/utils/fs');
 var wrench = require('wrench');
 var _ = require('underscore');
+var assert = require('assert');
 var Meteorite = require('../../lib/meteorite');
 
-var verbose = false;
+// is this the wrong way to do it?
+var verbose = require('optimist').argv.verbose;
 
 // delete all data and fake out ENV vars
 var prepare = function(fn) {
@@ -15,20 +17,26 @@ var prepare = function(fn) {
   cleanup(fn);
 };
 
-var clearTestAppMeteoriteDirs = function() {
+var clearTestFiles = function() {
   var appsPath = path.resolve(path.join('spec', 'support', 'apps'));
   var apps = fs.readdirSync(appsPath);
   _.each(apps, function(app) {
     var appPath = path.join(appsPath, app);
+
     var meteoritePath = path.join(appPath, '.meteor', 'meteorite'); 
     if (fs.existsSync(meteoritePath))
       wrench.rmdirSyncRecursive(meteoritePath);
+
+    var smartJsonPath = path.join(appPath, 'smart.lock');
+    if (fs.existsSync(smartJsonPath))
+      fs.unlinkSync(smartJsonPath);
+
   });
 };
 
 // delete all data from
 //  1. the fake home dir
-//  2. the meteorite directories of each app
+//  2. the meteorite directories and smart.lock of each app
 //  3. the new_apps directory
 var cleanup = function(fn) {
   // 1.
@@ -37,7 +45,7 @@ var cleanup = function(fn) {
     wrench.rmdirSyncRecursive(root);
   
   // 2.
-  clearTestAppMeteoriteDirs();
+  clearTestFiles();
   
   // 3. delete and recreate
   var newApps = path.resolve(path.join('spec', 'support', 'apps', 'new_apps'));
@@ -46,6 +54,11 @@ var cleanup = function(fn) {
   fs.mkdirSync(newApps);
   
   fn();
+};
+
+var copyLockfileToApp = function(lockName, appName) {
+  var lockData = fs.readFileSync(path.join('spec', 'support', 'resources', 'smart.lock.'+lockName));
+  fs.writeFileSync(path.join('spec', 'support', 'apps', appName, 'smart.lock'), lockData);
 };
 
 var killProcessFamily = function(grandparentId, fn) {
@@ -119,32 +132,53 @@ var invoke = function(command, directory, options, fn) {
   if (verbose) mrt.stderr.pipe(process.stderr);
   if (verbose) mrt.stdout.pipe(process.stdout);
 
-  var searchStrings = _.isArray(options.waitForOutput) ? _.clone(options.waitForOutput) : [options.waitForOutput];
+  var searchStrings, failStrings;
   
-  var output = '', matched = false;
+  if (options.waitForOutput)
+    searchStrings = _.isArray(options.waitForOutput) ? _.clone(options.waitForOutput) : [options.waitForOutput];
+  if (options.assertNoOutput)
+    failStrings  = _.isArray(options.assertNoOutput) ? _.clone(options.assertNoOutput) : [options.assertNoOutput];
+  
+  var output = '', matched = false, failed = false;
   var processOutput = function(data) {
     
     output = output + data.toString();
-    if (!matched &&matchesOutput(output)) {
+    if (!matched && searchStrings && matchesOutput(output, searchStrings)) {
       matched = true;
       killProcessFamily(mrt.pid, fn);
     }
+    
+    if (!failed && failStrings && matchesOutput(output, failStrings)) {
+      failed = true;
+      killProcessFamily(mrt.pid, function() {
+        assert.ok(false, 'Output incorrectly matched' + failStrings.join(','));
+      });
+    }
   };
   
-  var matchesOutput = function(output) {
+  var matchesOutput = function(output, strings) {
     
-    _.each(_.clone(searchStrings), function(searchString) {
+    var i;
+    // reverse search to ensure no funny buggers
+    for (i = strings.length - 1; i >= 0; i--) {
+      var searchString = strings[i];
+      
       if (output.indexOf(searchString) >= 0)
-        searchStrings.shift();
-    });
-
-    if (searchStrings.length === 0)
+        strings.splice(i, 1);
+    }
+    
+    if (strings.length === 0)
       return true;
-
   };
 
   mrt.stdout.on('data', processOutput);
   mrt.stderr.on('data', processOutput);
+  
+  // if it exits of it's own accord
+  mrt.on('exit', function() {
+    if (!matched && !failed)
+      fn();
+  });
 };
 
 var getSystemInfo = function(fn) {
@@ -178,5 +212,6 @@ var getDevBundleFileName = function(fn) {
 
 exports.prepare = prepare;
 exports.cleanup = cleanup;
+exports.copyLockfileToApp = copyLockfileToApp;
 exports.invoke = invoke;
 exports.getSystemInfo = getSystemInfo;

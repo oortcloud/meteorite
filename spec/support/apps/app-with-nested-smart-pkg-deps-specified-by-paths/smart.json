@@ -1,0 +1,7 @@
+{
+  "packages": {
+    "mrt-test-pkg2": {
+      "path": "../../packages/mrt-test-pkg2"
+    }
+  }
+}

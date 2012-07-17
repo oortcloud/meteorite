@@ -6,8 +6,10 @@ var path = require('path');
 var wrench = require('wrench');
 
 var args = process.argv.slice(2);
+var fileNameParts = args[1].split('/');
+var fileName = fileNameParts[fileNameParts.length - 1];
 var cachePath = path.join(__dirname, '..', 'cache');
-var devBundlePath = path.join(cachePath, 'dev_bundle_Darwin_x86_64_0.1.5.tar.gz');
+var devBundlePath = path.join(cachePath, fileName);
 
 var outputFile = function() {
   fs.createReadStream(devBundlePath).pipe(process.stdout);

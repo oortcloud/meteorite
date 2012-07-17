@@ -41,9 +41,10 @@ if (command === 'clone') {
   }
 
 
-} else if (command == 'checkout') {
+} else if (command !== 'pull') { // we will skip pulls, expensive and redudant.
+  
   var git = spawn('/usr/local/bin/git', args);
 
   git.stderr.pipe(process.stderr);
   git.stdout.pipe(process.stdout);
-} // if command == 'pull' do nothing
+}
