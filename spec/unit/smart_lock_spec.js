@@ -20,7 +20,7 @@ var assertDependenciesEqual = function(deps1, deps2) {
     return deps1.packages[key].equals(deps2.packages[key]);
   });
   assert.ok(allSame, 'mis-matched packages lists');
-}
+};
 
 describe('Writing smart.lock', function() {
   describe('for dependencies with no basePackages', function() {

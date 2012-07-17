@@ -59,7 +59,7 @@ var cleanup = function(fn) {
 var copyLockfileToApp = function(lockName, appName) {
   var lockData = fs.readFileSync(path.join('spec', 'support', 'resources', 'smart.lock.'+lockName));
   fs.writeFileSync(path.join('spec', 'support', 'apps', appName, 'smart.lock'), lockData);
-}
+};
 
 var killProcessFamily = function(grandparentId, fn) {
   var pids = [grandparentId];
@@ -177,7 +177,7 @@ var invoke = function(command, directory, options, fn) {
   // if it exits of it's own accord
   mrt.on('exit', function() {
     if (!matched && !failed)
-      fn()
+      fn();
   });
 };
 

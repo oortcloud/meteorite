@@ -16,9 +16,9 @@ describe('Dependencies object', function() {
       assert.ok(_.isEmpty(dependencies.basePackages));
     });
     
-    if ('should resolve', function(done) {
+    it('should resolve', function(done) {
       dependencies.resolve(done);
-    })
+    });
     
     it('should have an empty packages object after resolving', function(done) {
       dependencies.resolve(function() {
@@ -40,9 +40,9 @@ describe('Dependencies object', function() {
       assert.ok(_.isEqual(['mrt-test-pkg1'], _.keys(dependencies.basePackages)));
     });
     
-    if ('should resolve', function(done) {
+    it('should resolve', function(done) {
       dependencies.resolve(done);
-    })
+    });
     
     it('should have an single-package packages object after resolving', function(done) {
       dependencies.resolve(function() {
@@ -64,9 +64,9 @@ describe('Dependencies object', function() {
       assert.ok(_.isEqual(['mrt-test-pkg2'], _.keys(dependencies.basePackages)));
     });
     
-    if ('should resolve', function(done) {
+    it('should resolve', function(done) {
       dependencies.resolve(done);
-    })
+    });
     
     it('should have an two packages after resolving', function(done) {
       dependencies.resolve(function() {
@@ -102,4 +102,4 @@ describe('Dependencies object', function() {
     });
   });
   
-})
+});
