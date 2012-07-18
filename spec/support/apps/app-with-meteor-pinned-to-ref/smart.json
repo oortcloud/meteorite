@@ -1,0 +1,7 @@
+{
+  "meteor": {
+    "git": "https://github.com/possibilities/meteor",
+    "ref": "c177ff3680504a80c165b3b7545cb26b900c7c1f"
+  },
+  "packages": {}
+}
