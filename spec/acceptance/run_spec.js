@@ -86,11 +86,34 @@ describe('invoking `mrt run`', function() {
       });
     });
     
-    
     describe("and the smart.json specifies a two package that clash in dependencies", function() {
       it("should not run and output an error message", function(done) {
         mrt.invoke('run', 'app-with-nested-smart-pkg-deps-that-clash', {
           waitForOutput: ["Can't resolve dependencies!"]
+        }, done);
+      });
+    });
+
+    describe('and the smart.json specifies a meteor fork pinned to a branch', function() {
+      it("should run the forked meteor checked out to the branch", function(done) {
+        mrt.invoke('run', 'app-with-meteor-pinned-to-branch', {
+          waitForOutput: "Meteor is instrumented for meteorite test (branch/mrt-branch-test)"
+        }, done);
+      });
+    });
+
+    describe('and the smart.json specifies a meteor fork pinned to a tag', function() {
+      it("should run the forked meteor checked out to the branch", function(done) {
+        mrt.invoke('run', 'app-with-meteor-pinned-to-tag', {
+          waitForOutput: "Meteor is instrumented for meteorite test (tag/mrt-test-tag)"
+        }, done);
+      });
+    });
+
+    describe('and the smart.json specifies a meteor fork pinned to a ref', function() {
+      it("should run the forked meteor checked out to the branch", function(done) {
+        mrt.invoke('run', 'app-with-meteor-pinned-to-ref', {
+          waitForOutput: "Meteor is instrumented for meteorite test (ref)"
         }, done);
       });
     });
