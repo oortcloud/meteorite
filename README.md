@@ -14,7 +14,7 @@ At the heart of Meteorite is a command line tool is called `mrt`. It wraps the `
 
 Meteorite assumes `master` branch in most places so you don't always have to specify this. `mrt create` also supports specifying meteor by `--tag` or `--ref`.
 
-To run an app use `mrt run`:
+To run an app use `mrt run` (or simply `mrt`):
 
     mrt run --port=2222
 
