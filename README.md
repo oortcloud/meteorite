@@ -1,6 +1,6 @@
 # Meteorite
 
-*Making Meteor dev's happy since 2012*
+*Making Meteor devs happy since 2012*
 
 ## What is it?
 
