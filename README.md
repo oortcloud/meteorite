@@ -4,7 +4,7 @@
 
 ## What is it?
 
-A meteor installer, and smart-package manager wrapped around the meteor command line interface. (Inspired by bundler & rvm)
+A Meteor installer, and smart-package manager wrapped around the meteor command line interface. (Inspired by gem, bundler & rvm)
 
 ## How do I use it?
 
