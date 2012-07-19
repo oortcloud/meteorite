@@ -63,7 +63,7 @@ When you run your app with `mrt`:
 
   4) A `smart.lock` file is written to the project's root dir
 
-  5) With everything installed the app's `meteor` instance takes over and runs your app. All of `meteor`'s subcommands are supported (e.g. `run`, `deploy`, etc).
+  5) With everything installed the app's `meteor` instance takes over and runs your app. All of `meteor`'s subcommands are supported (e.g. `run`, `add`, `deploy`, `bundle`, etc).
 
 ## Configuration
 
