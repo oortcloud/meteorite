@@ -71,8 +71,8 @@ A sample `smart.json`
 
     {
       "packages": {
-        "demostrap": {
-          "git": "https://github.com/possibilities/meteor-demostrap.git",
+        "appstrap": {
+          "git": "https://github.com/possibilities/meteor-appstrap.git",
           "ref": "2911ce4e"
         },
         "test-package": {
