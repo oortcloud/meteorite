@@ -14,4 +14,8 @@ var meteorArgs = process.argv.slice(2);
 var meteorite = new Meteorite(meteoriteArgs, meteorArgs);
 
 // Run user's subcommand
-meteorite[subCommandName](_.identity);
+meteorite[subCommandName](function() {
+  // TODO Annoying, why do we have to do this?
+  // Shouldn't the app terminate naturally?
+  process.exit();
+});
