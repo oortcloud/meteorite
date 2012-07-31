@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Meteorite by possibilities</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Meteorite</h1>
+        <p>Installer &amp; smart package manager for Meteor</p>
+        <p class="view"><a href="https://github.com/possibilities/meteorite">View the Project on GitHub <small>possibilities/meteorite</small></a></p>
+        <ul>
+          <li><a href="https://github.com/possibilities/meteorite/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/possibilities/meteorite/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/possibilities/meteorite">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><em>Making Meteor devs happy since 2012</em></p>
+
+<h2>What is it?</h2>
+
+<p>A Meteor installer, and smart-package manager wrapped around the meteor command line interface. (Inspired by gem, bundler &amp; rvm)</p>
+
+<h2>How do I use it?</h2>
+
+<p>At the heart of Meteorite is a command line tool is called <code>mrt</code>. It wraps the <code>meteor</code> command and for the most part you use it just like you're using <code>meteor</code>. Let's say I'm building a new app and I'd like to develop against Meteor's development branch:</p>
+
+<pre><code>mrt create cool-app --branch=devel
+</code></pre>
+
+<p>Meteorite assumes <code>master</code> branch in most places so you don't always have to specify this. <code>mrt create</code> also supports specifying meteor by <code>--tag</code> or <code>--ref</code>.</p>
+
+<p>To run an app use <code>mrt run</code> (or simply <code>mrt</code>):</p>
+
+<pre><code>mrt run --port=2222
+</code></pre>
+
+<p>The charm of <code>mrt run</code> is that it installs the correct version of <code>meteor</code> and your app's smart package dependencies and runs your app in that context. <code>mrt</code> determines the correct version of <code>meteor</code> and smart package dependences by looking for a file called <code>smart.json</code> in the root of your app. A simple app's <code>smart.json</code> might look like this:</p>
+
+<pre><code>{
+  "meteor": {
+    "branch": "devel"
+  },
+  "packages": {
+    "cool-tool": {
+      "git": "https://github.com/possibilities/cool-tool.git",
+      "tag": "v0.0.2"
+    },
+    "another-tool": {
+      "git": "https://github.com/possibilities/another-tool.git"
+    }
+  }
+}
+</code></pre>
+
+<p>A couple interesting things that might not be obvious here</p>
+
+<ul>
+<li><p>The smart package author doesn't have to do anything except make the repo available. <code>mrt</code> will look for <code>package.js</code> in the repo and install it for you in the app specific meteor installation</p></li>
+<li><p>If the smart package has it's own dependencies and the author wants to be awesome they can include a <code>smart.json</code> listing the package's own dependencies and everything will get sorted out by <code>mrt</code> (i.e. smart package dependencies will be installed recursively).</p></li>
+<li><p>The first time <code>mrt</code> is run for an app it writes out a file called <code>smart.lock</code> which it uses on subsequent runs to make sure the app is using the correct versions of each dependency even when it's set up in a fresh environment. Generally you'll commit <code>smart.lock</code> into your repo each time it changes so that any developer who clones your app will be running the correct versions. If you change a version in <code>smart.json</code> it takes precedence over <code>smart.lock</code>.</p></li>
+</ul><p>If you just want to <em>warm up</em> your app you can do the install only without running any underlying <code>meteor</code> command with <code>mrt install</code>.</p>
+
+<p>Additionally you can <em>blow away</em> <code>smart.lock</code> and get everything to update using <code>mrt update</code> (<code>mrt update PACKAGE_NAME</code> coming <em>eventually</em>).</p>
+
+<h2>Installation</h2>
+
+<pre><code>npm install -g meteorite
+</code></pre>
+
+<h2>How does it work?</h2>
+
+<p>When you run your app with <code>mrt</code>:</p>
+
+<p>1) It installs an app specific instance of <code>meteor</code></p>
+
+<p>2) Installs the app's smart package dependencies specified in <code>smart.json</code></p>
+
+<p>3) If the app's smart packages have dependencies of their own (also defined in <code>smart.json</code>) they're installed, recursively</p>
+
+<p>4) A <code>smart.lock</code> file is written to the project's root dir</p>
+
+<p>5) With everything installed the app's <code>meteor</code> instance takes over and runs your app. All of <code>meteor</code>'s subcommands are supported (e.g. <code>run</code>, <code>add</code>, <code>deploy</code>, <code>bundle</code>, etc).</p>
+
+<h2>Configuration</h2>
+
+<p>A sample <code>smart.json</code></p>
+
+<pre><code>{
+  "packages": {
+    "appstrap": {
+      "git": "https://github.com/possibilities/meteor-appstrap.git",
+      "ref": "2911ce4e"
+    },
+    "test-package": {
+      "path": "/path/to/local/package"
+    }
+  }
+}
+</code></pre>
+
+<p>Two things worth noting</p>
+
+<ul>
+<li><p><code>meteor</code> isn't specified so it will be installed from the current <code>master</code> branch which is the latest stable release.</p></li>
+<li><p><code>test-package</code> is setup to run from a local path. This is useful for developing smart packages for Meteor with Meteorite.</p></li>
+</ul><h2>Contributing</h2>
+
+<p>See <a href="https://github.com/possibilities/meteorite/wiki/Contributing">Contributing</a></p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/possibilities">possibilities</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-33060395-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
