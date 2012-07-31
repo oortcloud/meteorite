@@ -85,7 +85,7 @@ Two things worth noting
 
   * `meteor` isn't specified so it will be installed from the current `master` branch which is the latest stable release.
   
-  * `test-package` is setup to run from a local path so it's easy to develop run `meteor` against local smart package repos
+  * `test-package` is setup to run from a local path so it's easy to develop `meteor` against local smart package repos
 
 ## Contributing
 
