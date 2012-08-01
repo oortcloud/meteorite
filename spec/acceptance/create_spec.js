@@ -44,4 +44,12 @@ describe('invoking `mrt create`', function() {
       }, done);
     });
   });
+  
+  describe('with an --example argument', function() {
+    it("should create an example app", function(done) {
+      mrt.invoke('create --example todos', 'new_apps', {
+        waitForOutput: ['Fetching Meteor (branch: master)', 'todos: created']      
+      }, done);
+    });
+  });
 });
