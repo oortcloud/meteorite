@@ -176,6 +176,9 @@ var invoke = function(command, directory, options, fn) {
   
   // if it exits of it's own accord
   mrt.on('exit', function() {
+    if (options.waitForOutput && !matched)
+      assert.ok(false, 'Output never matched: ' + searchStrings.join(','))
+    
     if (!matched && !failed)
       fn();
   });
