@@ -59,7 +59,8 @@ describe('invoking `mrt install`', function() {
         waitForOutput: [
           "smart.json changed..",
           "Resolving",
-          "Fetching package mrt-test-pkg1 (branch: master)"
+          "Fetching package mrt-test-pkg1 (branch: master)",
+          "Meteor installed"
         ]
       }, function() {
         
