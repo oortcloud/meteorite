@@ -34,7 +34,7 @@ describe('Writing smart.lock', function() {
     });
     
     it('Should output empty lockJson', function() {
-      assert.ok(_.isEqual(expected, deps.lockJson()), 'Unexpected lock JSON');
+      assert.ok(_.isEqual(expected, deps.toJson(true)), 'Unexpected lock JSON');
     });
     
     it('Should recreate from empty lockJson', function() {
@@ -69,7 +69,7 @@ describe('Writing smart.lock', function() {
     });
     
     it('Should output correct lockJson', function() {
-      assert.ok(_.isEqual(expected, deps.lockJson()), 'Unexpected lock JSON');
+      assert.ok(_.isEqual(expected, deps.toJson(true)), 'Unexpected lock JSON');
     });
     
     it('Should recreate from lockJson', function() {
@@ -109,7 +109,7 @@ describe('Writing smart.lock', function() {
     });
     
     it('Should output correct lockJson', function() {
-      assert.ok(_.isEqual(expected, deps.lockJson()), 'Unexpected lock JSON');
+      assert.ok(_.isEqual(expected, deps.toJson(true)), 'Unexpected lock JSON');
     });
     
     it('Should recreate from lockJson', function() {
