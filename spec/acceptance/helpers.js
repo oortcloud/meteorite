@@ -1,6 +1,7 @@
 var spawn = require('child_process').spawn;
 var path = require('path');
 var fs = require('../../lib/utils/fs');
+var fstream = require('fstream');
 var wrench = require('wrench');
 var _ = require('underscore');
 var assert = require('assert');
@@ -184,6 +185,23 @@ var invoke = function(command, directory, options, fn) {
   });
 };
 
+var invokeInNew = function(command, directory, options, fn) {
+  
+  // copy directory into newApps
+  var from = path.resolve(path.join('spec', 'support', 'apps', directory));
+  var to = path.resolve(path.join('spec', 'support', 'apps', 'new_apps', directory));
+  
+  wrench.mkdirSyncRecursive(to);
+  var reader = fstream.Reader(from);
+  var writer = fstream.Writer(to);
+  
+  writer.on('close', function() {
+    invoke(command, path.join('new_apps', directory), options, fn);
+  });
+  
+  reader.pipe(writer);
+}
+
 var getSystemInfo = function(fn) {
   var uname = spawn('uname', []);
 
@@ -217,4 +235,5 @@ exports.prepare = prepare;
 exports.cleanup = cleanup;
 exports.copyLockfileToApp = copyLockfileToApp;
 exports.invoke = invoke;
+exports.invokeInNew = invokeInNew;
 exports.getSystemInfo = getSystemInfo;
