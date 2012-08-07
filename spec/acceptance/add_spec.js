@@ -16,6 +16,15 @@ var shouldInstall = function(baseName) {
         }, done);
     });
   });
+  
+  // TODO -- update this when mike has pushed this to atmos
+  describe('for a versioned atmosphere package', function() {
+    it("should install the versioned smart package", function(done) {
+      mrt.invokeInNew('add mrt-test-pkg1 --version 0.1.0', 'app-without-smart-json', {
+        waitForOutput: "Test package 1 installed (version 0.1.0)"
+        }, done);
+    });
+  });
 };
 
 describe('invoking `mrt add`', function() {
