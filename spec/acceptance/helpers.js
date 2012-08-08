@@ -25,8 +25,7 @@ var clearTestFiles = function() {
     var appPath = path.join(appsPath, app);
 
     var meteoritePath = path.join(appPath, '.meteor', 'meteorite'); 
-    if (fs.existsSync(meteoritePath))
-      wrench.rmdirSyncRecursive(meteoritePath);
+    fs.ensureDeletedSync(meteoritePath);
 
     var smartJsonPath = path.join(appPath, 'smart.lock');
     if (fs.existsSync(smartJsonPath))
