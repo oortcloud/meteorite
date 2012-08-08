@@ -5,6 +5,10 @@ describe('invoking `mrt run`', function() {
   beforeEach(function(done) {
     mrt.prepare(done);
   });
+  
+  afterEach(function(done) {
+    mrt.cleanup(done);
+  });
 
   describe('in a non-meteor project directory', function() {
     it("should display a message about not being in a meteor project dir", function(done) {

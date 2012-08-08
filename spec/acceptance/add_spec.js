@@ -3,7 +3,7 @@ var mrt = require('./helpers');
 var shouldInstall = function(baseName) {
   describe('for a meteor package', function() {
     it("should install the smart package", function(done) {
-      mrt.invokeInNew('add bootstrap', 'app-without-smart-json', {
+      mrt.invokeInNew('add bootstrap', baseName, {
         waitForOutput: "bootstrap: UX/UI framework from Twitter"
       }, done);
     });
@@ -11,24 +11,17 @@ var shouldInstall = function(baseName) {
   
   describe('for an atmosphere package', function() {
     it("should install the smart package", function(done) {
-      mrt.invokeInNew('add mrt-test-pkg1', 'app-without-smart-json', {
-        waitForOutput: waitForOutput: [
-            "Fetching package mrt-test-pkg1 (tag: 1.3.0)...",
-            "mrt-test-pkg1: mrt test package 1"
-          ]
-        }, done);
+      mrt.invokeInNew('add mrt-test-pkg1', baseName, {
+        waitForOutput: "mrt-test-pkg1: mrt test package 1 v1.7.0"
+      }, done);
     });
   });
   
-  // TODO -- update this when mike has pushed this to atmos
   describe('for a versioned atmosphere package', function() {
     it("should install the versioned smart package", function(done) {
-      mrt.invokeInNew('add mrt-test-pkg1 --pkg-version 1.2.0', 'app-without-smart-json', {
-        waitForOutput: [
-            "Fetching package mrt-test-pkg1 (tag: 1.2.0)...",
-            "mrt-test-pkg1: mrt test package 1"
-          ]
-        }, done);
+      mrt.invokeInNew('add mrt-test-pkg1 --pkg-version 1.4.0', baseName, {
+        waitForOutput: "mrt-test-pkg1: mrt test package 1 v1.4.0"
+      }, done);
     });
   });
 };
@@ -56,6 +49,20 @@ describe('invoking `mrt add`', function() {
   });
   
   describe('in an uninstalled app with smart.json specifying the package', function() {
-    shouldInstall('uninstalled-app-with-smart-pkg');
+    describe('for a meteor package', function() {
+      it("should install the smart package", function(done) {
+        mrt.invokeInNew('add bootstrap', 'uninstalled-app-with-smart-pkg', {
+          waitForOutput: "bootstrap: UX/UI framework from Twitter"
+        }, done);
+      });
+    });
+
+    describe('for an atmosphere package', function() {
+      it("should install the smart package", function(done) {
+        mrt.invokeInNew('add mrt-test-pkg1', 'uninstalled-app-with-smart-pkg', {
+          waitForOutput: "mrt-test-pkg1: mrt test package 1"
+        }, done);
+      });
+    });
   });
 });

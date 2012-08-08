@@ -90,7 +90,8 @@ describe('invoking `mrt update`', function() {
       mrt.invoke('update', 'app-with-smart-pkg', {
         waitForOutput: [
           "Resolving",
-          "Fetching package mrt-test-pkg1 (branch: master)"
+          "Fetching package mrt-test-pkg1 (branch: master)",
+          "Meteor installed"
         ]
       }, function() {
         
