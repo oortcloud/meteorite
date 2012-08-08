@@ -12,7 +12,10 @@ var shouldInstall = function(baseName) {
   describe('for an atmosphere package', function() {
     it("should install the smart package", function(done) {
       mrt.invokeInNew('add mrt-test-pkg1', 'app-without-smart-json', {
-        waitForOutput: "Test package 1 installed (branch/master)"
+        waitForOutput: waitForOutput: [
+            "Fetching package mrt-test-pkg1 (tag: 1.3.0)...",
+            "mrt-test-pkg1: mrt test package 1"
+          ]
         }, done);
     });
   });
@@ -20,8 +23,11 @@ var shouldInstall = function(baseName) {
   // TODO -- update this when mike has pushed this to atmos
   describe('for a versioned atmosphere package', function() {
     it("should install the versioned smart package", function(done) {
-      mrt.invokeInNew('add mrt-test-pkg1 --pkg-version 0.1.0', 'app-without-smart-json', {
-        waitForOutput: "Test package 1 installed (version 0.1.0)"
+      mrt.invokeInNew('add mrt-test-pkg1 --pkg-version 1.2.0', 'app-without-smart-json', {
+        waitForOutput: [
+            "Fetching package mrt-test-pkg1 (tag: 1.2.0)...",
+            "mrt-test-pkg1: mrt test package 1"
+          ]
         }, done);
     });
   });
