@@ -80,7 +80,7 @@ When you run your app with `mrt`:
 
 ## Meteorite's `add` subcommand
 
-Meteorite's `mrt add <package-name>` subcommand wrap's Meteor's `add` command but does the additional work to fetch the meta data from [the central repo](https://atmosphere.meteor.com), fetching the package and installing it in the app.
+Meteorite's `mrt add <package-name>` subcommand wrap's Meteor's `add` command but does the additional work of fetching the meta data from [the central repo](https://atmosphere.meteor.com), getting the source code and installing it in the app.
 
 Add the latest version of a package
 
