@@ -10,13 +10,13 @@ A Meteor installer, and smart-package manager wrapped around the meteor command 
 
 At the heart of Meteorite is a command line tool is called `mrt`. It wraps the `meteor` command and for the most part you use it just like you're using `meteor`. Let's say I'm building a new app and I'd like to develop against Meteor's development branch:
 
-    mrt create cool-app --branch=devel
+    mrt create cool-app --branch devel
 
 Meteorite assumes `master` branch in most places so you don't always have to specify this. `mrt create` also supports specifying meteor by `--tag` or `--ref`.
 
 To run an app use `mrt run` (or simply `mrt`):
 
-    mrt run --port=2222
+    mrt run --port 2222
 
 The charm of `mrt run` is that it installs the correct version of `meteor` and your app's smart package dependencies and runs your app in that context. `mrt` determines the correct version of `meteor` and smart package dependences by looking for a file called `smart.json` in the root of your app. A simple app's `smart.json` might look like this:
 
