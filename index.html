@@ -37,14 +37,14 @@
 
 <p>At the heart of Meteorite is a command line tool is called <code>mrt</code>. It wraps the <code>meteor</code> command and for the most part you use it just like you're using <code>meteor</code>. Let's say I'm building a new app and I'd like to develop against Meteor's development branch:</p>
 
-<pre><code>mrt create cool-app --branch=devel
+<pre><code>mrt create cool-app --branch devel
 </code></pre>
 
 <p>Meteorite assumes <code>master</code> branch in most places so you don't always have to specify this. <code>mrt create</code> also supports specifying meteor by <code>--tag</code> or <code>--ref</code>.</p>
 
 <p>To run an app use <code>mrt run</code> (or simply <code>mrt</code>):</p>
 
-<pre><code>mrt run --port=2222
+<pre><code>mrt run --port 2222
 </code></pre>
 
 <p>The charm of <code>mrt run</code> is that it installs the correct version of <code>meteor</code> and your app's smart package dependencies and runs your app in that context. <code>mrt</code> determines the correct version of <code>meteor</code> and smart package dependences by looking for a file called <code>smart.json</code> in the root of your app. A simple app's <code>smart.json</code> might look like this:</p>
@@ -54,23 +54,33 @@
     "branch": "devel"
   },
   "packages": {
+    "moment": "1.7.0",
+    "fork-me": {
+      "version": "0.0.1"
+    },
     "cool-tool": {
       "git": "https://github.com/possibilities/cool-tool.git",
       "tag": "v0.0.2"
     },
     "another-tool": {
       "git": "https://github.com/possibilities/another-tool.git"
+    },
+    "test-package": {
+      "path": "/path/to/local/package"
     }
   }
 }
 </code></pre>
 
-<p>A couple interesting things that might not be obvious here</p>
+<p>Interesting things that might not be obvious</p>
 
 <ul>
+<li><p>The <code>meteor</code> specification is not required. Meteor's public repo checked out to the master branch is the default. You can specify <code>meteor.branch</code> and <code>meteor.git</code> to use alternate branches and forks respectively.</p></li>
+<li><p><code>moment</code> and <code>fork-me</code> packages are grabbed from <a href="https://atmosphere.meteor.com">the central repo</a>. Notice also that they both specify the version but <code>moment</code>'s specification is more terse.</p></li>
 <li><p>The smart package author doesn't have to do anything except make the repo available. <code>mrt</code> will look for <code>package.js</code> in the repo and install it for you in the app specific meteor installation</p></li>
 <li><p>If the smart package has it's own dependencies and the author wants to be awesome they can include a <code>smart.json</code> listing the package's own dependencies and everything will get sorted out by <code>mrt</code> (i.e. smart package dependencies will be installed recursively).</p></li>
 <li><p>The first time <code>mrt</code> is run for an app it writes out a file called <code>smart.lock</code> which it uses on subsequent runs to make sure the app is using the correct versions of each dependency even when it's set up in a fresh environment. Generally you'll commit <code>smart.lock</code> into your repo each time it changes so that any developer who clones your app will be running the correct versions. If you change a version in <code>smart.json</code> it takes precedence over <code>smart.lock</code>.</p></li>
+<li><p><code>test-package</code> is setup to run from a local path. This is useful for developing smart packages for Meteor with Meteorite against a running app.</p></li>
 </ul><p>If you just want to <em>warm up</em> your app you can do the install only without running any underlying <code>meteor</code> command with <code>mrt install</code>.</p>
 
 <p>Additionally you can <em>blow away</em> <code>smart.lock</code> and get everything to update using <code>mrt update</code> (<code>mrt update PACKAGE_NAME</code> coming <em>eventually</em>).</p>
@@ -94,29 +104,23 @@
 
 <p>5) With everything installed the app's <code>meteor</code> instance takes over and runs your app. All of <code>meteor</code>'s subcommands are supported (e.g. <code>run</code>, <code>add</code>, <code>deploy</code>, <code>bundle</code>, etc).</p>
 
-<h2>Configuration</h2>
+<h2>Meteorite's <code>add</code> subcommand</h2>
 
-<p>A sample <code>smart.json</code></p>
+<p>Meteorite's <code>mrt add &lt;package-name&gt;</code> subcommand wrap's Meteor's <code>add</code> command but does the additional work of fetching the meta data from <a href="https://atmosphere.meteor.com">the central repo</a>, getting the source code and installing it in the app.</p>
 
-<pre><code>{
-  "packages": {
-    "appstrap": {
-      "git": "https://github.com/possibilities/meteor-appstrap.git",
-      "ref": "2911ce4e"
-    },
-    "test-package": {
-      "path": "/path/to/local/package"
-    }
-  }
-}
+<p>Add the latest version of a package</p>
+
+<pre><code>mrt add moment
 </code></pre>
 
-<p>Two things worth noting</p>
+<p>Of if you want to specify a specific version</p>
 
-<ul>
-<li><p><code>meteor</code> isn't specified so it will be installed from the current <code>master</code> branch which is the latest stable release.</p></li>
-<li><p><code>test-package</code> is setup to run from a local path. This is useful for developing smart packages for Meteor with Meteorite.</p></li>
-</ul><h2>Contributing</h2>
+<pre><code>mrt add moment --version 1.6.2
+</code></pre>
+
+<p><em>Currently, unlike Meteor's <code>add</code> subcommand, you can only specify one package at a time.</em></p>
+
+<h2>Contributing</h2>
 
 <p>See <a href="https://github.com/possibilities/meteorite/wiki/Contributing">Contributing</a></p>
       </section>
@@ -125,7 +129,7 @@
       <p>Project maintained by <a href="https://github.com/possibilities">possibilities</a></p>
       <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
     </footer>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
