@@ -70,7 +70,25 @@ describe('invoking `mrt install`', function() {
         done();
       });
     });
-    
+  });
+  
+  describe('in an app with an out-of-date meteor in smart.lock', function() {
+    it("should re-resolve dependencies", function(done) {
+      mrt.copyLockfileToApp('app-with-meteor-pinned-to-branch', 'app-with-smart-pkg');
+      mrt.invoke('install', 'app-with-smart-pkg', {
+        waitForOutput: [
+          "smart.json changed..",
+          "Resolving",
+          "Meteor installed"
+        ]
+      }, function() {
+        
+        var appDir = path.join('spec', 'support', 'apps', 'app-with-smart-pkg');
+        assert.ok(fs.existsSync(path.join(appDir, 'smart.lock')), "Didn't create smart.lock");
+        assert.ok(fs.existsSync(path.join(appDir, '.meteor', 'meteorite')), "Didn't create meteor directory");
+        done();
+      });
+    });
   });
 });
 

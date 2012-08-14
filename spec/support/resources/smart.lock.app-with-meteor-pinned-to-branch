@@ -1,0 +1,11 @@
+{
+  "meteor": {
+    "git": "https://github.com/possibilities/meteor",
+    "branch": "mrt-branch-test",
+    "commit": "a2ad2f95b3d6aa311e2fdaa20b7caeab1ca64cd7"
+  },
+  "dependencies": {
+    "basePackages": {},
+    "packages": {}
+  }
+}
