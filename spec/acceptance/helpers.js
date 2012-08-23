@@ -8,6 +8,7 @@ var assert = require('assert');
 var Meteorite = require('../../lib/meteorite');
 
 // is this the wrong way to do it?
+// Tom, this work for you? not me? -Mike
 var verbose = require('optimist').argv.verbose;
 
 // delete all data and fake out ENV vars
