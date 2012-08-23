@@ -12,7 +12,7 @@ var shouldInstall = function(baseName) {
   describe('for an atmosphere package', function() {
     it("should install the smart package", function(done) {
       mrt.invokeInNew('add mrt-test-pkg1', baseName, {
-        waitForOutput: "mrt-test-pkg1: mrt test package 1 v1.7.0"
+        waitForOutput: "mrt-test-pkg1: mrt test package 1 v1.7.2"
       }, done);
     });
   });
