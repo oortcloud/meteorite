@@ -5,7 +5,7 @@
 , "description": "Installer & smart package manager for Meteor"
 , "author": "Mike Bannister <notimpossiblemike@gmail.com> (http://po.ssibiliti.es)"
 , "dependencies": 
-  { "ddp": ">= 0.2.0"
+  { "ddp": "git://github.com/tmeasday/node-ddp-client.git"
   , "underscore": ">=1.3.3"
   , "wrench": ">=1.3.9"
   , "fstream": ">=0.1.18"
