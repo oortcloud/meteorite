@@ -1,11 +1,11 @@
 { "name": "meteorite"
-, "version": "0.0.14"
+, "version": "0.0.15"
 , "homepage": "http://possibilities.github.com/meteorite"
 , "engines": [ "node >=0.6.0" ]
 , "description": "Installer & smart package manager for Meteor"
 , "author": "Mike Bannister <notimpossiblemike@gmail.com> (http://po.ssibiliti.es)"
 , "dependencies": 
-  { "ddp": "git://github.com/tmeasday/node-ddp-client.git"
+  { "ddp": ">=0.2.1"
   , "underscore": ">=1.3.3"
   , "wrench": ">=1.3.9"
   , "fstream": ">=0.1.18"
