@@ -1,6 +1,6 @@
 { "name": "meteorite"
 , "version": "0.0.16"
-, "homepage": "http://possibilities.github.com/meteorite"
+, "homepage": "http://oortcloud.github.com/meteorite"
 , "engines": [ "node >=0.6.0" ]
 , "description": "Installer & smart package manager for Meteor"
 , "author": "Mike Bannister <notimpossiblemike@gmail.com> (http://po.ssibiliti.es)"
@@ -22,7 +22,7 @@
   }
 , "repository":
   { "type" : "git"
-  , "url" : "https://github.com/possibilities/meteorite.git"
+  , "url" : "https://github.com/oortcloud/meteorite.git"
   }
 , "bin" : { "mrt" : "./bin/mrt.js" }
 }

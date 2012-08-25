@@ -94,4 +94,4 @@ Of if you want to specify a specific version
 
 ## Contributing
 
-See [Contributing](https://github.com/possibilities/meteorite/wiki/Contributing)
+See [Contributing](https://github.com/oortcloud/meteorite/wiki/Contributing)
