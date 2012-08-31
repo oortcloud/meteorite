@@ -2,8 +2,8 @@ var _ = require('underscore');
 var assert = require('assert');
 var Meteorite = require('../../lib/meteorite');
 var Dependencies = require('../../lib/dependencies/dependencies');
-
 require('./package_mock');
+require('./atmosphere_mock');
 
 describe('Dependencies object', function() {
   describe('with no packages specified', function() {
@@ -133,5 +133,56 @@ describe('Dependencies object', function() {
       });
     });
   });
+
+  describe('with two atmosphere packages specified that clash but are ok', function() {
+    var dependencies;
+    before(function() {
+      dependencies = new Dependencies('/', {
+        'mrt-test-pkg1': {},
+        // depends on mrt-test-pkg1
+        'mrt-test-pkg2': {}
+      });
+    });
+    
+    it('should have the package in the basePackages object', function() {
+      assert.ok(_.isEqual(['mrt-test-pkg1', 'mrt-test-pkg2'], _.keys(dependencies.basePackages)));
+    });
+    
+    it('should resolve', function(done) {
+      dependencies.resolve(done);
+    });
+    
+    it('should have an two packages after resolving', function(done) {
+      dependencies.resolve(function() {
+        assert.ok(_.isEqual(['mrt-test-pkg1', 'mrt-test-pkg2'], _.keys(dependencies.packages)));
+        done();
+      });
+    });
+  });
   
+  describe('with two atmosphere packages specified that clash and are not ok', function() {
+    var dependencies;
+    before(function() {
+      dependencies = new Dependencies('/', {
+        'mrt-test-pkg1': {version: '0.0.1'},
+        // depends on mrt-test-pkg1 v0.1.0
+        'mrt-test-pkg2': {}
+      });
+    });
+    
+    it('should have the package in the basePackages object', function() {
+      assert.ok(_.isEqual(['mrt-test-pkg1', 'mrt-test-pkg2'], _.keys(dependencies.basePackages)));
+    });
+    
+    it('should resolve', function(done) {
+      dependencies.resolve(done);
+    });
+    
+    it('should have an two packages after resolving', function(done) {
+      dependencies.resolve(function() {
+        assert.ok(_.isEqual(['mrt-test-pkg1', 'mrt-test-pkg2'], _.keys(dependencies.packages)));
+        done();
+      });
+    });
+  });  
 });

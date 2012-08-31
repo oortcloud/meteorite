@@ -11,7 +11,7 @@ var PKG_COMMITS = {
   'mrt-test-pkg2': '223e2266b1c593abcdeaace1d5b0955b372e0f34'
 };
 
-Package.prototype.readDependencies = function(fn) {
+Package.prototype.readDependenciesFromSource = function(fn) {
   
   // rather than downloading the package and reading the smart.json,
   // we are just going to fudge it from the above array
