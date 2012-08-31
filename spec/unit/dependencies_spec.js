@@ -174,13 +174,9 @@ describe('Dependencies object', function() {
       assert.ok(_.isEqual(['mrt-test-pkg1', 'mrt-test-pkg2'], _.keys(dependencies.basePackages)));
     });
     
-    it('should resolve', function(done) {
-      dependencies.resolve(done);
-    });
-    
-    it('should have an two packages after resolving', function(done) {
-      dependencies.resolve(function() {
-        assert.ok(_.isEqual(['mrt-test-pkg1', 'mrt-test-pkg2'], _.keys(dependencies.packages)));
+    it('should NOT resolve', function(done) {
+      dependencies.resolve(function(err, result) {
+        assert(err, 'no resolution error thrown');
         done();
       });
     });
