@@ -24,7 +24,7 @@ var PKG_DEFINITIONS = [
         git: 'https://github.com/possibilities/mrt-test-pkg1.git',
         version: '0.1.0',
         dependencies: {
-          'mrt-test-pkg1': '0.1.0'
+          'mrt-test-pkg1': {version: '0.1.0'}
         }
       }
     ]
