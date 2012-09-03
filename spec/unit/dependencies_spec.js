@@ -2,8 +2,8 @@ var _ = require('underscore');
 var assert = require('assert');
 var Meteorite = require('../../lib/meteorite');
 var Dependencies = require('../../lib/dependencies/dependencies');
-require('./package_mock');
-require('./atmosphere_mock');
+require('../lib/mocks/package_mock');
+require('../lib/mocks/atmosphere_mock');
 
 describe('Dependencies object', function() {
   describe('with no packages specified', function() {
