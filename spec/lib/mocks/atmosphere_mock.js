@@ -28,6 +28,16 @@ var PKG_DEFINITIONS = [
         }
       }
     ]
+  },
+  {
+    name: 'A',
+    latest: '1.0',
+    versions: [{ git: 'A', version: '1.0', dependencies: {}}]
+  },
+  {
+    name: 'B',
+    latest: '1.0',
+    versions: [{ git: 'B', version: '1.0', dependencies: {'A': {}}}]
   }
 ]
 

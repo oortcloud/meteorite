@@ -3,7 +3,9 @@ var PKG_DEPENDENCIES = {
   'mrt-test-pkg1': {},
   'mrt-test-pkg2': {'mrt-test-pkg1': {
     "git": "https://github.com/possibilities/mrt-test-pkg1.git"
-  }}
+  }},
+  'A': {},
+  'B': {'A': {git: 'A.specified'}}
 };
 
 var PKG_COMMITS = {
