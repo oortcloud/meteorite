@@ -7,12 +7,12 @@ var PKG_DEFINITIONS = [
       {
         git: 'https://github.com/possibilities/mrt-test-pkg1.git',
         version: '0.1.0',
-        dependencies: {}
+        packages: {}
       },
       {
         git: 'https://github.com/possibilities/mrt-test-pkg1.git',
         version: '0.0.1',
-        dependencies: {}
+        packages: {}
       }
     ]
   },
@@ -23,7 +23,7 @@ var PKG_DEFINITIONS = [
       {
         git: 'https://github.com/possibilities/mrt-test-pkg1.git',
         version: '0.1.0',
-        dependencies: {
+        packages: {
           'mrt-test-pkg1': {version: '0.1.0'}
         }
       }
@@ -33,22 +33,22 @@ var PKG_DEFINITIONS = [
     name: 'A',
     latest: '1.0',
     versions: [
-      { git: 'A', version: '1.0', dependencies: {'C': {version: '1.C.atmos.A'}}}
+      { git: 'A', version: '1.0', packages: {'C': {version: '1.C.atmos.A'}}}
     ]
   },
   {
     name: 'B',
     latest: '1.0',
     versions: [
-      { git: 'B', version: '1.0', dependencies: {'C': {version: '1.C.atmos.B'}}}
+      { git: 'B', version: '1.0', packages: {'C': {version: '1.C.atmos.B'}}}
     ]
   },
   {
     name: 'C',
     latest: '1.C.atmos.A',
     versions: [
-      { git: 'C.atmos.A', version: '1.C.atmos.A', dependencies: {}},
-      { git: 'C.atmos.B', version: '1.C.atmos.B', dependencies: {}},
+      { git: 'C.atmos.A', version: '1.C.atmos.A', packages: {}},
+      { git: 'C.atmos.B', version: '1.C.atmos.B', packages: {}},
     ]
   }
 ]
