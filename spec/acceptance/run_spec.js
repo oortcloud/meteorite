@@ -101,9 +101,8 @@ describe('invoking `mrt run`', function() {
       it("should not run (with an warning message) if forced", function(done) {
         mrt.invoke('run --force', 'app-with-nested-smart-pkg-deps-that-clash', {
           waitForOutput: [
-            "Can't resolve dependencies!",
-            "Test package 1 installed",
-            "Test package 2 installed"
+            "Problem installing mrt-test-pkg1",
+            "x git repo (https://github.com/possibilities/mrt-test-pkg1.git#master) conflicts with git repo (https://github.com/tmeasday/mrt-test-pkg1.git#master)"
           ]
         }, done);
       });
