@@ -32,12 +32,24 @@ var PKG_DEFINITIONS = [
   {
     name: 'A',
     latest: '1.0',
-    versions: [{ git: 'A', version: '1.0', dependencies: {}}]
+    versions: [
+      { git: 'A', version: '1.0', dependencies: {'C': {version: '1.C.atmos.A'}}}
+    ]
   },
   {
     name: 'B',
     latest: '1.0',
-    versions: [{ git: 'B', version: '1.0', dependencies: {'A': {}}}]
+    versions: [
+      { git: 'B', version: '1.0', dependencies: {'C': {version: '1.C.atmos.B'}}}
+    ]
+  },
+  {
+    name: 'C',
+    latest: '1.C.atmos.A',
+    versions: [
+      { git: 'C.atmos.A', version: '1.C.atmos.A', dependencies: {}},
+      { git: 'C.atmos.B', version: '1.C.atmos.B', dependencies: {}},
+    ]
   }
 ]
 
