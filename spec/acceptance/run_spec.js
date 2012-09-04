@@ -90,15 +90,14 @@ describe('invoking `mrt run`', function() {
       });
     });
     
-    describe("and the smart.json specifies a two package that clash in dependencies", function() {
+    describe("and the smart.json specifies two packages that clash in dependencies", function() {
+
       it("should not run and output an error message", function(done) {
         mrt.invoke('run', 'app-with-nested-smart-pkg-deps-that-clash', {
           waitForOutput: ["Can't resolve dependencies!"]
         }, done);
       });
-    });
-    
-    describe("and the smart.json specifies a two package that clash in dependencies", function() {
+
       it("should not run (with an warning message) if forced", function(done) {
         mrt.invoke('run --force', 'app-with-nested-smart-pkg-deps-that-clash', {
           waitForOutput: [
