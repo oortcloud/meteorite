@@ -127,6 +127,9 @@ var invoke = function(command, directory, options, fn) {
     port = port + 10;
   }
 
+  args.push('--repoPort=3333');
+  args.push('--repoHost=localhost');
+
   var mrt = spawn('mrt', args, { cwd: directory });
 
   if (verbose) mrt.stderr.pipe(process.stderr);
