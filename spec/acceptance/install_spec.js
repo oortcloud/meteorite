@@ -57,7 +57,7 @@ describe('invoking `mrt install`', function() {
       mrt.copyLockfileToApp('app-with-smart-pkg-pinned-to-branch', 'app-with-smart-pkg');
       mrt.invoke('install', 'app-with-smart-pkg', {
         waitForOutput: [
-          "smart.json changed..",
+          "smart.json changed",
           "Resolving",
           "Fetching package mrt-test-pkg1 [branch: https://github.com/possibilities/mrt-test-pkg1.git#master]",
           "Packages installed"
@@ -77,7 +77,7 @@ describe('invoking `mrt install`', function() {
       mrt.copyLockfileToApp('app-with-meteor-pinned-to-branch', 'app-with-smart-pkg');
       mrt.invoke('install', 'app-with-smart-pkg', {
         waitForOutput: [
-          "smart.json changed..",
+          "smart.json changed",
           "Resolving",
           "Packages installed"
         ]

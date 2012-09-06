@@ -4,6 +4,7 @@ var _ = require('underscore');
 var meteoriteArgs = require('optimist').argv;
 var Meteorite = require('../lib/meteorite');
 var fs = require('../lib/utils/fs');
+var _console = require('../lib/console');
 
 // Figure out which subcommand the user is 
 // running, use 'run' if none specified
