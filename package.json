@@ -1,11 +1,11 @@
 { "name": "meteorite"
-, "version": "0.0.13"
-, "homepage": "http://possibilities.github.com/meteorite"
+, "version": "0.1.1"
+, "homepage": "http://oortcloud.github.com/meteorite"
 , "engines": [ "node >=0.6.0" ]
 , "description": "Installer & smart package manager for Meteor"
 , "author": "Mike Bannister <notimpossiblemike@gmail.com> (http://po.ssibiliti.es)"
 , "dependencies": 
-  { "ddp": ">= 0.2.0"
+  { "ddp": ">=0.2.1"
   , "underscore": ">=1.3.3"
   , "wrench": ">=1.3.9"
   , "fstream": ">=0.1.18"
@@ -22,7 +22,7 @@
   }
 , "repository":
   { "type" : "git"
-  , "url" : "https://github.com/possibilities/meteorite.git"
+  , "url" : "https://github.com/oortcloud/meteorite.git"
   }
 , "bin" : { "mrt" : "./bin/mrt.js" }
 }

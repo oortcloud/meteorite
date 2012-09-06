@@ -4,7 +4,7 @@
 
 ## What is it?
 
-A Meteor installer, and smart-package manager wrapped around the meteor command line interface. (Inspired by gem, bundler & rvm)
+A Meteor installer, and smart-package manager wrapped around the meteor command line interface. (Inspired by gem, bundler, rvm and Meteor)
 
 ## How do I use it?
 
@@ -94,4 +94,4 @@ Of if you want to specify a specific version
 
 ## Contributing
 
-See [Contributing](https://github.com/possibilities/meteorite/wiki/Contributing)
+See [Contributing](https://github.com/oortcloud/meteorite/wiki/Contributing)

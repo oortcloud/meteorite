@@ -90,14 +90,27 @@ describe('invoking `mrt run`', function() {
       });
     });
     
-    describe("and the smart.json specifies a two package that clash in dependencies", function() {
+    describe("and the smart.json specifies two packages that clash in dependencies", function() {
+
       it("should not run and output an error message", function(done) {
         mrt.invoke('run', 'app-with-nested-smart-pkg-deps-that-clash', {
           waitForOutput: ["Can't resolve dependencies!"]
         }, done);
       });
-    });
 
+      it("should not run (with an warning message) if forced", function(done) {
+        mrt.invoke('run --force', 'app-with-nested-smart-pkg-deps-that-clash', {
+          waitForOutput: [
+            "Problem installing mrt-test-pkg1",
+              "[branch: https://github.com/possibilities/mrt-test-pkg1.git#master] " +
+              "conflicts with " +
+              "[branch: https://github.com/tmeasday/mrt-test-pkg1.git#master]; " +
+              "keeping [branch: https://github.com/tmeasday/mrt-test-pkg1.git#master]"
+          ]
+        }, done);
+      });
+    });
+    
     describe('and the smart.json specifies a meteor fork pinned to a branch', function() {
       it("should run the forked meteor checked out to the branch", function(done) {
         mrt.invoke('run', 'app-with-meteor-pinned-to-branch', {

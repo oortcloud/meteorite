@@ -2,8 +2,8 @@ var _ = require('underscore');
 var assert = require('assert');
 var Meteorite = require('../../lib/meteorite');
 var Dependencies = require('../../lib/dependencies/dependencies');
-require('./package_mock');
-require('./project_mock');
+require('../lib/mocks/package_mock');
+require('../lib/mocks/project_mock');
 
 var project = new ProjectMock();
 

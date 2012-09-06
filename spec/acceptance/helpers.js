@@ -7,8 +7,7 @@ var _ = require('underscore');
 var assert = require('assert');
 var Meteorite = require('../../lib/meteorite');
 
-// is this the wrong way to do it?
-// Tom, this work for you? not me? -Mike
+// Mike - you need to run mocha .. --verbose
 var verbose = require('optimist').argv.verbose;
 
 // delete all data and fake out ENV vars
@@ -127,6 +126,9 @@ var invoke = function(command, directory, options, fn) {
     args.push('--port=' + port);
     port = port + 10;
   }
+
+  args.push('--repoPort=3333');
+  args.push('--repoHost=localhost');
 
   var mrt = spawn('mrt', args, { cwd: directory });
 

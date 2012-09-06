@@ -21,8 +21,8 @@ describe('invoking `mrt install`', function() {
     it("should install meteor and the app's smart package", function(done) {
       mrt.invoke('install', 'app-with-smart-pkg', {
         waitForOutput: [
-          "Fetching package mrt-test-pkg1 (branch: master)",
-          "Fetching Meteor (branch: master)",
+          "Fetching package mrt-test-pkg1 [branch: https://github.com/possibilities/mrt-test-pkg1.git#master]",
+          "Fetching Meteor [branch: https://github.com/meteor/meteor.git#master]",
           "Meteor installed"
         ]
       }, function() {
@@ -59,7 +59,7 @@ describe('invoking `mrt install`', function() {
         waitForOutput: [
           "smart.json changed..",
           "Resolving",
-          "Fetching package mrt-test-pkg1 (branch: master)",
+          "Fetching package mrt-test-pkg1 [branch: https://github.com/possibilities/mrt-test-pkg1.git#master]",
           "Meteor installed"
         ]
       }, function() {
@@ -108,7 +108,7 @@ describe('invoking `mrt update`', function() {
       mrt.invoke('update', 'app-with-smart-pkg', {
         waitForOutput: [
           "Resolving",
-          "Fetching package mrt-test-pkg1 (branch: master)",
+          "Fetching package mrt-test-pkg1 [branch: https://github.com/possibilities/mrt-test-pkg1.git#master]",
           "Meteor installed"
         ]
       }, function() {
