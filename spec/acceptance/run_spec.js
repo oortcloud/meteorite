@@ -102,10 +102,10 @@ describe('invoking `mrt run`', function() {
         mrt.invoke('run --force', 'app-with-nested-smart-pkg-deps-that-clash', {
           waitForOutput: [
             "Problem installing mrt-test-pkg1",
-            "mrt-test-pkg1 " +
-              "(branch: https://github.com/possibilities/mrt-test-pkg1.git#master) " +
-              "conflicts with mrt-test-pkg1 " +
-              "(branch: https://github.com/tmeasday/mrt-test-pkg1.git#master)"
+              "[branch: https://github.com/possibilities/mrt-test-pkg1.git#master] " +
+              "conflicts with " +
+              "[branch: https://github.com/tmeasday/mrt-test-pkg1.git#master]; " +
+              "keeping [branch: https://github.com/tmeasday/mrt-test-pkg1.git#master]"
           ]
         }, done);
       });
