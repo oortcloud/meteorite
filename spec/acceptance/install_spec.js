@@ -23,7 +23,7 @@ describe('invoking `mrt install`', function() {
         waitForOutput: [
           "Fetching package mrt-test-pkg1 [branch: https://github.com/possibilities/mrt-test-pkg1.git#master]",
           "Fetching Meteor [branch: https://github.com/meteor/meteor.git#master]",
-          "Meteor installed"
+          "Packages installed"
         ]
       }, function() {
         
@@ -60,7 +60,7 @@ describe('invoking `mrt install`', function() {
           "smart.json changed..",
           "Resolving",
           "Fetching package mrt-test-pkg1 [branch: https://github.com/possibilities/mrt-test-pkg1.git#master]",
-          "Meteor installed"
+          "Packages installed"
         ]
       }, function() {
         
@@ -79,7 +79,7 @@ describe('invoking `mrt install`', function() {
         waitForOutput: [
           "smart.json changed..",
           "Resolving",
-          "Meteor installed"
+          "Packages installed"
         ]
       }, function() {
         
@@ -109,7 +109,7 @@ describe('invoking `mrt update`', function() {
         waitForOutput: [
           "Resolving",
           "Fetching package mrt-test-pkg1 [branch: https://github.com/possibilities/mrt-test-pkg1.git#master]",
-          "Meteor installed"
+          "Packages installed"
         ]
       }, function() {
         
