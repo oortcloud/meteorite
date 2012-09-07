@@ -41,7 +41,7 @@ describe('invoking `mrt install`', function() {
       mrt.copyLockfileToApp('app-with-smart-pkg', 'app-with-smart-pkg');
       mrt.invoke('install', 'app-with-smart-pkg', {
         assertNoOutput: [
-          "Resolving"
+          "Resolving dependency tree"
         ]
       }, function() {
 
@@ -58,7 +58,7 @@ describe('invoking `mrt install`', function() {
       mrt.invoke('install', 'app-with-smart-pkg', {
         waitForOutput: [
           "smart.json changed",
-          "Resolving",
+          "Resolving dependency tree",
           "Fetching package mrt-test-pkg1 [branch: https://github.com/possibilities/mrt-test-pkg1.git#master]",
           "Packages installed"
         ]
@@ -78,7 +78,7 @@ describe('invoking `mrt install`', function() {
       mrt.invoke('install', 'app-with-smart-pkg', {
         waitForOutput: [
           "smart.json changed",
-          "Resolving",
+          "Resolving dependency tree",
           "Packages installed"
         ]
       }, function() {
@@ -107,7 +107,7 @@ describe('invoking `mrt update`', function() {
       mrt.copyLockfileToApp('app-with-smart-pkg', 'app-with-smart-pkg');
       mrt.invoke('update', 'app-with-smart-pkg', {
         waitForOutput: [
-          "Resolving",
+          "Resolving dependency tree",
           "Fetching package mrt-test-pkg1 [branch: https://github.com/possibilities/mrt-test-pkg1.git#master]",
           "Packages installed"
         ]
