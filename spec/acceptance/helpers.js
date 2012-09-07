@@ -127,6 +127,7 @@ var invoke = function(command, directory, options, fn) {
     port = port + 10;
   }
 
+  args.push('--verbose');
   args.push('--repoPort=3333');
   args.push('--repoHost=localhost');
 
