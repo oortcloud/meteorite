@@ -15,11 +15,7 @@ var meteorArgs = process.argv.slice(2);
 var meteorite = new Meteorite(meteoriteArgs, meteorArgs);
 
 if (meteoriteArgs.version) {
-  console.blank();
-  console.header();
   console.log('Meteorite version ' + require('../package').version);
-  console.footer();
-  console.blank();
 }
 
 if (!meteorite[subCommandName])
