@@ -14,9 +14,8 @@ var subCommandName = meteoriteArgs._[0] || 'run';
 var meteorArgs = process.argv.slice(2);
 var meteorite = new Meteorite(meteoriteArgs, meteorArgs);
 
-if (meteoriteArgs.version) {
+if (meteoriteArgs.version)
   console.log('Meteorite version ' + require('../package').version);
-}
 
 if (!meteorite[subCommandName])
   throw "Subcommand " + subCommandName + " does not exist!";
