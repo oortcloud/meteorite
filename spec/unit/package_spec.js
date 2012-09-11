@@ -74,18 +74,34 @@ describe('Package object', function() {
     });
   });
   
-  describe('from path', function() {
+  var testLocalPkg = function(beforeFn) {
     var thisPkg;
     before(function() {
-      thisPkg = new Package('mrt-test-pkg1', {path: '/path/to/mrt-test-pkg1'});
+      thisPkg = beforeFn()
     });
     
-    it('should be equals() to the same package', function() {
-      assert(thisPkg.equals(new Package('mrt-test-pkg1', {path: '/path/to/mrt-test-pkg1'})));
+    it('should be equals() to a resolved versions of the same package', function() {
+      assert(thisPkg.equals(new Package('mrt-test-pkg1', {
+        path: '/path/to/mrt-test-pkg1', specifiedPath: '../mrt-test-pkg1'
+      })));
     });
 
-    it('should not be equals() to the same package from a different path', function() {
-      assert(!thisPkg.equals(new Package('mrt-test-pkg1', {path: '/other/path/to/mrt-test-pkg1'})));
+    it('should be equals() to an unresolved version of the package', function() {
+      assert(thisPkg.equals(new Package('mrt-test-pkg1', {
+        path: '../mrt-test-pkg1'
+      })));
+    });
+
+    it('should not be equals() to an resolved package from a different path', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg1', {
+        path: '/absolute/other/path/to/mrt-test-pkg1', specifiedPath: '../other/path/to/mrt-test-pkg1'
+      })));
+    });
+    
+    it('should not be equals() to an unresolved package from a different path', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg1', {
+        path: '../other/path/to/mrt-test-pkg1'
+      })));
     });
     
     it('should not be equals() to a different package', function() {
@@ -98,6 +114,22 @@ describe('Package object', function() {
     
     it('should not be equals() to a git package', function() {
       assert(!thisPkg.equals(new Package('mrt-test-pkg1', {git: 'foo.git'})));
+    });
+  };
+  
+  describe('from a resolved path', function() {
+    testLocalPkg(function() {
+      return new Package('mrt-test-pkg1', {
+        path: '/path/to/mrt-test-pkg1', specifiedPath: '../mrt-test-pkg1'
+      });
+    });
+  });
+
+  describe('from an unresolved path', function() {
+    testLocalPkg(function() {
+      return new Package('mrt-test-pkg1', {
+        path: '../mrt-test-pkg1'
+      });
     });
   });
   
