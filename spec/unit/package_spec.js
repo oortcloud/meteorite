@@ -1,0 +1,104 @@
+var _ = require('underscore');
+var assert = require('assert');
+var Meteorite = require('../../lib/meteorite');
+
+describe('Package object', function() {
+  var testAtmosPkg = function(beforeFn) {
+    var thisPkg;
+    before(function() {
+      thisPkg = beforeFn()
+    });
+    
+    it('should be equals() to the same package', function() {
+      assert(thisPkg.equals(new Package('mrt-test-pkg1', {})));
+    });
+    
+    it('should be equals() to a fetched version of the same package', function() {
+      var fetched = new Package('mrt-test-pkg1', {});
+      fetched.source = new GitSource('/', {git: 'foo.git'});
+      assert(thisPkg.equals(fetched));
+    });
+    
+    it('should not be equals() to a different package', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg2', {})));
+    });
+    
+    it('should not be equals() to a git package', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg1', {git: 'foo.git'})));
+    });
+    
+    it('should not be equals() to a local package', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg1', {path: '/foo'})));
+    });
+  }
+  
+  describe('from atmosphere, unfetched', function() {
+    testAtmosPkg(function() {
+      return new Package('mrt-test-pkg1', {})
+    });
+  });
+  
+  describe('from atmosphere, fetched', function() {
+    testAtmosPkg(function() {
+      var thisPkg = new Package('mrt-test-pkg1', {})
+      thisPkg.source = new GitSource('/', {git: 'foo.git'});
+      return thisPkg;
+    });
+  });
+  
+  // TODO -- commits... ?
+  describe('from git', function() {
+    var thisPkg;
+    before(function() {
+      thisPkg = new Package('mrt-test-pkg1', {git: 'foo.git'});
+    });
+    
+    it('should be equals() to the same package', function() {
+      assert(thisPkg.equals(new Package('mrt-test-pkg1', {git: 'foo.git'})));
+    });
+
+    it('should not be equals() to the same package from a different source', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg1', {git: 'foo-2.git'})));
+    });
+    
+    it('should not be equals() to a different package', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg2', {git: 'foo2.git'})));
+    });
+    
+    it('should not be equals() to an atmos package', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg1', {})));
+    });
+    
+    it('should not be equals() to a local package', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg1', {path: '/foo'})));
+    });
+  });
+  
+  describe('from path', function() {
+    var thisPkg;
+    before(function() {
+      thisPkg = new Package('mrt-test-pkg1', {path: '/path/to/mrt-test-pkg1'});
+    });
+    
+    it('should be equals() to the same package', function() {
+      assert(thisPkg.equals(new Package('mrt-test-pkg1', {path: '/path/to/mrt-test-pkg1'})));
+    });
+
+    it('should not be equals() to the same package from a different path', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg1', {path: '/other/path/to/mrt-test-pkg1'})));
+    });
+    
+    it('should not be equals() to a different package', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg2', {path: '/something/else'})));
+    });
+    
+    it('should not be equals() to an atmos package', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg1', {})));
+    });
+    
+    it('should not be equals() to a git package', function() {
+      assert(!thisPkg.equals(new Package('mrt-test-pkg1', {git: 'foo.git'})));
+    });
+  });
+  
+});
