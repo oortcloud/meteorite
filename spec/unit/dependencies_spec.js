@@ -9,7 +9,7 @@ describe('Dependencies object', function() {
   describe('with no packages specified', function() {
     var dependencies;
     before(function() {
-      dependencies = new Dependencies('/', {});
+      dependencies = new Dependencies({});
     });
     
     it('should have an empty basePackages object', function() {
@@ -31,7 +31,7 @@ describe('Dependencies object', function() {
   describe('with a single package specified with no dependencies', function() {
     var dependencies;
     before(function() {
-      dependencies = new Dependencies('/', {'mrt-test-pkg1': {
+      dependencies = new Dependencies({'mrt-test-pkg1': {
         "git": "https://github.com/possibilities/mrt-test-pkg1.git"
       }});
     });
@@ -55,7 +55,7 @@ describe('Dependencies object', function() {
   describe('with a single package specified with a dependency', function() {
     var dependencies;
     before(function() {
-      dependencies = new Dependencies('/', {'mrt-test-pkg2': {
+      dependencies = new Dependencies({'mrt-test-pkg2': {
         "git": "https://github.com/possibilities/mrt-test-pkg2.git"
       }});
     });
@@ -79,7 +79,7 @@ describe('Dependencies object', function() {
   describe('with two packages specified that clash', function() {
     var dependencies;
     before(function() {
-      dependencies = new Dependencies('/', {
+      dependencies = new Dependencies({
         'mrt-test-pkg1': {
           "git": "https://github.com/tmeasday/mrt-test-pkg2.git"
         },
@@ -107,7 +107,7 @@ describe('Dependencies object', function() {
   describe('with two packages specified that are clash but are ok', function() {
     var dependencies;
     before(function() {
-      dependencies = new Dependencies('/', {
+      dependencies = new Dependencies({
         'mrt-test-pkg1': {
           "git": "https://github.com/possibilities/mrt-test-pkg1.git"
         },
@@ -137,7 +137,7 @@ describe('Dependencies object', function() {
   describe('with two atmosphere packages specified that clash but are ok', function() {
     var dependencies;
     before(function() {
-      dependencies = new Dependencies('/', {
+      dependencies = new Dependencies({
         'mrt-test-pkg1': {},
         // depends on mrt-test-pkg1
         'mrt-test-pkg2': {}
@@ -163,7 +163,7 @@ describe('Dependencies object', function() {
   describe('with two atmosphere packages specified that clash and are not ok', function() {
     var dependencies;
     before(function() {
-      dependencies = new Dependencies('/', {
+      dependencies = new Dependencies({
         'mrt-test-pkg1': {version: '0.0.1'},
         // depends on mrt-test-pkg1 v0.1.0
         'mrt-test-pkg2': {}

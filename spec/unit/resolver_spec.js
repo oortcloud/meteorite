@@ -9,7 +9,7 @@ require('../lib/mocks/atmosphere_mock');
 var testConflict = function(pkgDefns, fn) {
   var dependencies;
   before(function() {
-    dependencies = new Dependencies('/', pkgDefns);
+    dependencies = new Dependencies(pkgDefns);
   });
     
   it('should not resolve when not forced', function(done) {
@@ -33,41 +33,41 @@ var testConflict = function(pkgDefns, fn) {
 
 describe('The Resolver', function() {
   describe('with two local dependencies', function() {
-    testConflict({A: {path: 'A'}, B: {path: 'B'}}, 
+    testConflict({A: {path: '/A'}, B: {path: '/B'}}, 
       function(dependencies, done) {
-        assert.equal(dependencies.packages['C'].source.path, 'C.path.A');
+        assert.equal(dependencies.packages['C'].source.path, '/C.path.A');
         done();
       });
   });
   
   describe('with a local dependency vs a git one', function() {
-    testConflict({A: {path: 'A'}, B: {git: 'B'}}, 
+    testConflict({A: {path: '/A'}, B: {git: 'B'}}, 
       function(dependencies, done) {
-        assert.equal(dependencies.packages['C'].source.path, 'C.path.A');
+        assert.equal(dependencies.packages['C'].source.path, '/C.path.A');
         done();
       });
   });
   
   describe('with a git dependency vs a local one', function() {
-    testConflict({A: {git: 'A'}, B: {path: 'B'}}, 
+    testConflict({A: {git: 'A'}, B: {path: '/B'}}, 
       function(dependencies, done) {
-        assert.equal(dependencies.packages['C'].source.path, 'C.path.B');
+        assert.equal(dependencies.packages['C'].source.path, '/C.path.B');
         done();
       });
   });
   
   describe('with a local dependency vs an atmos one', function() {
-    testConflict({A: {path: 'A'}, B: {}}, 
+    testConflict({A: {path: '/A'}, B: {}}, 
       function(dependencies, done) {
-        assert.equal(dependencies.packages['C'].source.path, 'C.path.A');
+        assert.equal(dependencies.packages['C'].source.path, '/C.path.A');
         done();
       });
   });
   
   describe('with a atmos dependency vs a local one', function() {
-    testConflict({A: {}, B: {path: 'B'}}, 
+    testConflict({A: {}, B: {path: '/B'}}, 
       function(dependencies, done) {
-        assert.equal(dependencies.packages['C'].source.path, 'C.path.B');
+        assert.equal(dependencies.packages['C'].source.path, '/C.path.B');
         done();
       });
   });

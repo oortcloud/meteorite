@@ -82,13 +82,13 @@ describe('Package object', function() {
     
     it('should be equals() to a resolved versions of the same package', function() {
       assert(thisPkg.equals(new Package('mrt-test-pkg1', {
-        path: '/path/to/mrt-test-pkg1', specifiedPath: '../mrt-test-pkg1'
+        path: '/path/to/mrt-test-pkg1'
       })));
     });
 
     it('should be equals() to an unresolved version of the package', function() {
       assert(thisPkg.equals(new Package('mrt-test-pkg1', {
-        path: '../mrt-test-pkg1'
+        path: '../mrt-test-pkg1', root: '/path/to/somewhere'
       })));
     });
 
@@ -120,7 +120,7 @@ describe('Package object', function() {
   describe('from a resolved path', function() {
     testLocalPkg(function() {
       return new Package('mrt-test-pkg1', {
-        path: '/path/to/mrt-test-pkg1', specifiedPath: '../mrt-test-pkg1'
+        path: '/path/to/mrt-test-pkg1'
       });
     });
   });
@@ -128,7 +128,7 @@ describe('Package object', function() {
   describe('from an unresolved path', function() {
     testLocalPkg(function() {
       return new Package('mrt-test-pkg1', {
-        path: '../mrt-test-pkg1'
+        path: '../mrt-test-pkg1', root: '/path/to/somewhere'
       });
     });
   });

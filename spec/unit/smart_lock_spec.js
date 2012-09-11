@@ -29,7 +29,7 @@ describe('Writing smart.lock', function() {
       
       expected = {packages: {}, basePackages: {}};
       
-      deps = new Dependencies('/', expected.basePackages);
+      deps = new Dependencies(expected.basePackages);
       deps.resolve(done);
     });
     
@@ -38,7 +38,7 @@ describe('Writing smart.lock', function() {
     });
     
     it('Should recreate from empty lockJson', function() {
-      var newDeps = Dependencies.newFromLockJson(project, expected);
+      var newDeps = Dependencies.newFromLockJson(expected);
       
       assert.ok(_.isEqual(deps, newDeps), 'non-equal Dependencies object');
     });
@@ -64,7 +64,7 @@ describe('Writing smart.lock', function() {
         }
       };
       
-      deps = new Dependencies('/', expected.basePackages);
+      deps = new Dependencies(expected.basePackages);
       deps.resolve(done);
     });
     
@@ -73,7 +73,7 @@ describe('Writing smart.lock', function() {
     });
     
     it('Should recreate from lockJson', function() {
-      var newDeps = Dependencies.newFromLockJson(project, expected);
+      var newDeps = Dependencies.newFromLockJson(expected);
       
       assertDependenciesEqual(deps, newDeps);
     });
@@ -104,7 +104,7 @@ describe('Writing smart.lock', function() {
         }
       };
       
-      deps = new Dependencies('/', expected.basePackages);
+      deps = new Dependencies(expected.basePackages);
       deps.resolve(done);
     });
     
@@ -113,7 +113,7 @@ describe('Writing smart.lock', function() {
     });
     
     it('Should recreate from lockJson', function() {
-      var newDeps = Dependencies.newFromLockJson(project, expected);
+      var newDeps = Dependencies.newFromLockJson(expected);
       
       assertDependenciesEqual(deps, newDeps);
     });

@@ -9,8 +9,8 @@ var GIT_PKG_DEPENDENCIES = {
 };
 
 var LOCAL_PKG_DEPENDENCIES = {
-  'A': {'C': {path: 'C.path.A'}},
-  'B': {'C': {path: 'C.path.B'}}
+  'A': {'C': {path: '/C.path.A'}},
+  'B': {'C': {path: '/C.path.B'}}
 };
 
 
@@ -24,9 +24,9 @@ var PKG_COMMITS = {
 Package.prototype.readDependenciesFromSource = function(fn) {
   
   if (this.source instanceof LocalSource) {
-    this.dependencies = new Dependencies(this.source.path, LOCAL_PKG_DEPENDENCIES[this.name]);    
+    this.dependencies = new Dependencies(LOCAL_PKG_DEPENDENCIES[this.name]);    
   } else {
-    this.dependencies = new Dependencies(this.source.path, GIT_PKG_DEPENDENCIES[this.name]);
+    this.dependencies = new Dependencies(GIT_PKG_DEPENDENCIES[this.name]);
     this.source.commit = PKG_COMMITS[this.name];
   }
   
