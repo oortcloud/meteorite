@@ -1,5 +1,5 @@
 { "name": "meteorite"
-, "version": "0.4.0"
+, "version": "0.4.1"
 , "homepage": "http://oortcloud.github.com/meteorite"
 , "engines": [ "node >=0.6.0" ]
 , "description": "Installer & smart package manager for Meteor"
