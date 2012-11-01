@@ -50,7 +50,7 @@ Interesting things that might not be obvious
 
   * The smart package author doesn't have to do anything except make the repo available. `mrt` will look for `package.js` in the repo and install it for you in the app specific meteor installation
   
-  * If the smart package has it's own dependencies and the author wants to be awesome they can include a `smart.json` listing the package's own dependencies and everything will get sorted out by `mrt` (i.e. smart package dependencies will be installed recursively).
+  * If the smart package has its own dependencies and the author wants to be awesome they can include a `smart.json` listing the package's own dependencies and everything will get sorted out by `mrt` (i.e. smart package dependencies will be installed recursively).
 
   * The first time `mrt` is run for an app it writes out a file called `smart.lock` which it uses on subsequent runs to make sure the app is using the correct versions of each dependency even when it's set up in a fresh environment. Generally you'll commit `smart.lock` into your repo each time it changes so that any developer who clones your app will be running the correct versions. If you change a version in `smart.json` it takes precedence over `smart.lock`.
 
