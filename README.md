@@ -44,7 +44,7 @@ The charm of `mrt run` is that it installs the correct version of `meteor` and y
 
 Interesting things that might not be obvious
 
-  * The `meteor` specification is not required. Meteor's public repo checked out to the master branch is the default. You can specify `meteor.branch` and `meteor.git` to use alternate branches and forks respectively.
+  * The `meteor` specification is not required. Meteor's public repo checked out to the master branch is the default. You can specify `meteor.branch` and `meteor.git` to use alternate branches and forks respectively. Or you can use `meteor.tag` to stick to a single release of meteor (e.g. `v0.5.0`).
 
   * `moment` and `fork-me` packages are grabbed from [the central repo](https://atmosphere.meteor.com). Notice also that they both specify the version but `moment`'s specification is more terse.
 
