@@ -63,6 +63,12 @@ Additionally you can *blow away* `smart.lock` and get everything to update using
 ## Installation
 
     npm install -g meteorite
+    
+### Ubuntu users:
+
+Note that meteorite [doesn't seem to work properly](https://github.com/oortcloud/meteorite/issues/67) on 12.04 with the default 0.6 version of node. 
+
+You'll need to get an 0.8 version of node installed, for instance [like so](https://gist.github.com/4530915#file-gistfile1-txt-L18-L21).
 
 ## How does it work?
 
