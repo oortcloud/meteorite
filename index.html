@@ -1,33 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Meteorite by oortcloud</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Meteorite : Installer &amp; smart package manager for Meteor" />
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <title>Meteorite</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/oortcloud/meteorite">View on GitHub</a>
+
+          <h1 id="project_title">Meteorite</h1>
+          <h2 id="project_tagline">Installer &amp; smart package manager for Meteor</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/oortcloud/meteorite/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/oortcloud/meteorite/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
         <h1>Meteorite</h1>
-        <p>Installer &amp; smart package manager for Meteor</p>
-        <p class="view"><a href="https://github.com/oortcloud/meteorite">View the Project on GitHub <small>oortcloud/meteorite</small></a></p>
-        <ul>
-          <li><a href="https://github.com/oortcloud/meteorite/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/oortcloud/meteorite/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/oortcloud/meteorite">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <p><em>Making Meteor devs happy since 2012</em></p>
+
+<p><em>Making Meteor devs happy since 2012</em></p>
 
 <h2>What is it?</h2>
 
@@ -75,10 +81,10 @@
 <p>Interesting things that might not be obvious</p>
 
 <ul>
-<li><p>The <code>meteor</code> specification is not required. Meteor's public repo checked out to the master branch is the default. You can specify <code>meteor.branch</code> and <code>meteor.git</code> to use alternate branches and forks respectively.</p></li>
+<li><p>The <code>meteor</code> specification is not required. Meteor's public repo checked out to the master branch is the default. You can specify <code>meteor.branch</code> and <code>meteor.git</code> to use alternate branches and forks respectively. Or you can use <code>meteor.tag</code> to stick to a single release of meteor (e.g. <code>v0.5.0</code>).</p></li>
 <li><p><code>moment</code> and <code>fork-me</code> packages are grabbed from <a href="https://atmosphere.meteor.com">the central repo</a>. Notice also that they both specify the version but <code>moment</code>'s specification is more terse.</p></li>
 <li><p>The smart package author doesn't have to do anything except make the repo available. <code>mrt</code> will look for <code>package.js</code> in the repo and install it for you in the app specific meteor installation</p></li>
-<li><p>If the smart package has it's own dependencies and the author wants to be awesome they can include a <code>smart.json</code> listing the package's own dependencies and everything will get sorted out by <code>mrt</code> (i.e. smart package dependencies will be installed recursively).</p></li>
+<li><p>If the smart package has its own dependencies and the author wants to be awesome they can include a <code>smart.json</code> listing the package's own dependencies and everything will get sorted out by <code>mrt</code> (i.e. smart package dependencies will be installed recursively).</p></li>
 <li><p>The first time <code>mrt</code> is run for an app it writes out a file called <code>smart.lock</code> which it uses on subsequent runs to make sure the app is using the correct versions of each dependency even when it's set up in a fresh environment. Generally you'll commit <code>smart.lock</code> into your repo each time it changes so that any developer who clones your app will be running the correct versions. If you change a version in <code>smart.json</code> it takes precedence over <code>smart.lock</code>.</p></li>
 <li><p><code>test-package</code> is setup to run from a local path. This is useful for developing smart packages for Meteor with Meteorite against a running app.</p></li>
 </ul><p>If you just want to <em>warm up</em> your app you can do the install only without running any underlying <code>meteor</code> command with <code>mrt install</code>.</p>
@@ -89,6 +95,18 @@
 
 <pre><code>npm install -g meteorite
 </code></pre>
+
+<h3>Ubuntu users:</h3>
+
+<p>Note that meteorite <a href="https://github.com/oortcloud/meteorite/issues/67">doesn't seem to work properly</a> on 12.04 with the default 0.6 version of node. </p>
+
+<p>You'll need to get an 0.8 version of node installed, for instance like so:</p>
+
+<div class="highlight"><pre>sudo apt-get install python-software-properties 
+sudo add-apt-repository ppa:chris-lea/node.js 
+sudo apt-get update 
+sudo apt-get install nodejs
+</pre></div>
 
 <h2>How does it work?</h2>
 
@@ -125,11 +143,16 @@
 <p>See <a href="https://github.com/oortcloud/meteorite/wiki/Contributing">Contributing</a></p>
       </section>
     </div>
-    <footer>
-      <p>Project maintained by <a href="https://github.com/oortcloud">oortcloud</a></p>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-    </footer>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Meteorite maintained by <a href="https://github.com/oortcloud">oortcloud</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
     
+
   </body>
 </html>

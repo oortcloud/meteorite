@@ -1,7 +1,0 @@
-{
-  "packages": {
-    "mrt-test-pkg2": {
-      "git": "https://github.com/possibilities/mrt-test-pkg2.git"
-    }
-  }
-}

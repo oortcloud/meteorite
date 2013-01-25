@@ -1,7 +1,0 @@
-{
-  "meteor": {
-    "git": "https://github.com/possibilities/meteor",
-    "branch": "mrt-branch-test"
-  },
-  "packages": {}
-}
