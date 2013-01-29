@@ -1,6 +1,6 @@
 # Meteorite
 
-Meteorite is a Meteor version manager and package manager. It provides an easy way to install packages from the [Atmosphere package repository](https://atmosphere.meteor.com/). Meteorite provides the `mrt` command that wraps the `meteor` command, and can be used in its place.
+Meteorite is a Meteor version manager and package manager. It provides an easy way to run non-release versions of meteor, non-core packages, and install packages from the [Atmosphere package repository](https://atmosphere.meteor.com/). Meteorite provides the `mrt` command that wraps the `meteor` command, and should be used in its place.
 
 ``` sh
 # Create an app based on Meteor's devel branch.
@@ -109,3 +109,7 @@ Meteorite packages include a `smart.json` file in their root directory to provid
 Meteorite packages also include a `package.js` file in their root directory to tell Meteorite how it should be installed. For an example, see [Meteor Roles' `package.js`](https://github.com/alanning/meteor-roles/blob/master/roles/package.js).
 
 See [Atmosphere's documentation on writing packages](https://atmosphere.meteor.com/wtf/package) for more information.
+
+## Contributing
+
+Contributions to meteorite are very welcome! Please see the [Contribution Guide](https://github.com/oortcloud/meteorite/blob/master/CONTRIBUTING.md) for details.
