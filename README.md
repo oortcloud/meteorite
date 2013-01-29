@@ -109,7 +109,3 @@ Meteorite packages include a `smart.json` file in their root directory to provid
 Meteorite packages also include a `package.js` file in their root directory to tell Meteorite how it should be installed. For an example, see [Meteor Roles' `package.js`](https://github.com/alanning/meteor-roles/blob/master/roles/package.js).
 
 See [Atmosphere's documentation on writing packages](https://atmosphere.meteor.com/wtf/package) for more information.
-
-## Contributing
-
-See [Contributing](https://github.com/oortcloud/meteorite/wiki/Contributing)
