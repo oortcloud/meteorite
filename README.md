@@ -1,109 +1,111 @@
 # Meteorite
 
-*Making Meteor devs happy since 2012*
+Meteorite is a Meteor version manager and package manager. It provides an easy way to install packages from the [Atmosphere package repository](https://atmosphere.meteor.com/). Meteorite provides the `mrt` command that wraps the `meteor` command, and can be used in its place.
 
-## What is it?
-
-A Meteor installer, and smart-package manager wrapped around the meteor command line interface. (Inspired by gem, bundler, rvm and Meteor)
-
-## How do I use it?
-
-At the heart of Meteorite is a command line tool is called `mrt`. It wraps the `meteor` command and for the most part you use it just like you're using `meteor`. Let's say I'm building a new app and I'd like to develop against Meteor's development branch:
-
-    mrt create cool-app --branch devel
-
-Meteorite assumes `master` branch in most places so you don't always have to specify this. `mrt create` also supports specifying meteor by `--tag` or `--ref`.
-
-To run an app use `mrt run` (or simply `mrt`):
-
-    mrt run --port 2222
-
-The charm of `mrt run` is that it installs the correct version of `meteor` and your app's smart package dependencies and runs your app in that context. `mrt` determines the correct version of `meteor` and smart package dependences by looking for a file called `smart.json` in the root of your app. A simple app's `smart.json` might look like this:
-
-    {
-      "meteor": {
-        "branch": "devel"
-      },
-      "packages": {
-        "moment": "1.7.0",
-        "fork-me": {
-          "version": "0.0.1"
-        },
-        "cool-tool": {
-          "git": "https://github.com/possibilities/cool-tool.git",
-          "tag": "v0.0.2"
-        },
-        "another-tool": {
-          "git": "https://github.com/possibilities/another-tool.git"
-        },
-        "test-package": {
-          "path": "/path/to/local/package"
-        }
-      }
-    }
-
-Interesting things that might not be obvious
-
-  * The `meteor` specification is not required. Meteor's public repo checked out to the master branch is the default. You can specify `meteor.branch` and `meteor.git` to use alternate branches and forks respectively. Or you can use `meteor.tag` to stick to a single release of meteor (e.g. `v0.5.0`).
-
-  * `moment` and `fork-me` packages are grabbed from [the central repo](https://atmosphere.meteor.com). Notice also that they both specify the version but `moment`'s specification is more terse.
-
-  * The smart package author doesn't have to do anything except make the repo available. `mrt` will look for `package.js` in the repo and install it for you in the app specific meteor installation
-  
-  * If the smart package has its own dependencies and the author wants to be awesome they can include a `smart.json` listing the package's own dependencies and everything will get sorted out by `mrt` (i.e. smart package dependencies will be installed recursively).
-
-  * The first time `mrt` is run for an app it writes out a file called `smart.lock` which it uses on subsequent runs to make sure the app is using the correct versions of each dependency even when it's set up in a fresh environment. Generally you'll commit `smart.lock` into your repo each time it changes so that any developer who clones your app will be running the correct versions. If you change a version in `smart.json` it takes precedence over `smart.lock`.
-
-  * `test-package` is setup to run from a local path. This is useful for developing smart packages for Meteor with Meteorite against a running app.
-
-If you just want to *warm up* your app you can do the install only without running any underlying `meteor` command with `mrt install`.
-
-Additionally you can *blow away* `smart.lock` and get everything to update using `mrt update` (`mrt update PACKAGE_NAME` coming *eventually*).
-
-## Installation
-
-    npm install -g meteorite
-    
-### Ubuntu users:
-
-Note that meteorite [doesn't seem to work properly](https://github.com/oortcloud/meteorite/issues/67) on 12.04 with the default 0.6 version of node. 
-
-You'll need to get an 0.8 version of node installed, for instance like so:
-```bash
-sudo apt-get install python-software-properties 
-sudo add-apt-repository ppa:chris-lea/node.js 
-sudo apt-get update 
-sudo apt-get install nodejs
+``` sh
+# Create an app based on Meteor's devel branch.
+$ mrt create my-app --branch devel
+$ cd my-app
+# Install an Atmosphere package, recursively fetching dependencies.
+$ mrt add router
+# Check for and install any updates, and run the app.
+$ mrt
 ```
 
-## How does it work?
+## Installing Meteorite
 
-When you run your app with `mrt`:
+Meteorite can be installed via [npm](https://npmjs.org/).
 
-  1) It installs an app specific instance of `meteor`
+``` sh
+$ sudo npm install -g meteorite
+```
 
-  2) Installs the app's smart package dependencies specified in `smart.json`
-  
-  3) If the app's smart packages have dependencies of their own (also defined in `smart.json`) they're installed, recursively
+**Note:** Meteorite does not work on Ubuntu 12.04's default Node.js v0.6 ([issue #67](https://github.com/oortcloud/meteorite/issues/67)). To fix this, install a recent version of Node.js via [this PPA](https://launchpad.net/~chris-lea/+archive/node.js/) or by compiling from source.
 
-  4) A `smart.lock` file is written to the project's root dir
+## Usage
 
-  5) With everything installed the app's `meteor` instance takes over and runs your app. All of `meteor`'s subcommands are supported (e.g. `run`, `add`, `deploy`, `bundle`, etc).
+### `mrt create <name>`
 
-## Meteorite's `add` subcommand
+Works like `meteor create`, but you can specify the desired branch, tag or reference of [Meteor's git repository](https://github.com/meteor/meteor) that the app should be based on.
 
-Meteorite's `mrt add <package-name>` subcommand wrap's Meteor's `add` command but does the additional work of fetching the meta data from [the central repo](https://atmosphere.meteor.com), getting the source code and installing it in the app.
+``` sh
+# By default, apps are based on Meteor's master branch.
+$ mrt create cool-app
+# You can create apps based on a branch of Meteor's repo.
+$ mrt create risky-app --branch devel
+# Or, on a tag (such as version numbers).
+$ mrt create safe-app --tag v0.5.4
+# Or, or on a commit.
+$ mrt create choosy-app --ref a9a717
+```
 
-Add the latest version of a package
+### `mrt add <package>`
 
-    mrt add moment
+Works like `meteor add`, but if the package isn't one of Meteor's included packages, it installs it from [Atmosphere](https://atmosphere.meteor.com).
 
-Of if you want to specify a specific version
+Unlike `meteor add`, only one package can be added at a time with `mrt add`.
 
-    mrt add moment --version 1.6.2
+``` sh
+# Add the latest version of the moment package on Atmosphere.
+$ mrt add moment
+# Add a specific version of a package.
+$ mrt add router --version 0.3.4
+# Meteorite will install page.js too, because router depends on it.
+```
 
-*Currently, unlike Meteor's `add` subcommand, you can only specify one package at a time.*
+### `mrt run`
 
-## Contributing
+Works like `meteor run`, but checks and installs the app's desired Meteor version and package dependencies before running the app.
 
-See [Contributing](https://github.com/oortcloud/meteorite/wiki/Contributing)
+### `mrt update`
+
+Installs any available updates to the app's desired Meteor version and packages.
+
+### Other commands
+
+When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto `meteor`.
+
+However, these checks takes time to send requests to remote servers. It only really makes sense to check the app's dependencies when running the `create`, `run`, `add` or `update` commands. For other commands, there's no need. Therefore, you'll likely want to stick with using `meteor` other commands like `list`, `bundle` or `deploy`.
+
+## How Meteorite works
+
+Apps tell Meteorite the Meteor version and packages they want with a file called `smart.json` in their root directory. Meteorite will install those dependencies the next time it is executed within that app.
+
+Meteorite writes to a `smart.lock` file in the app's root directory to track the exact versions of its dependencies, even when it's set up in a fresh environment. You should check the `smart.lock` file into your app's version control, to ensure that other developers are running the same versions of the dependencies. Any changes in `smart.json` take precendency over `smart.lock`. The `smart.lock` file is reset with the `mrt update` command.
+
+### Example `smart.json`
+
+The `meteor` property is not required: apps will depend on Meteor's master branch by default. You can specify `meteor.branch`, `meteor.tag` or `meteor.git` to use alternate branches, tags and forks respectively.
+
+``` json
+{
+  "meteor": {
+    "tag": "v0.5.4"
+  },
+  "packages": {
+    "moment": {},
+    "router": "0.3.4",
+    "roles": {
+      "version": "1.0.1"
+    },
+    "accounts-persona": {
+      "git": "https://github.com/vladikoff/meteor-accounts-persona"
+    },
+    "normalize.css": {
+      "git": "https://github.com/rithis/meteor-normalize.css",
+      "tag": "v2.0.1"
+    },
+    "my-experiment": {
+      "path": "/path/to/local/package"
+    }
+  }
+}
+```
+
+## Writing Meteorite packages
+
+Meteorite packages include a `smart.json` file in their root directory to provide information about the package, and to list their dependencies. For an example, see [Meteor Router's `smart.json`](https://github.com/tmeasday/meteor-router/blob/master/smart.json).
+
+Meteorite packages also include a `package.js` file in their root directory to tell Meteorite how it should be installed. For an example, see [Meteor Roles' `package.js`](https://github.com/alanning/meteor-roles/blob/master/roles/package.js).
+
+See [Atmosphere's documentation on writing packages](https://atmosphere.meteor.com/wtf/package) for more information.
