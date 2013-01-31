@@ -1,3 +1,5 @@
+var path = require('path');
+
 // testing mock
 var GIT_PKG_DEPENDENCIES = {
   'mrt-test-pkg1': {},
@@ -10,7 +12,10 @@ var GIT_PKG_DEPENDENCIES = {
 
 var LOCAL_PKG_DEPENDENCIES = {
   'A': {'C': {path: '/C.path.A'}},
-  'B': {'C': {path: '/C.path.B'}}
+  'B': {'C': {path: '/C.path.B'}},
+  'mrt-test-pkg1': {},
+  'mrt-test-pkg2': {'mrt-test-pkg1': {
+    'path': '../mrt-test-pkg1', 'root': '../../mrt-test-pkg2'}}
 };
 
 
@@ -24,7 +29,7 @@ var PKG_COMMITS = {
 Package.prototype.readDependenciesFromSource = function(fn) {
   
   if (this.source instanceof LocalSource) {
-    this.dependencies = new Dependencies(LOCAL_PKG_DEPENDENCIES[this.name]);    
+    this.dependencies = new Dependencies(LOCAL_PKG_DEPENDENCIES[this.name]);
   } else {
     this.dependencies = new Dependencies(GIT_PKG_DEPENDENCIES[this.name]);
     this.source.commit = PKG_COMMITS[this.name];

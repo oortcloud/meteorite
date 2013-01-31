@@ -119,5 +119,42 @@ describe('Writing smart.lock', function() {
     });
   });
   
+  describe('when depending on a local package with a local dependency', function() {
+    var deps, expected;
+    before(function(done) {
+      
+      expected = {
+        packages: {
+          "mrt-test-pkg2": {
+            "path": "../../mrt-test-pkg2"
+          },
+          "mrt-test-pkg1": {
+            // pkg2 has a link to ../mrt-test-pkg1, so when it resolves, it
+            // should be two levels up
+            "path": "../../mrt-test-pkg1"
+          }
+        }, 
+        basePackages: {
+          "mrt-test-pkg2": {
+            "path": "../../mrt-test-pkg2"
+          }
+        }
+      };
+      
+      deps = new Dependencies(expected.basePackages);
+      deps.resolve(done);
+    });
+    
+    it('Should output correct lockJson', function() {
+      assert.ok(_.isEqual(expected, deps.toJson(true)), 'Unexpected lock JSON');
+    });
+    
+    it('Should recreate from lockJson', function() {
+      var newDeps = Dependencies.newFromLockJson(expected);
+      
+      assertDependenciesEqual(deps, newDeps);
+    });
+  });
+  
   
 });
