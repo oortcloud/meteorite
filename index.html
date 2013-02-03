@@ -47,11 +47,13 @@
 <div class="highlight"><pre><span class="nv">$ </span>sudo npm install -g meteorite
 </pre></div>
 
-<p><strong>Note:</strong> Meteorite does not work on Ubuntu 12.04's default Node.js v0.6 (<a href="https://github.com/oortcloud/meteorite/issues/67">issue #67</a>). To fix this, install a recent version of Node.js via <a href="https://launchpad.net/%7Echris-lea/+archive/node.js/">this PPA</a> or by compiling from source.</p>
+<h3>NOTES</h3>
 
-<p><strong>Second Note:</strong> You'll also need to ensure you have <a href="http://git-scm.com">git</a> installed and available in your path.</p>
-
-<h2>Usage</h2>
+<ul>
+<li><p>Meteor is not officially supported on windows; you can run it thanks to <a href="http://win.meteor.com">Tom Wijman's excellent work</a>. However, meteorite's git based approach runs counter to the MSI installation that's required to get it working. So meteorite <em>does not</em> work under windows right now. Pull Requests which change this would be gladly accepted!</p></li>
+<li><p>Meteorite does not work on Ubuntu 12.04's default Node.js v0.6 (<a href="https://github.com/oortcloud/meteorite/issues/67">issue #67</a>). To fix this, install a recent version of Node.js via <a href="https://launchpad.net/%7Echris-lea/+archive/node.js/">this PPA</a> or by compiling from source.</p></li>
+<li><p>You'll also need to ensure you have <a href="http://git-scm.com">git</a> installed and available in your path.</p></li>
+</ul><h2>Usage</h2>
 
 <h3><code>mrt create &lt;name&gt;</code></h3>
 
