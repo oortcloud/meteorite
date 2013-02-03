@@ -20,9 +20,13 @@ Meteorite can be installed via [npm](https://npmjs.org/).
 $ sudo npm install -g meteorite
 ```
 
-**Note:** Meteorite does not work on Ubuntu 12.04's default Node.js v0.6 ([issue #67](https://github.com/oortcloud/meteorite/issues/67)). To fix this, install a recent version of Node.js via [this PPA](https://launchpad.net/~chris-lea/+archive/node.js/) or by compiling from source.
+### NOTES
 
-**Second Note:** You'll also need to ensure you have [git](http://git-scm.com) installed and available in your path.
+- Meteor is not officially supported on windows; you can run it thanks to [Tom Wijman's excellent work](http://win.meteor.com). However, meteorite's git based approach runs counter to the MSI installation that's required to get it working. So meteorite *does not* work under windows right now. Pull Requests which change this would be gladly accepted!
+
+- Meteorite does not work on Ubuntu 12.04's default Node.js v0.6 ([issue #67](https://github.com/oortcloud/meteorite/issues/67)). To fix this, install a recent version of Node.js via [this PPA](https://launchpad.net/~chris-lea/+archive/node.js/) or by compiling from source.
+
+- You'll also need to ensure you have [git](http://git-scm.com) installed and available in your path.
 
 
 ## Usage
