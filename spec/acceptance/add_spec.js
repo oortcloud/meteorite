@@ -4,7 +4,7 @@ var shouldInstall = function(baseName) {
   describe('for a meteor package', function() {
     it("should install the smart package", function(done) {
       mrt.invokeInNew('add bootstrap', baseName, {
-        waitForOutput: "bootstrap: UX/UI framework from Twitter"
+        waitForOutput: "bootstrap: Front-end framework from Twitter"
       }, done);
     });
   });
@@ -52,7 +52,7 @@ describe('invoking `mrt add`', function() {
     describe('for a meteor package', function() {
       it("should install the smart package", function(done) {
         mrt.invokeInNew('add bootstrap', 'uninstalled-app-with-smart-pkg', {
-          waitForOutput: "bootstrap: UX/UI framework from Twitter"
+          waitForOutput: "bootstrap: Front-end framework from Twitter"
         }, done);
       });
     });
