@@ -92,9 +92,9 @@
 
 <h3>Other commands</h3>
 
-<p>When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto <code>meteor</code>.</p>
+<p>When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto <code>meteor</code>. </p>
 
-<p>However, these checks takes time to send requests to remote servers. It only really makes sense to check the app's dependencies when running the <code>create</code>, <code>run</code>, <code>add</code> or <code>update</code> commands. For other commands, there's no need. Therefore, you'll likely want to stick with using <code>meteor</code> other commands like <code>list</code>, <code>bundle</code> or <code>deploy</code>.</p>
+<p>For that reason, it's usually best to use <code>mrt</code> for all meteor related commands. For instance, to generate the correct bundle, you'll need to use <code>mrt bundle</code>, or <code>mrt deploy</code> when deploying to meteor.com.</p>
 
 <h2>How Meteorite works</h2>
 
