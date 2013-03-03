@@ -70,9 +70,9 @@ Installs any available updates to the app's desired Meteor version and packages.
 
 ### Other commands
 
-When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto `meteor`.
+When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto `meteor`. 
 
-However, these checks takes time to send requests to remote servers. It only really makes sense to check the app's dependencies when running the `create`, `run`, `add` or `update` commands. For other commands, there's no need. Therefore, you'll likely want to stick with using `meteor` other commands like `list`, `bundle` or `deploy`.
+For that reason, it's usually best to use `mrt` for all meteor related commands. For instance, to generate the correct bundle, you'll need to use `mrt bundle`, or `mrt deploy` when deploying to meteor.com.
 
 ## How Meteorite works
 
