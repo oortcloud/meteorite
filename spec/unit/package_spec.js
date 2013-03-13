@@ -115,6 +115,14 @@ describe('Package object', function() {
     it('should not be equals() to a git package', function() {
       assert(!thisPkg.equals(new Package('mrt-test-pkg1', {git: 'foo.git'})));
     });
+    
+    it('should conflictsWith() a local pacakge with a different page', function() {
+      // assert(thisPkg.conflictsWith(new Package('mrt-test-pkg1', {path: '/a/different/path'})));
+    });
+    
+    it('should not conflictsWith() a local pacakge with the same page', function() {
+      assert(!thisPkg.conflictsWith(new Package('mrt-test-pkg1', {path: thisPkg.source.path})));
+    });
   };
   
   describe('from a resolved path', function() {
