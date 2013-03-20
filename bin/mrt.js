@@ -18,7 +18,7 @@ if (meteoriteArgs.version)
   console.log('Meteorite version ' + require('../package').version);
 
 if (!meteorite[subCommandName])
-  throw "Subcommand " + subCommandName + " does not exist!";
+  throw("Subcommand " + subCommandName + " does not exist!");
 
 // Run user's subcommand
 meteorite[subCommandName](function() {
