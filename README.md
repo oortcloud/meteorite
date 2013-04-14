@@ -26,7 +26,7 @@ $ sudo npm install -g meteorite
 
 - Meteorite does not work on Ubuntu 12.04's default Node.js v0.6 ([issue #67](https://github.com/oortcloud/meteorite/issues/67)). To fix this, install a recent version of Node.js via [this PPA](https://launchpad.net/~chris-lea/+archive/node.js/) or by compiling from source.
 
-- You'll also need to ensure you have [git](http://git-scm.com) installed and available in your path.
+- You'll also need to ensure you have [git](http://git-scm.com) installed and available in your path. Also, you'll need to make sure that `mrt`'s install location (usually `/usr/local/bin/`) is on your path.
 
 
 ## Usage
