@@ -74,6 +74,18 @@ When Meteorite is executed for an app, it checks or installs the app's desired M
 
 For that reason, it's usually best to use `mrt` for all meteor related commands. For instance, to generate the correct bundle, you'll need to use `mrt bundle`, or `mrt deploy` when deploying to meteor.com.
 
+## Running Meteorite as sudo
+
+It is *not* required that you run `sudo mrt`. If you do so, your home directory will pick up some root-owned files and you'll struggle to run `mrt` without `sudo` from then on. This isn't good.
+
+To fix the problem, try cleaning up potentially "sudo-ed" files:
+
+```js
+sudo mrt uninstall
+sudo mrt uninstall --system
+sudo rm -rf ~/.npm
+```
+
 ## How Meteorite works
 
 Apps tell Meteorite the Meteor version and packages they want with a file called `smart.json` in their root directory. Meteorite will install those dependencies the next time it is executed within that app.
