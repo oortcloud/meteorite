@@ -52,7 +52,7 @@
 <ul>
 <li><p>Meteor is not officially supported on windows; you can run it thanks to <a href="http://win.meteor.com">Tom Wijman's excellent work</a>. However, meteorite's git based approach runs counter to the MSI installation that's required to get it working. So meteorite <em>does not</em> work under windows right now. Pull Requests which change this would be gladly accepted!</p></li>
 <li><p>Meteorite does not work on Ubuntu 12.04's default Node.js v0.6 (<a href="https://github.com/oortcloud/meteorite/issues/67">issue #67</a>). To fix this, install a recent version of Node.js via <a href="https://launchpad.net/%7Echris-lea/+archive/node.js/">this PPA</a> or by compiling from source.</p></li>
-<li><p>You'll also need to ensure you have <a href="http://git-scm.com">git</a> installed and available in your path.</p></li>
+<li><p>You'll also need to ensure you have <a href="http://git-scm.com">git</a> installed and available in your path. Also, you'll need to make sure that <code>mrt</code>'s install location (usually <code>/usr/local/bin/</code>) is on your path.</p></li>
 </ul><h2>Usage</h2>
 
 <h3><code>mrt create &lt;name&gt;</code></h3>
@@ -95,6 +95,17 @@
 <p>When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto <code>meteor</code>. </p>
 
 <p>For that reason, it's usually best to use <code>mrt</code> for all meteor related commands. For instance, to generate the correct bundle, you'll need to use <code>mrt bundle</code>, or <code>mrt deploy</code> when deploying to meteor.com.</p>
+
+<h2>Running Meteorite as sudo</h2>
+
+<p>It is <em>not</em> required that you run <code>sudo mrt</code>. If you do so, your home directory will pick up some root-owned files and you'll struggle to run <code>mrt</code> without <code>sudo</code> from then on. This isn't good.</p>
+
+<p>To fix the problem, try cleaning up potentially "sudo-ed" files:</p>
+
+<div class="highlight"><pre><span class="nx">sudo</span> <span class="nx">mrt</span> <span class="nx">uninstall</span>
+<span class="nx">sudo</span> <span class="nx">mrt</span> <span class="nx">uninstall</span> <span class="o">--</span><span class="nx">system</span>
+<span class="nx">sudo</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">rf</span> <span class="o">~</span><span class="err">/.npm</span>
+</pre></div>
 
 <h2>How Meteorite works</h2>
 
