@@ -17,7 +17,7 @@ $ mrt
 Meteorite can be installed via [npm](https://npmjs.org/).
 
 ``` sh
-$ sudo npm install -g meteorite
+$ sudo -H npm install -g meteorite
 ```
 
 ### NOTES
@@ -74,17 +74,21 @@ When Meteorite is executed for an app, it checks or installs the app's desired M
 
 For that reason, it's usually best to use `mrt` for all meteor related commands. For instance, to generate the correct bundle, you'll need to use `mrt bundle`, or `mrt deploy` when deploying to meteor.com.
 
-## Running Meteorite as sudo
+## Permission woes?
 
 It is *not* required that you run `sudo mrt`. If you do so, your home directory will pick up some root-owned files and you'll struggle to run `mrt` without `sudo` from then on. This isn't good.
 
 To fix the problem, try cleaning up potentially "sudo-ed" files:
 
-```js
+```bash
 sudo mrt uninstall
 sudo mrt uninstall --system
-sudo rm -rf ~/.npm
+sudo chown -R `whoami` ~/.npm
 ```
+
+If possible, try not to install Meteorite as root either. If you have permissions problems, make sure you install with `sudo -H npm install -g meteorite`. If you've installed without `-H`, your `~/.npm` directory will be owned by root and you should run the `chown` command above to fix it.
+
+
 
 ## How Meteorite works
 
