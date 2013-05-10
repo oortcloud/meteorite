@@ -2,6 +2,19 @@
 
 Do the normal fork, patch, pull-request dance. If you don't know what that means or need any help, let us know.
 
+## Troubleshooting
+
+Sometimes git can get into broken states if weird things happen and the error messages you get as a result can be confusing. 
+
+So before reporting errors, please first try cleaning up all of Meteorite's files and starting again (in your app's dir):
+
+```js
+  mrt uninstall
+  mrt uninstall --system
+  mrt
+```
+
+
 ## How to develop
 
 Use `npm link` to install your forked copy of Meteorite, then do something to make it more awesome.
