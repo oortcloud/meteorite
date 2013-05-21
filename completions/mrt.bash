@@ -19,6 +19,17 @@ _mrt() {
   bundle"
 
   case "${prev}" in
+    --example)
+      local examples=" \
+      leaderboard \
+      parties \
+      todos \
+      wordplay"
+
+      COMPREPLY=($(compgen -W "${examples}" -- ${cur}))
+      return 0
+      ;;
+
     run)
       local run=" \
       -p \
