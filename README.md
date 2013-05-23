@@ -70,7 +70,7 @@ Installs any available updates to the app's desired Meteor version and packages.
 
 ### Other commands
 
-When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto `meteor`. 
+When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto `meteor`.
 
 For that reason, it's usually best to use `mrt` for all meteor related commands. For instance, to generate the correct bundle, you'll need to use `mrt bundle`, or `mrt deploy` when deploying to meteor.com.
 
@@ -132,6 +132,24 @@ Meteorite packages include a `smart.json` file in their root directory to provid
 Meteorite packages also include a `package.js` file in their root directory to tell Meteorite how it should be installed. For an example, see [Meteor Roles' `package.js`](https://github.com/alanning/meteor-roles/blob/master/roles/package.js).
 
 See [Atmosphere's documentation on writing packages](https://atmosphere.meteor.com/wtf/package) for more information.
+
+## Bash Completion
+
+Use Meteorite's bash completion by sourcing it in your .bashrc or .bash_profile.
+
+Depending on where you installed Meteorite:
+
+```bash
+if [ -f /path/to/meteorite/completions/mrt.bash ]; then
+  . /path/to/meteorite/completions/mrt.bash
+fi
+```
+
+Alternatively, you can create a symbolic link under bash_completion.d:
+
+```bash
+ln -s /path/to/meteorite/completions/mrt.bash /path/to/bash_completion.d/mrt
+```
 
 ## Contributing
 
