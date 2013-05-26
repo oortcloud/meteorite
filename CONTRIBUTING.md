@@ -16,6 +16,26 @@ So before reporting errors, please first try cleaning up all of Meteorite's file
 
 If you are seeing permission errors (e.g. `EACCESS`, talk of needing to be Administrator) please read: https://github.com/oortcloud/meteorite#permission-woes
 
+## Troubleshooting part 2, ADVANCED
+
+If you are still seeing problems after trying the above, or you want to figure out why you need to do it, please remember that Meteorite is at heart a very simple script that _isn't really doing much_. 
+
+Remember that when you `mrt install` or just run `mrt`, Meteorite is doing the following:
+
+1. Inspecting your `smart.json` to figure out what packages need to be installed.
+2. Cloning them into `~/.meteorite/sources/<AUTHOR>/<REPO_NAME>`, checking out the right branch, git pulling.
+3. Copying the files into `~/.meteorite/packages/<NAME>/<AUTHOR>/<REPO_NAME>/<COMMIT>/`
+4. Symlinking packages from `.meteor/meteorite/packages` to that location.
+5. Running Meteor from a git checkout (similarly, in `~/.meteorite/meteors/<NAME>/<AUTHOR>/<REPO_NAME>/<COMMIT>/`), with the `PACKAGE_DIRS` environment variable set to `.meteor/meteorite/packages`.
+
+You can inspect `smart.lock` for some insights too.
+
+Debugging you can do is:
+1. Manually doing the same, seeing if you see the same error.
+2. Digging around in `~/.meteorite` and seeing if git checkouts have gotten into a broken state.
+
+Meteorite is fairly brittle as it calls out to commandline git all the time, and problems can can sometime get missed. We appreciate you going the extra mile.
+
 
 ## How to develop
 
