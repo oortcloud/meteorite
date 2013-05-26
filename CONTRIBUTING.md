@@ -30,7 +30,8 @@ Remember that when you `mrt install` or just run `mrt`, Meteorite is doing the f
 
 You can inspect `smart.lock` for some insights too.
 
-Debugging you can do is:
+Helpful debugging you can do is:
+
 1. Manually doing the same, seeing if you see the same error.
 2. Digging around in `~/.meteorite` and seeing if git checkouts have gotten into a broken state.
 
