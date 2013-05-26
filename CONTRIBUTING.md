@@ -14,6 +14,8 @@ So before reporting errors, please first try cleaning up all of Meteorite's file
   mrt
 ```
 
+If you are seeing permission errors (e.g. `EACCESS`, talk of needing to be Administrator) please read: https://github.com/oortcloud/meteorite#permission-woes
+
 
 ## How to develop
 
