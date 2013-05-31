@@ -98,7 +98,7 @@ Meteorite writes to a `smart.lock` file in the app's root directory to track the
 
 ### Example `smart.json`
 
-The `meteor` property is not required: apps will depend on Meteor's master branch by default. You can specify `meteor.branch`, `meteor.tag` or `meteor.git` to use alternate branches, tags and forks respectively.
+The `meteor` property is not required: apps will depend on Meteor's master branch by default. You can specify `meteor.branch`, `meteor.tag` or `meteor.git` to use alternate branches, tags and forks respectively. Note that `meteor.git` expects an actual URL, use `ssh://git@github.com/meteor/meteor.git` instead of `git@github.com:meteor/meteor.git`.
 
 ``` json
 {
