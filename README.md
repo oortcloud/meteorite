@@ -19,7 +19,14 @@ $ mrt
 Meteorite can be installed via [npm](https://npmjs.org/).
 
 ``` sh
-$ sudo -H npm install -g meteorite
+$ npm install -g meteorite
+```
+
+### NOTE:
+If your system requires root access to install global npm packages, make sure you use the `-H` flag:
+
+``` sh
+$ npm -H install -g meteorite
 ```
 
 ## Updating from pre-0.6.0 Meteorite
@@ -30,7 +37,7 @@ Subsequently, you can simply use `meteor` to run your development server, and ju
 
 ### NOTES
 
-- Meteor is not officially supported on windows; you can run it thanks to [Tom Wijman's excellent work](http://win.meteor.com). However, meteorite's git based approach runs counter to the MSI installation that's required to get it working. So meteorite *does not* work under windows right now. Pull Requests which change this would be gladly accepted!
+- Meteor is not officially supported on windows; you can run it thanks to [Tom Wijman's excellent work](http://win.meteor.com). However, meteorite's git based approach runs counter to the MSI installation that's required to get it working. So meteorite *does not* work under windows right now. Pull Requests which change this would be gladly accepted! Also, see [this blog post](http://www.discovermeteor.com/2013/03/20/using-meteor-and-atmopshere-on-windows/) for some information about how to use it.
 
 - You'll also need to ensure you have [git](http://git-scm.com) installed and available in your path. Also, you'll need to make sure that `mrt`'s install location (usually `/usr/local/bin/`) is on your path.
 
@@ -51,13 +58,13 @@ $ mrt add router --version 0.3.4
 # Meteorite will install page.js too, because router depends on it.
 ```
 
-### `mrt update`
-
-Installs any available updates to the app's desired Meteor version and packages.
-
 ### `mrt install`
 
 Install all packages listed in `smart.json` that aren't already installed on your machine. Use this command if you are working collaboratively and your colleagues install new packages.
+
+### `mrt update`
+
+Installs any available updates to the app's desired Meteor version and packages.
 
 ## Deprecated commands
 
@@ -68,7 +75,7 @@ You can run any meteor executable you like (e.g. from a checkout somewhere on yo
 
 Works like `meteor`, but checks and installs the app's desired Meteor version and package dependencies before running the app. You may still want to use this, but it's no longer the official way to use Meteorite.
 
-If however you want to use a forked version of Meteor in your project, you can still list it in your `smart.json`, and Meteorite will run it via `mrt`. (Of course you could just run it directly from a checkout too, which may be simpler)
+If however you want to use a forked version of Meteor in your project, you can still list it in your `smart.json`, and Meteorite will run it via `mrt`. (Of course you could just run it directly from a checkout too, which may be simpler).
 
 ### `mrt create <name>`
 
