@@ -25,8 +25,8 @@ Remember that when you `mrt install` or just run `mrt`, Meteorite is doing the f
 1. Inspecting your `smart.json` to figure out what packages need to be installed.
 2. Cloning them into `~/.meteorite/sources/<AUTHOR>/<REPO_NAME>`, checking out the right branch, git pulling.
 3. Copying the files into `~/.meteorite/packages/<NAME>/<AUTHOR>/<REPO_NAME>/<COMMIT>/`
-4. Symlinking packages from `.meteor/meteorite/packages` to that location.
-5. Running Meteor from a git checkout (similarly, in `~/.meteorite/meteors/<NAME>/<AUTHOR>/<REPO_NAME>/<COMMIT>/`), with the `PACKAGE_DIRS` environment variable set to `.meteor/meteorite/packages`.
+4. Symlinking packages from `packages/` to that location.
+5. [Possibly] Running Meteor from a git checkout (similarly, in `~/.meteorite/meteors/<NAME>/<AUTHOR>/<REPO_NAME>/<COMMIT>/`), with the `PACKAGE_DIRS` environment variable set to `.meteor/meteorite/packages`.
 
 You can inspect `smart.lock` for some insights too.
 
