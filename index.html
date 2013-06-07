@@ -27,9 +27,12 @@
         </ul>
       </header>
       <section>
-        <h1>Meteorite</h1>
+        <h1>
+<a name="meteorite" class="anchor" href="#meteorite"><span class="octicon octicon-link"></span></a>Meteorite</h1>
 
-<p>Meteorite is a Meteor version manager and package manager. It provides an easy way to run different versions of meteor, use non-core packages, and to install packages from the <a href="https://atmosphere.meteor.com/">Atmosphere package repository</a>. Meteorite provides the <code>mrt</code> command that wraps the <code>meteor</code> command, and should be used in its place.</p>
+<p>Meteorite is a Meteor version manager and package manager. It provides an easy way to run different versions of meteor, use non-core packages, and to install packages from the <a href="https://atmosphere.meteor.com/">Atmosphere package repository</a>. </p>
+
+<p>Meteorite provides the <code>mrt</code> that can be used to add and install smart packages from atmosphere.</p>
 
 <div class="highlight"><pre><span class="c"># Create an app based on Meteor's devel branch.</span>
 <span class="nv">$ </span>mrt create my-app --branch devel
@@ -40,22 +43,82 @@
 <span class="nv">$ </span>mrt
 </pre></div>
 
-<h2>Installing Meteorite</h2>
+<h2>
+<a name="installing-meteorite" class="anchor" href="#installing-meteorite"><span class="octicon octicon-link"></span></a>Installing Meteorite</h2>
 
 <p>Meteorite can be installed via <a href="https://npmjs.org/">npm</a>.</p>
 
-<div class="highlight"><pre><span class="nv">$ </span>sudo npm install -g meteorite
+<div class="highlight"><pre><span class="nv">$ </span>npm install -g meteorite
 </pre></div>
 
-<h3>NOTES</h3>
+<h3>
+<a name="note" class="anchor" href="#note"><span class="octicon octicon-link"></span></a>NOTE:</h3>
+
+<p>If your system requires root access to install global npm packages, make sure you use the <code>-H</code> flag:</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>npm -H install -g meteorite
+</pre></div>
+
+<h2>
+<a name="updating-from-pre-060-meteorite" class="anchor" href="#updating-from-pre-060-meteorite"><span class="octicon octicon-link"></span></a>Updating from pre-0.6.0 Meteorite</h2>
+
+<p>Meteorite now symlinks packages into the <code>packages/</code> directory of your app, so it's no longer necessary to run <code>mrt</code> when you want to start a server. Just make sure you <code>mrt install</code> in your app, and delete the <code>"meteor"</code> section from your <code>smart.json</code>. </p>
+
+<p>Subsequently, you can simply use <code>meteor</code> to run your development server, and just <code>mrt install</code> to ensure all packages are installed from atmosphere.</p>
+
+<h3>
+<a name="notes" class="anchor" href="#notes"><span class="octicon octicon-link"></span></a>NOTES</h3>
 
 <ul>
-<li><p>Meteor is not officially supported on windows; you can run it thanks to <a href="http://win.meteor.com">Tom Wijman's excellent work</a>. However, meteorite's git based approach runs counter to the MSI installation that's required to get it working. So meteorite <em>does not</em> work under windows right now. Pull Requests which change this would be gladly accepted!</p></li>
-<li><p>Meteorite does not work on Ubuntu 12.04's default Node.js v0.6 (<a href="https://github.com/oortcloud/meteorite/issues/67">issue #67</a>). To fix this, install a recent version of Node.js via <a href="https://launchpad.net/%7Echris-lea/+archive/node.js/">this PPA</a> or by compiling from source.</p></li>
+<li><p>Meteor is not officially supported on windows; you can run it thanks to <a href="http://win.meteor.com">Tom Wijman's excellent work</a>. However, meteorite's git based approach runs counter to the MSI installation that's required to get it working. So meteorite <em>does not</em> work under windows right now. Pull Requests which change this would be gladly accepted! Also, see <a href="http://www.discovermeteor.com/2013/03/20/using-meteor-and-atmopshere-on-windows/">this blog post</a> for some information about how to use it.</p></li>
 <li><p>You'll also need to ensure you have <a href="http://git-scm.com">git</a> installed and available in your path. Also, you'll need to make sure that <code>mrt</code>'s install location (usually <code>/usr/local/bin/</code>) is on your path.</p></li>
-</ul><h2>Usage</h2>
+</ul><h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<h3><code>mrt create &lt;name&gt;</code></h3>
+<h3>
+<a name="mrt-add-package" class="anchor" href="#mrt-add-package"><span class="octicon octicon-link"></span></a><code>mrt add &lt;package&gt;</code>
+</h3>
+
+<p>Works like <code>meteor add</code>, but if the package isn't one of Meteor's included packages, it installs it from <a href="https://atmosphere.meteor.com">Atmosphere</a>.</p>
+
+<p>Unlike <code>meteor add</code>, only one package can be added at a time with <code>mrt add</code>.</p>
+
+<div class="highlight"><pre><span class="c"># Add the latest version of the moment package on Atmosphere.</span>
+<span class="nv">$ </span>mrt add moment
+<span class="c"># Add a specific version of a package.</span>
+<span class="nv">$ </span>mrt add router --version 0.3.4
+<span class="c"># Meteorite will install page.js too, because router depends on it.</span>
+</pre></div>
+
+<h3>
+<a name="mrt-install" class="anchor" href="#mrt-install"><span class="octicon octicon-link"></span></a><code>mrt install</code>
+</h3>
+
+<p>Install all packages listed in <code>smart.json</code> that aren't already installed on your machine. Use this command if you are working collaboratively and your colleagues install new packages.</p>
+
+<h3>
+<a name="mrt-update" class="anchor" href="#mrt-update"><span class="octicon octicon-link"></span></a><code>mrt update</code>
+</h3>
+
+<p>Installs any available updates to the app's desired Meteor version and packages.</p>
+
+<h2>
+<a name="deprecated-commands" class="anchor" href="#deprecated-commands"><span class="octicon octicon-link"></span></a>Deprecated commands</h2>
+
+<p>As Meteorite now installs packages into the <code>packages/</code> directory, you can simply run <code>meteor</code> to start your app. You may need to run <code>mrt install</code> first.
+You can run any meteor executable you like (e.g. from a checkout somewhere on your machine). </p>
+
+<h3>
+<a name="mrt" class="anchor" href="#mrt"><span class="octicon octicon-link"></span></a><code>mrt</code>
+</h3>
+
+<p>Works like <code>meteor</code>, but checks and installs the app's desired Meteor version and package dependencies before running the app. You may still want to use this, but it's no longer the official way to use Meteorite.</p>
+
+<p>If however you want to use a forked version of Meteor in your project, you can still list it in your <code>smart.json</code>, and Meteorite will run it via <code>mrt</code>. (Of course you could just run it directly from a checkout too, which may be simpler).</p>
+
+<h3>
+<a name="mrt-create-name" class="anchor" href="#mrt-create-name"><span class="octicon octicon-link"></span></a><code>mrt create &lt;name&gt;</code>
+</h3>
 
 <p>Works like <code>meteor create</code>, but you can specify the desired branch, tag or reference of <a href="https://github.com/meteor/meteor">Meteor's git repository</a> that the app should be based on.</p>
 
@@ -69,54 +132,37 @@
 <span class="nv">$ </span>mrt create choosy-app --ref a9a717
 </pre></div>
 
-<h3><code>mrt add &lt;package&gt;</code></h3>
+<h3>
+<a name="other-commands" class="anchor" href="#other-commands"><span class="octicon octicon-link"></span></a>Other commands</h3>
 
-<p>Works like <code>meteor add</code>, but if the package isn't one of Meteor's included packages, it installs it from <a href="https://atmosphere.meteor.com">Atmosphere</a>.</p>
+<p>When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto <code>meteor</code>.</p>
 
-<p>Unlike <code>meteor add</code>, only one package can be added at a time with <code>mrt add</code>.</p>
-
-<div class="highlight"><pre><span class="c"># Add the latest version of the moment package on Atmosphere.</span>
-<span class="nv">$ </span>mrt add moment
-<span class="c"># Add a specific version of a package.</span>
-<span class="nv">$ </span>mrt add router --version 0.3.4
-<span class="c"># Meteorite will install page.js too, because router depends on it.</span>
-</pre></div>
-
-<h3><code>mrt run</code></h3>
-
-<p>Works like <code>meteor run</code>, but checks and installs the app's desired Meteor version and package dependencies before running the app.</p>
-
-<h3><code>mrt update</code></h3>
-
-<p>Installs any available updates to the app's desired Meteor version and packages.</p>
-
-<h3>Other commands</h3>
-
-<p>When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto <code>meteor</code>. </p>
-
-<p>For that reason, it's usually best to use <code>mrt</code> for all meteor related commands. For instance, to generate the correct bundle, you'll need to use <code>mrt bundle</code>, or <code>mrt deploy</code> when deploying to meteor.com.</p>
-
-<h2>Running Meteorite as sudo</h2>
+<h2>
+<a name="permission-woes" class="anchor" href="#permission-woes"><span class="octicon octicon-link"></span></a>Permission woes?</h2>
 
 <p>It is <em>not</em> required that you run <code>sudo mrt</code>. If you do so, your home directory will pick up some root-owned files and you'll struggle to run <code>mrt</code> without <code>sudo</code> from then on. This isn't good.</p>
 
 <p>To fix the problem, try cleaning up potentially "sudo-ed" files:</p>
 
-<div class="highlight"><pre><span class="nx">sudo</span> <span class="nx">mrt</span> <span class="nx">uninstall</span>
-<span class="nx">sudo</span> <span class="nx">mrt</span> <span class="nx">uninstall</span> <span class="o">--</span><span class="nx">system</span>
-<span class="nx">sudo</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">rf</span> <span class="o">~</span><span class="err">/.npm</span>
+<div class="highlight"><pre>sudo mrt uninstall
+sudo mrt uninstall --system
+sudo chown -R <span class="sb">`</span>whoami<span class="sb">`</span> ~/.npm
 </pre></div>
 
-<h2>How Meteorite works</h2>
+<p>If possible, try not to install Meteorite as root either. If you have permissions problems, make sure you install with <code>sudo -H npm install -g meteorite</code>. If you've installed without <code>-H</code>, your <code>~/.npm</code> directory will be owned by root and you should run the <code>chown</code> command above to fix it.</p>
+
+<h2>
+<a name="how-meteorite-works" class="anchor" href="#how-meteorite-works"><span class="octicon octicon-link"></span></a>How Meteorite works</h2>
 
 <p>Apps tell Meteorite the Meteor version and packages they want with a file called <code>smart.json</code> in their root directory. Meteorite will install those dependencies the next time it is executed within that app.</p>
 
 <p>Meteorite writes to a <code>smart.lock</code> file in the app's root directory to track the exact versions of its dependencies, even when it's set up in a fresh environment. You should check the <code>smart.lock</code> file into your app's version control, to ensure that other developers are running the same versions of the dependencies. Any changes in <code>smart.json</code> take precendency over <code>smart.lock</code>. The <code>smart.lock</code> file is reset with the <code>mrt update</code> command.</p>
 
-<h3>Example <code>smart.json</code>
+<h3>
+<a name="example-smartjson" class="anchor" href="#example-smartjson"><span class="octicon octicon-link"></span></a>Example <code>smart.json</code>
 </h3>
 
-<p>The <code>meteor</code> property is not required: apps will depend on Meteor's master branch by default. You can specify <code>meteor.branch</code>, <code>meteor.tag</code> or <code>meteor.git</code> to use alternate branches, tags and forks respectively.</p>
+<p>The <code>meteor</code> property is not required: apps will depend on Meteor's master branch by default. You can specify <code>meteor.branch</code>, <code>meteor.tag</code> or <code>meteor.git</code> to use alternate branches, tags and forks respectively. Note that <code>meteor.git</code> expects an actual URL, use <code>ssh://git@github.com/meteor/meteor.git</code> instead of <code>git@github.com:meteor/meteor.git</code>.</p>
 
 <div class="highlight"><pre><span class="p">{</span>
   <span class="nt">"meteor"</span><span class="p">:</span> <span class="p">{</span>
@@ -142,7 +188,8 @@
 <span class="p">}</span>
 </pre></div>
 
-<h2>Writing Meteorite packages</h2>
+<h2>
+<a name="writing-meteorite-packages" class="anchor" href="#writing-meteorite-packages"><span class="octicon octicon-link"></span></a>Writing Meteorite packages</h2>
 
 <p>Meteorite packages include a <code>smart.json</code> file in their root directory to provide information about the package, and to list their dependencies. For an example, see <a href="https://github.com/tmeasday/meteor-router/blob/master/smart.json">Meteor Router's <code>smart.json</code></a>.</p>
 
@@ -150,7 +197,25 @@
 
 <p>See <a href="https://atmosphere.meteor.com/wtf/package">Atmosphere's documentation on writing packages</a> for more information.</p>
 
-<h2>Contributing</h2>
+<h2>
+<a name="bash-completion" class="anchor" href="#bash-completion"><span class="octicon octicon-link"></span></a>Bash Completion</h2>
+
+<p>Use Meteorite's bash completion by sourcing it in your .bashrc or .bash_profile.</p>
+
+<p>Depending on where you installed Meteorite:</p>
+
+<div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -f /path/to/meteorite/completions/mrt.bash <span class="o">]</span>; <span class="k">then</span>
+  . /path/to/meteorite/completions/mrt.bash
+<span class="k">fi</span>
+</pre></div>
+
+<p>Alternatively, you can create a symbolic link under bash_completion.d:</p>
+
+<div class="highlight"><pre>ln -s /path/to/meteorite/completions/mrt.bash /path/to/bash_completion.d/mrt
+</pre></div>
+
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
 <p>Contributions to meteorite are very welcome! Please see the <a href="https://github.com/oortcloud/meteorite/blob/master/CONTRIBUTING.md">Contribution Guide</a> for details.</p>
       </section>
