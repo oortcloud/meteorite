@@ -1,7 +1,7 @@
 { "name": "meteorite"
-, "version": "0.5.1"
+, "version": "0.6.0"
 , "homepage": "http://oortcloud.github.com/meteorite"
-, "engines": [ "node >=0.6.0" ]
+, "engines": [ "node >=0.8.0" ]
 , "description": "Installer & smart package manager for Meteor"
 , "author": "Mike Bannister <notimpossiblemike@gmail.com> (http://po.ssibiliti.es)"
 , "dependencies":
