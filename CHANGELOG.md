@@ -1,3 +1,6 @@
+0.6.0 - 2013-06-07
+  - use Meteor's `packages/` directory
+
 0.5.0 - 2013-03-18
   - upgrade to ddp version pre1 package.
 
