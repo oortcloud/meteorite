@@ -1,3 +1,6 @@
+0.6.2 - 2013-06-11
+  - Commented out completion postinstall stuff.
+
 0.6.1 - 2013-06-11
   - Error message if default meteor isn't installed and we try to use it.
 
