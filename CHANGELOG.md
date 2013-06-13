@@ -1,4 +1,7 @@
-0.6.2 - 2013-06-11
+0.6.3 - 2013-06-13
+  - Default to port 80
+
+0.6.2 - 2013-06-13
   - Commented out completion postinstall stuff.
 
 0.6.1 - 2013-06-11
