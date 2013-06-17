@@ -1,3 +1,6 @@
+0.6.4 - 2013-06-17
+  - added --verbose argument.
+
 0.6.3 - 2013-06-13
   - Default to port 80
 
