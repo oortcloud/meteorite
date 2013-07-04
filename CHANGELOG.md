@@ -1,3 +1,6 @@
+0.6.7 - 2013-07-4
+  - switched back to port 443
+
 0.6.4 - 2013-06-17
   - added --verbose argument.
 
