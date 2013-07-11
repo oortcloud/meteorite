@@ -66,6 +66,10 @@ Install all packages listed in `smart.json` that aren't already installed on you
 
 Installs any available updates to the app's desired Meteor version and packages.
 
+### `mrt create-package [path/to/]foo`
+
+Puts the basic building blocks down for creating a package named `foo`, (potentially in a sub directory, usually `packages/`).
+
 ## Deprecated commands
 
 As Meteorite now installs packages into the `packages/` directory, you can simply run `meteor` to start your app. You may need to run `mrt install` first.
