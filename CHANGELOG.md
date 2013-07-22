@@ -1,3 +1,7 @@
+0.6.8 - 2013-07-22
+  - added `create-package` command
+  - updated prompt dependency
+
 0.6.7 - 2013-07-4
   - switched back to port 443
 
