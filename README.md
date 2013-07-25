@@ -176,6 +176,14 @@ Alternatively, you can create a symbolic link under bash_completion.d:
 ln -s /path/to/meteorite/completions/mrt.bash /path/to/bash_completion.d/mrt
 ```
 
+## Running Meteorite In a Git Hook Script
+
+If you encounter checkout errors while running `mrt install` or `mrt update` within a Git hook script, it is because `GIT_DIR` is set to an unexpected value when running within a hook. The solution is to temporarily unset it just before running the `mrt` command.
+
+```bash
+(unset GIT_DIR; mrt update)
+```
+
 ## Contributing
 
 Contributions to meteorite are very welcome! Please see the [Contribution Guide](https://github.com/oortcloud/meteorite/blob/master/CONTRIBUTING.md) for details.
