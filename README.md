@@ -70,6 +70,12 @@ Installs any available updates to the app's desired Meteor version and packages.
 
 Puts the basic building blocks down for creating a package named `foo`, (potentially in a sub directory, usually `packages/`).
 
+### `mrt link-package path/to/foo`
+
+Links `packages/foo` to `path/to/foo` so that you can use a local version without changing `smart.json`. Useful for quick changes to a package you maintain when developing an application. 
+
+Note that `mrt install` or `mrt` will _overwrite_ this link if you also have `foo` in your `smart.json` (which you probably will). This may change in the future.
+
 ## Deprecated commands
 
 As Meteorite now installs packages into the `packages/` directory, you can simply run `meteor` to start your app. You may need to run `mrt install` first.

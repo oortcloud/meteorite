@@ -1,3 +1,6 @@
+0.6.9 - 2013-08-2
+  - added `link-package` command
+
 0.6.8 - 2013-07-22
   - added `create-package` command
   - updated prompt dependency
