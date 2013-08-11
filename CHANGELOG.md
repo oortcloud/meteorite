@@ -1,3 +1,6 @@
+0.6.10 - 2013-08-10
+  - fixed problem with homedir containing spaces.
+
 0.6.9 - 2013-08-2
   - added `link-package` command
 
