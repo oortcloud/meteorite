@@ -20,7 +20,7 @@
 , "scripts":
   { "test": "mocha spec/unit spec/acceptance -t 240000 -R spec"
   , "flushcache": "rm -rf spec/support/cache"
-  , "postinstall": "./completions/postinstall.sh"
+  , "postinstall": "sh ./completions/postinstall.sh"
   }
 , "repository":
   { "type" : "git"
