@@ -1,3 +1,6 @@
+0.6.11 - 2013-08-16
+  - minor fix to postinstall script, thanks @veell
+
 0.6.10 - 2013-08-10
   - fixed problem with homedir containing spaces.
 
