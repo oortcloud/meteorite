@@ -2,7 +2,7 @@
 
 Meteorite is a Meteor version manager and package manager. It provides an easy way to run different versions of meteor, use non-core packages, and to install packages from the [Atmosphere package repository](https://atmosphere.meteor.com/). 
 
-Meteorite provides the `mrt` that can be used to add and install smart packages from atmosphere.
+Meteorite provides the command `mrt`, which can be used to add and install smart packages from atmosphere.
 
 ``` sh
 # Create an app based on Meteor's devel branch.
