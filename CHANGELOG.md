@@ -1,3 +1,6 @@
+0.6.12 - 2013-09-4
+  - deal with .build directorys, thanks @mitar
+
 0.6.11 - 2013-08-16
   - minor fix to postinstall script, thanks @veell
 
