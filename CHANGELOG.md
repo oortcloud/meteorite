@@ -1,3 +1,6 @@
+0.6.13 - 2014-09-13
+  - deal with gitignore issue, thanks @philcockfield
+
 0.6.12 - 2013-09-4
   - deal with .build directorys, thanks @mitar
 
