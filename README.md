@@ -149,6 +149,10 @@ The `meteor` property is not required: apps will depend on Meteor's master branc
       "git": "https://github.com/rithis/meteor-normalize.css",
       "tag": "v2.0.1"
     },
+    "branch-of-package": {
+    	"git": "https://github.com/EventedMind/iron-router.git",
+    	"branch": "dev"
+		},
     "my-experiment": {
       "path": "/path/to/local/package"
     }
