@@ -1,3 +1,6 @@
+0.6.14 - 2014-10-2
+  - added --build-dev-bundle option
+
 0.6.13 - 2014-09-13
   - deal with gitignore issue, thanks @philcockfield
 
