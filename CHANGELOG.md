@@ -1,3 +1,6 @@
+0.6.15 - 2013-10-20
+  - don't write to .meteor/packages, thanks @mitar
+
 0.6.14 - 2013-10-2
   - added --build-dev-bundle option
 
