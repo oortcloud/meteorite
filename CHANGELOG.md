@@ -1,3 +1,6 @@
+0.6.16 - 2013-11-3
+  - smarter searching for package.js, thanks @childdude
+
 0.6.15 - 2013-10-20
   - don't write to .meteor/packages, thanks @mitar
 
