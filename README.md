@@ -58,6 +58,10 @@ $ mrt add router --version 0.3.4
 # Meteorite will install page.js too, because router depends on it.
 ```
 
+### `mrt remove <package>`
+
+Similarly, removes a package from `smart.json`, and unlinks it from your project (as well as telling Meteor not to use it).
+
 ### `mrt install`
 
 Install all packages listed in `smart.json` that aren't already installed on your machine. Use this command if you are working collaboratively and your colleagues install new packages.
