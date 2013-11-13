@@ -54,7 +54,7 @@ Unlike `meteor add`, only one package can be added at a time with `mrt add`.
 # Add the latest version of the moment package on Atmosphere.
 $ mrt add moment
 # Add a specific version of a package.
-$ mrt add router --version 0.3.4
+$ mrt add router --pkg-version 0.3.4
 # Meteorite will install page.js too, because router depends on it.
 ```
 
