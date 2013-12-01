@@ -80,6 +80,16 @@ Links `packages/foo` to `path/to/foo` so that you can use a local version withou
 
 Note that `mrt install` or `mrt` will _overwrite_ this link if you also have `foo` in your `smart.json` (which you probably will). This may change in the future.
 
+## Options
+
+Options can be passed at the very end of the command.
+
+### `--verbose`
+
+Log debug information to the console.
+
+Example: `mrt add crypto-sha1 --verbose`
+
 ## Deprecated commands
 
 As Meteorite now installs packages into the `packages/` directory, you can simply run `meteor` to start your app. You may need to run `mrt install` first.
