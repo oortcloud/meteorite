@@ -75,7 +75,7 @@ var spawnAndWait = function(executable, args, options, done) {
   var processOutput = function(data) {
     if (matched) return;
     
-    console.error('' + data);
+    // console.error('' + data);
     output += data;
     
     if (failOn && matchesSpecs(output, failOn)) {
