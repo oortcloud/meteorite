@@ -28,10 +28,7 @@ var killProcessFamily = function(child, error, done) {
     var pids = ['' + child.pid];
     
     // it might not be still running so this could throw an error
-    try {
-      process.kill(child.pid);
-    } catch (exception) {
-    }
+    try { process.kill(child.pid); } catch (exception) { }
       
     
     // XXX: this assumes the process are "chronological". Is this true?
@@ -43,7 +40,7 @@ var killProcessFamily = function(child, error, done) {
         pids.push(info[0]);
         
         // kill the sucker;
-        process.kill(info[0]);
+        try { process.kill(info[0]); } catch (exception) { }
       }
     });
     
@@ -78,7 +75,7 @@ var spawnAndWait = function(executable, args, options, done) {
   var processOutput = function(data) {
     if (matched) return;
     
-    // console.error('' + data);
+    console.error('' + data);
     output += data;
     
     if (failOn && matchesSpecs(output, failOn)) {
