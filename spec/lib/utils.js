@@ -53,9 +53,15 @@ var forEachPackage = function(callback, done) {
   forEachDir(packagesDir, callback, done);
 }
 
+var copyLockfileToApp = function(lockName, appDir) {
+  var lockData = fs.readFileSync(path.join('spec', 'support', 'resources', 'smart.lock.'+lockName));
+  fs.writeFileSync(path.join(appDir, 'smart.lock'), lockData);
+};
+
 
 exports.appHome = appHome;
 exports.appsDir = appsDir;
 exports.packagesDir = packagesDir;
 exports.forEachPackage = forEachPackage;
 exports.downloadDevBundle = downloadDevBundle;
+exports.copyLockfileToApp = copyLockfileToApp;

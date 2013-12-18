@@ -1,4 +1,5 @@
-var mrt = require('./helpers');
+var runner = require('../lib/runner.js');
+var utils = require('../lib/utils.js');
 var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
@@ -7,19 +8,14 @@ var assert = require('assert');
 // All real `install` tests are done on `run` because `install` is just a subset of `run` but `run` gives us simpler ways to verify behavior.
 
 describe('invoking `mrt install`', function() {
-  
-  beforeEach(function(done) {
-    mrt.prepare(done);
-  });
-  afterEach(function(done) {
-    mrt.cleanup(done);
-  });
-  
   describe('in an uninstalled app without a smart.lock', function() {
     
     // Just a superficial test to make sure install is working
     it("should install meteor and the app's smart package", function(done) {
-      mrt.invoke('install', 'app-with-smart-pkg', {
+      var appName = 'app-with-smart-pkg';
+      var appDir = path.join(utils.appHome, appName);
+      
+      runner.invokeMrtInApp(appName, ['install'], {
         waitForOutput: [
           "mrt-test-pkg1",
           "branch: https://github.com/possibilities/mrt-test-pkg1.git#master",
@@ -28,10 +24,8 @@ describe('invoking `mrt install`', function() {
           "Done installing smart packages"
         ]
       }, function() {
-        
-        var appDir = path.join('spec', 'support', 'apps', 'app-with-smart-pkg');
-        assert.ok(fs.existsSync(path.join(appDir, 'smart.lock')), "Didn't create smart.lock");
-        assert.ok(fs.existsSync(path.join(appDir, '.meteor', 'meteorite')), "Didn't create meteor directory");
+        assert.ok(fs.existsSync(path.join(appDir, 'smart.lock')), "Didn't create smart.lock in " + appDir);
+        assert.ok(fs.existsSync(path.join(appDir, 'packages', 'mrt-test-pkg1')), "Didn't link meteor package");
         done();
       });
     });
@@ -40,15 +34,17 @@ describe('invoking `mrt install`', function() {
   describe('in an app with a consistent smart.lock and smart.json', function() {
     
     it("should not resolve dependencies", function(done) {
-      mrt.copyLockfileToApp('app-with-smart-pkg', 'app-with-smart-pkg');
-      mrt.invoke('install', 'app-with-smart-pkg', {
+      var appName = 'app-with-smart-pkg';
+      var appDir = path.join(utils.appHome, appName);
+      
+      runner.invokeMrtInApp(appName, ['install'], {
+        withLockFile: 'app-with-smart-pkg',
         assertNoOutput: [
           "Resolving dependency tree"
         ]
       }, function() {
 
-        var appDir = path.join('spec', 'support', 'apps', 'app-with-smart-pkg');
-        assert.ok(fs.existsSync(path.join(appDir, '.meteor', 'meteorite')), "Didn't create meteor directory");
+        assert.ok(fs.existsSync(path.join(appDir, 'packages', 'mrt-test-pkg1')), "Didn't link meteor package");
         done();
       });
     });
@@ -56,8 +52,12 @@ describe('invoking `mrt install`', function() {
   
   describe('in an app with an out-of-date smart.lock', function() {
     it("should re-resolve dependencies", function(done) {
-      mrt.copyLockfileToApp('app-with-smart-pkg-pinned-to-branch', 'app-with-smart-pkg');
-      mrt.invoke('install', 'app-with-smart-pkg', {
+      
+      var appName = 'app-with-smart-pkg';
+      var appDir = path.join(utils.appHome, appName);
+      
+      runner.invokeMrtInApp(appName, ['install'], {
+        withLockFile: 'app-with-smart-pkg-pinned-to-branch',
         waitForOutput: [
           "smart.json changed",
           "Resolving dependency tree",
@@ -67,9 +67,8 @@ describe('invoking `mrt install`', function() {
         ]
       }, function() {
         
-        var appDir = path.join('spec', 'support', 'apps', 'app-with-smart-pkg');
         assert.ok(fs.existsSync(path.join(appDir, 'smart.lock')), "Didn't create smart.lock");
-        assert.ok(fs.existsSync(path.join(appDir, '.meteor', 'meteorite')), "Didn't create meteor directory");
+        assert.ok(fs.existsSync(path.join(appDir, 'packages', 'mrt-test-pkg1')), "Didn't link meteor package");
         done();
       });
     });
@@ -77,8 +76,12 @@ describe('invoking `mrt install`', function() {
   
   describe('in an app with an out-of-date meteor in smart.lock', function() {
     it("should re-resolve dependencies", function(done) {
-      mrt.copyLockfileToApp('app-with-meteor-pinned-to-branch', 'app-with-smart-pkg');
-      mrt.invoke('install', 'app-with-smart-pkg', {
+      
+      var appName = 'app-with-smart-pkg';
+      var appDir = path.join(utils.appHome, appName);
+      
+      runner.invokeMrtInApp(appName, ['install'], {
+        withLockFile: 'app-with-meteor-pinned-to-branch',
         waitForOutput: [
           "smart.json changed",
           "Resolving dependency tree",
@@ -86,9 +89,8 @@ describe('invoking `mrt install`', function() {
         ]
       }, function() {
         
-        var appDir = path.join('spec', 'support', 'apps', 'app-with-smart-pkg');
         assert.ok(fs.existsSync(path.join(appDir, 'smart.lock')), "Didn't create smart.lock");
-        assert.ok(fs.existsSync(path.join(appDir, '.meteor', 'meteorite')), "Didn't create meteor directory");
+        assert.ok(fs.existsSync(path.join(appDir, 'packages', 'mrt-test-pkg1')), "Didn't link meteor package");
         done();
       });
     });
@@ -96,19 +98,14 @@ describe('invoking `mrt install`', function() {
 });
 
 describe('invoking `mrt update`', function() {
-  
-  beforeEach(function(done) {
-    mrt.prepare(done);
-  });
-  afterEach(function(done) {
-    mrt.cleanup(done);
-  });
-  
   describe('in an app with a consistent smart.lock and smart.json', function() {
     
     it("should re-resolve dependencies", function(done) {
-      mrt.copyLockfileToApp('app-with-smart-pkg', 'app-with-smart-pkg');
-      mrt.invoke('update', 'app-with-smart-pkg', {
+      var appName = 'app-with-smart-pkg';
+      var appDir = path.join(utils.appHome, appName);
+      
+      runner.invokeMrtInApp(appName, ['install'], {
+        withLockFile: 'app-with-smart-pkg',
         waitForOutput: [
           "Resolving dependency tree",
           "mrt-test-pkg1",
@@ -117,24 +114,17 @@ describe('invoking `mrt update`', function() {
         ]
       }, function() {
         
-        var appDir = path.join('spec', 'support', 'apps', 'app-with-smart-pkg');
-        assert.ok(fs.existsSync(path.join(appDir, '.meteor', 'meteorite')), "Didn't create meteor directory");
+        assert.ok(fs.existsSync(path.join(appDir, 'packages', 'mrt-test-pkg1')), "Didn't link meteor package");
         done();
       });
     });
   });
-  
 });
 
 describe("invoking `mrt uninstall --system`", function() {
-
-  beforeEach(function(done) {
-    mrt.prepare(done);
-  });
-  
   it("should delete everything in ~/.meteorite", function(done) {
     
-    var installDir = path.resolve('spec/support/home/.meteorite');
+    var installDir = path.join(utils.appHome, '.meteorite');
     
     // put something in there
     if (!fs.existsSync(installDir))
@@ -145,7 +135,7 @@ describe("invoking `mrt uninstall --system`", function() {
     
     assert.equal(fs.existsSync(installDir), true);
     
-    mrt.invoke('uninstall --system', 'empty-dir', {
+    runner.invokeMrt('', ['uninstall', '--system'], {
       waitForOutput: 'Deleting ~/.meteorite'
     }, function() {
       assert.equal(fs.existsSync(installDir), false, "~/.meteorite wasn't uninstalled");

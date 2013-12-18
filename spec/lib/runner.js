@@ -124,11 +124,17 @@ var invokeMrtInApp = function(appName, args, options, done) {
   var writer = fstream.Writer(appDir);
   
   writer.on('close', function() {
+    if (options.withLockFile) {
+      utils.copyLockfileToApp(options.withLockFile, appDir);
+      delete options.withLockFile;
+    }
+    
     invokeMrt(appDir, args, options, done);
   });
   
   reader.pipe(writer);
 }
+
 
 exports.invokeMrt = invokeMrt;
 exports.invokeMrtInApp = invokeMrtInApp;
