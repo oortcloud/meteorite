@@ -2,6 +2,7 @@
 
 var path = require('path');
 var spawn = require('child_process').spawn;
+var exec = require('child_process').exec;
 var _ = require('underscore');
 var utils = require('./utils.js');
 var wrench = require('wrench');
@@ -17,12 +18,33 @@ var matchesSpecs = function(output, specs) {
 
 // kill the process family described by process, then send done the error
 var killProcessFamily = function(child, error, done) {
-  // find the process group
-  // kill all processes with the same group
-  
-  process.kill(child.pid)
-  done(error);
+  // we need to grab a table of process ids and parent ids to form a tree out of
+  exec('ps -opid -oppid', function(err, rawData) {
+    // parse the list of process ids and parent ids
+    var processes = _.map(rawData.split('\n'), function(line) {
+      return line.trim().split(/\s+/);
+    });
+    
+    var pids = ['' + child.pid];
+    process.kill(child.pid);
+    
+    // XXX: this assumes the process are "chronological". Is this true?
+    _.each(processes, function(info) {
+      
+      // the parent of the process is in the list of parent processes
+      if (_.include(pids, info[1])) {
+        // this process is now a potential parent
+        pids.push(info[0]);
+        
+        // kill the sucker;
+        process.kill(info[0]);
+      }
+    });
+    
+    done(error);
+  });
 }
+
 
 var failMessage = function(message, matched, content) {
   return message + ' ' + matched + '\nACTUAL:\n' + content;
