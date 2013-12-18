@@ -48,6 +48,7 @@ var spawnAndWait = function(executable, args, options, done) {
   
   var output = '';
   var processOutput = function(data) {
+    // console.error('' + data);
     output += data;
     
     if (failOn && matchesSpecs(output, failOn)) {
@@ -79,6 +80,7 @@ var invokeMrt = function(directory, args, options, done) {
   args.push('--verbose');
   args.push('--repoPort=3333');
   args.push('--repoHost=localhost');
+  args.push('--port=4444');
   
   spawnAndWait(meteoriteExecutable, args, options, done);
 }

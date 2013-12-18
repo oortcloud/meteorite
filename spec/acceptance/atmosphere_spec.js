@@ -1,17 +1,12 @@
-var mrt = require('./helpers');
+var runner = require('../lib/runner.js');
 
 describe('invoking `mrt run`', function() {
-  
-  beforeEach(function(done) {
-    mrt.prepare(done);
-  });
-  
   describe('with a smart.json linking', function() {
     
     describe('a single atmosphere package', function() {
       it("should install the smart package", function(done) {
-        mrt.invoke('run', 'app-with-atmos-pkg', {
-          waitForOutput: "Test package 1 installed (version 1.7.2)"
+        runner.invokeMrtInApp('app-with-atmos-pkg', ['run'], {
+          waitForOutput: "Test package 1 installed - v0.2.0"
         }, done);
       });
     });

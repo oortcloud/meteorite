@@ -61,13 +61,14 @@ var loadAtmosphere = function(done) {
         // console.log(packageDir, version);
         exec('git checkout v' + version, {cwd: packageDir}, function(err) {
           if (err) {
-            return done("Problem checking out package version" + err);
+            return done("Problem checking out package version: " + name + " " + version + " : " + err);
           }
-          exec('printf "test\ntesttest\n" | mrt publish . --repoHost localhost --repoPort 3333', function() {
+          
+          var publishCommand = 'mrt publish . --repoHost localhost --repoPort 3333 --repoUsername test --repoPassword testtest';
+          var cmd = exec(publishCommand, {cwd: packageDir}, function(err) {
             if (err) {
-              return done("Problem checking publishing package" + err);
+              return done("Problem checking publishing package: " + name + " " + version + " : "  + err);
             }
-            
             next();
           });
         });
