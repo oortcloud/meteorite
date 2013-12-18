@@ -1,7 +1,5 @@
 node_modules
 spec/support/cache
-spec/support/home
-spec/support/apps/new_apps
-spec/support/apps/**/smart.lock
+spec/var
 .DS_Store
 npm-debug.log
