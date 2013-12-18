@@ -26,7 +26,13 @@ var killProcessFamily = function(child, error, done) {
     });
     
     var pids = ['' + child.pid];
-    process.kill(child.pid);
+    
+    // it might not be still running so this could throw an error
+    try {
+      process.kill(child.pid);
+    } catch (exception) {
+    }
+      
     
     // XXX: this assumes the process are "chronological". Is this true?
     _.each(processes, function(info) {
@@ -51,7 +57,7 @@ var failMessage = function(message, matched, content) {
 }
 
 var spawnAndWait = function(executable, args, options, done) {
-  var finished = false;
+  var matched = false;
   
   var waitFor = options.waitForOutput;
   if (waitFor) {
@@ -70,16 +76,18 @@ var spawnAndWait = function(executable, args, options, done) {
   
   var output = '';
   var processOutput = function(data) {
+    if (matched) return;
+    
     // console.error('' + data);
     output += data;
     
     if (failOn && matchesSpecs(output, failOn)) {
-      finished = true;
+      matched = true;
       return killProcessFamily(mrt, failMessage('Matched', failOn, output), done);
     }
     
     if (waitFor && matchesSpecs(output, waitFor)) {
-      finished = true;
+      matched = true;
       return killProcessFamily(mrt, null, done);
     }
   }
@@ -88,7 +96,7 @@ var spawnAndWait = function(executable, args, options, done) {
   mrt.stderr.on('data', processOutput);
   
   mrt.on('close', function() {
-    if (! finished)
+    if (! matched)
       return done(waitFor && new Error(failMessage('Failed to match', waitFor, output)));
   });
 }
