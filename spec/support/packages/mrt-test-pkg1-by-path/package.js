@@ -1,5 +1,5 @@
 Package.describe({
-  summary: "mrt test package 2"
+  summary: "mrt test package 1"
 });
 
 Package.on_use(function (api) {

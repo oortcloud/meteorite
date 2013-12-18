@@ -1,1 +1,1 @@
-console.log('Test package 1 installed (from a fixed path)');
+console.log('Test package 1 installed - v0.2.0');

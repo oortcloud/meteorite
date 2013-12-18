@@ -12,6 +12,7 @@
   , "optimist": ">=0.3.4"
   , "prompt": "0.2.11"
   , "colors": "0.6.0-1"
+  , "async": "0.2.9"
   }
 , "devDependencies":
   { "mocha": ">=1.2.2"
