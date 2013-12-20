@@ -1,9 +1,0 @@
-{
-  "name": "mrt-test-pkg1",
-  "description": "Meteorite test package",
-  "homepage": "https://github.com/oortcloud/mrt-test-pkg1",
-  "author": "Tom Coleman <tom@thesnail.org>",
-  "version": "0.2.0",
-  "git": "https://github.com/oortcloud/mrt-test-pkg1.git",
-  "packages": {}
-}

@@ -1,0 +1,6 @@
+[submodule "spec/support/packages/mrt-test-pkg1"]
+	path = spec/support/packages/mrt-test-pkg1
+	url = https://github.com/oortcloud/mrt-test-pkg1.git
+[submodule "spec/support/packages/mrt-test-pkg2"]
+	path = spec/support/packages/mrt-test-pkg2
+	url = https://github.com/oortcloud/mrt-test-pkg2.git
