@@ -1,16 +1,11 @@
-var packagesNeeded = {
-  'mrt-test-pkg1': ['0.1.0', '0.2.0'],
-  'mrt-test-pkg2': ['0.1.0']
-}
-
-var exec = require('child_process').exec;
 var path = require('path');
 var fs = require('fs');
 var wrench = require('wrench');
-var utils = require('../lib/utils.js');
 var _ = require('underscore');
-var async = require('async');
 var ddp = require('ddp');
+
+var utils = require('../lib/utils.js');
+var atmosphere = require('../lib/atmosphere.js');
 
 // this is our home dir for running mrt against
 var appHome = utils.appHome;
@@ -38,7 +33,7 @@ before(function(done){
     //   run meteor/meteor --help
   
     console.log("  Ensuring local atmosphere is running with the right packages");
-    loadAtmosphere(done);
+    atmosphere.loadPackages(done);
   });
 });
 
@@ -49,36 +44,3 @@ beforeEach(function() {
     wrench.rmdirSyncRecursive(appHome);
   fs.mkdirSync(appHome);
 });
-
-
-var loadAtmosphere = function(done) {
-  var tasks = []
-  
-  _.each(packagesNeeded, function(versions, name) {
-    _.each(versions, function(version) {
-      var packageDir = path.join(utils.packagesDir, name);
-      tasks.push(function(next) {
-        // console.log(packageDir, version);
-        exec('git checkout v' + version, {cwd: packageDir}, function(err) {
-          if (err) {
-            return done("Problem checking out package version: " + name + " " + version + " : " + err);
-          }
-          
-          var publishCommand = 'mrt publish . --repoHost localhost --repoPort 3333 --repoUsername test --repoPassword testtest';
-          var cmd = exec(publishCommand, {cwd: packageDir}, function(err) {
-            if (err) {
-              return done("Problem checking publishing package: " + name + " " + version + " : "  + err);
-            }
-            next();
-          });
-        });
-      });
-    });
-  });
-  
- tasks.push(function() { 
-    done();
-  });
-  
-  async.series(tasks);
-}
