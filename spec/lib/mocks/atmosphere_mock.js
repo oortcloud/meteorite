@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 // testing mock
 var PKG_DEFINITIONS = [
   {
@@ -53,6 +55,6 @@ var PKG_DEFINITIONS = [
   }
 ]
 
-Atmosphere.packages = function(fn) {
-  fn(PKG_DEFINITIONS);
+Atmosphere.package = function(name, fn) {
+  return fn(_.find(PKG_DEFINITIONS, function(d) { return d.name === name; }));
 };
