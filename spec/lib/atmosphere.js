@@ -19,6 +19,19 @@ var getPackageInfo = function(name, fn) {
   });
 }
 
+var getPackageInstallCount = function(name, version, fn) {
+  getPackageInfo(name, function(err, data) {
+    if (err)
+      return fn(err);
+    
+    var details = _.find(data.versions, function(d) { return d.version == version; });
+    
+    if (details)
+      fn(null, details.installCount || 0);
+    else
+      fn(new Error('No version ' + version + ' of ' + name + ' found'));
+  });
+}
 
 var loadPackages = function(done) {
   var tasks = []
@@ -71,4 +84,6 @@ var loadPackages = function(done) {
   async.series(tasks);
 }
 
+exports.getPackageInfo = getPackageInfo;
+exports.getPackageInstallCount = getPackageInstallCount;
 exports.loadPackages = loadPackages;
