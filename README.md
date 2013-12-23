@@ -148,9 +148,6 @@ The `meteor` property is not required: apps will depend on Meteor's master branc
 
 ``` json
 {
-  "meteor": {
-    "tag": "v0.5.4"
-  },
   "packages": {
     "moment": {},
     "router": "0.3.4",
