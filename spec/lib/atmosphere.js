@@ -3,6 +3,7 @@ var exec = require('child_process').exec;
 var utils = require('../lib/utils.js');
 var _ = require('underscore');
 var async = require('async');
+var assert = require('assert');
 
 
 var baseCommand = 'mrt --repoHost localhost --repoPort 3333 --repoUsername test --repoPassword testtest'
@@ -27,10 +28,42 @@ var getPackageInstallCount = function(name, version, fn) {
     var details = _.find(data.versions, function(d) { return d.version == version; });
     
     if (details)
-      fn(null, details.installCount || 0);
+      fn(null, details.installCount || 0, data.installCount || 0);
     else
       fn(new Error('No version ' + version + ' of ' + name + ' found'));
   });
+}
+
+var assertIncreasesInstallCount = function(name, version, increment, done, step) {
+  var tasks = [], totalInstallCount = 0, versionInstallCount = 0;
+  
+  tasks.push(function(next) {
+    getPackageInstallCount(name, version, function(err, count, totalCount) {
+      if (err)
+        return done(err);
+      
+      versionInstallCount = count;
+      totalInstallCount = totalCount;
+      next();
+    })
+  });
+  
+  tasks.push(step);
+  
+  tasks.push(function(next) {
+    getPackageInstallCount(name, version, function(err, count, totalCount) {
+      if (err)
+        return done(err);
+      
+      assert.equal(count, versionInstallCount + increment);
+      assert.equal(totalCount, totalInstallCount + increment);
+      next();
+    })
+  });
+  
+  tasks.push(function() { done(); });
+  
+  async.series(tasks);
 }
 
 var loadPackages = function(done) {
@@ -86,4 +119,5 @@ var loadPackages = function(done) {
 
 exports.getPackageInfo = getPackageInfo;
 exports.getPackageInstallCount = getPackageInstallCount;
+exports.assertIncreasesInstallCount = assertIncreasesInstallCount;
 exports.loadPackages = loadPackages;

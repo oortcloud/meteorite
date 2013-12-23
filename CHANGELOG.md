@@ -1,7 +1,12 @@
+0.7.0 - 2013-12-20
+  - fixed acceptance tests to work with latest meteor
+  - use single package publication for package installs, should be much quicker
+  - added a package search tool
+  - log package installs to atmosphere
+
 0.6.16 - 2013-11-3
   - smarter searching for package.js, thanks @childdude
   - added `mrt remove`
-  
 
 0.6.15 - 2013-10-20
   - don't write to .meteor/packages, thanks @mitar

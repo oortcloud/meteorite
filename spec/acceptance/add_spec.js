@@ -19,8 +19,8 @@ var shouldInstall = function(baseName) {
   
   describe('for a versioned atmosphere package', function() {
     it("should install the versioned smart package", function(done) {
-      runner.invokeMrtInApp(baseName, ['add', 'mrt-test-pkg1',  '--pkg-version=0.2.0'], {
-        waitForOutput: "mrt-test-pkg1: mrt test package 1 v0.2.0"
+      runner.invokeMrtInApp(baseName, ['add', 'mrt-test-pkg1',  '--pkg-version=0.1.0'], {
+        waitForOutput: "mrt-test-pkg1: mrt test package 1 v0.1.0"
       }, done);
     });
   });
