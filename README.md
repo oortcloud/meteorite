@@ -70,6 +70,21 @@ Install all packages listed in `smart.json` that aren't already installed on you
 
 Installs any available updates to the app's desired Meteor version and packages.
 
+### `mrt create <name>`
+
+Works like `meteor create`, but you can specify the desired branch, tag or reference of [Meteor's git repository](https://github.com/meteor/meteor) that the app should be based on.
+
+``` sh
+# By default, apps are based on Meteor's master branch.
+$ mrt create cool-app
+# You can create apps based on a branch of Meteor's repo.
+$ mrt create risky-app --branch devel
+# Or, on a tag (such as version numbers).
+$ mrt create safe-app --tag v0.5.4
+# Or, or on a commit.
+$ mrt create choosy-app --ref a9a717
+```
+
 ### `mrt create-package [path/to/]foo`
 
 Puts the basic building blocks down for creating a package named `foo`, (potentially in a sub directory, usually `packages/`).
@@ -101,20 +116,6 @@ Works like `meteor`, but checks and installs the app's desired Meteor version an
 
 If however you want to use a forked version of Meteor in your project, you can still list it in your `smart.json`, and Meteorite will run it via `mrt`. (Of course you could just run it directly from a checkout too, which may be simpler).
 
-### `mrt create <name>`
-
-Works like `meteor create`, but you can specify the desired branch, tag or reference of [Meteor's git repository](https://github.com/meteor/meteor) that the app should be based on.
-
-``` sh
-# By default, apps are based on Meteor's master branch.
-$ mrt create cool-app
-# You can create apps based on a branch of Meteor's repo.
-$ mrt create risky-app --branch devel
-# Or, on a tag (such as version numbers).
-$ mrt create safe-app --tag v0.5.4
-# Or, or on a commit.
-$ mrt create choosy-app --ref a9a717
-```
 ### Other commands
 
 When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto `meteor`.
