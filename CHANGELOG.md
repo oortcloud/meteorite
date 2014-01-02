@@ -1,3 +1,6 @@
+0.7.1 - 2014-01-02
+  - fixed issue with smart.lock being written incorrectly
+
 0.7.0 - 2013-12-20
   - fixed acceptance tests to work with latest meteor
   - use single package publication for package installs, should be much quicker
