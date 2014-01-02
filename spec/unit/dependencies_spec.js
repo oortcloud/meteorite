@@ -158,6 +158,14 @@ describe('Dependencies object', function() {
         done();
       });
     });
+    
+    it('should not have package version listed in basePackages', function(done) {
+      dependencies.resolve(function() {
+        var json = dependencies.toJson();
+        assert.ok(_.isEqual(json.basePackages['mrt-test-pkg1'], {}));
+        done();
+      });
+    });
   });
   
   describe('with two atmosphere packages specified that clash and are not ok', function() {
