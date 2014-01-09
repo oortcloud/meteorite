@@ -21,6 +21,7 @@ before(function(done){
   process.env.METEOR_WAREHOUSE_DIR = path.join(process.env.HOME, '.meteor');
   
   // set our home dir so we can easily blow away meteorite installs
+  wrench.mkdirSyncRecursive(appHome);
   process.env.HOME = appHome;
   
   console.log("Preparing..")

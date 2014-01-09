@@ -48,9 +48,12 @@ We have a pretty good start at an acceptance test suite but it could be a lot be
 
 ### Local Atmosphere instance
 
-Make sure you have a local Atmosphere instance running on port 3333. We use it to speed the tests up, but the tests won't output a helpful message if the Atmosphere instance isn't there. :disappointed:
+You'll need a local version of atmosphere running on port 3333, with a user 'test' with password 'testtest'.
+
 
 ### Running tests
+
+Make sure you have run `git submodule update --init` to grab the test packages, atmosphere is running, then try:
 
 ``` sh
 $ npm test
