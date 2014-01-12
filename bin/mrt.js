@@ -22,7 +22,5 @@ if (!meteorite[subCommandName])
 
 // Run user's subcommand
 meteorite[subCommandName](function() {
-  // TODO Annoying, why do we have to do this?
-  // Shouldn't the app terminate naturally?
-  process.exit();
+  Atmosphere.disconnect();
 });
