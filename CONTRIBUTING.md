@@ -50,7 +50,6 @@ We have a pretty good start at an acceptance test suite but it could be a lot be
 
 You'll need a local version of atmosphere running on port 3333, with a user 'test' with password 'testtest'.
 
-
 ### Running tests
 
 Make sure you have run `git submodule update --init` to grab the test packages, atmosphere is running, then try:
@@ -60,6 +59,10 @@ $ npm test
 # or
 $ mocha spec/unit spec/acceptance -t 240000 -R spec
 ```
+
+### Git path
+
+You'll need to ensure you have a git executable available at `/usr/local/bin/git` (see #229). You can just symlink from whereever.
 
 ### Refreshing the test cache
 
