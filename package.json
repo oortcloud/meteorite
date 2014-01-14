@@ -13,6 +13,7 @@
   , "prompt": "0.2.11"
   , "colors": "0.6.0-1"
   , "async": "0.2.9"
+  , "rolling_timeout_exec": ">=0.0.1"
   }
 , "devDependencies":
   { "mocha": ">=1.2.2"
