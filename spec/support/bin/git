@@ -21,16 +21,17 @@ if (command === 'clone') {
   if (!fs.existsSync(cachePath))
     wrench.mkdirSyncRecursive(cachePath);
 
-  var repoUrl = args[1];
+  var destPath = args.pop();
+  var repoUrl = args.pop();
   var repoParts = repoUrl.replace('.git', '').split('/');
   var repoName = repoParts.pop();
   var repoUser = repoParts.pop();
-  var destPath = args[2];
   var repoCachePath = path.join(cachePath, repoUser, repoName);
 
   if (!fs.existsSync(repoCachePath)) {
 
-    var git = spawn('/usr/local/bin/git', ['clone', repoUrl, repoCachePath]);
+    var runCommand = args.join(' ');
+    var git = spawn('/usr/local/bin/git', [runCommand, repoUrl, repoCachePath]);
 
     git.on('exit', function() {
       copyRepo(repoCachePath, destPath);
