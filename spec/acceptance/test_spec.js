@@ -41,7 +41,25 @@ before(function(done){
 
 beforeEach(function() {
   // clear out the fake home directory
-  if (fs.existsSync(appHome))
-    wrench.rmdirSyncRecursive(appHome);
+  if (fs.existsSync(appHome)) {
+    // XXX: this is really nasty but it appears some process is not releasing 
+    // files in time so sometimes this call fails with ENOTEMPTY:
+    //
+    //   https://github.com/oortcloud/meteorite/issues/235
+    //
+    // Retrying a couple of times seems to work.  Real solution is to figure
+    // out why process isn't being killed.
+    try {
+      wrench.rmdirSyncRecursive(appHome);
+    }
+    catch (ex) {
+      try {
+        wrench.rmdirSyncRecursive(appHome);
+      }
+      catch (ex2) {
+        wrench.rmdirSyncRecursive(appHome);
+      }
+    }
+  }
   fs.mkdirSync(appHome);
 });

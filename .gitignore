@@ -3,3 +3,4 @@ spec/support/cache
 spec/var
 .DS_Store
 npm-debug.log
+*.swp
