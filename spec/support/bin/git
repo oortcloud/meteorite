@@ -29,9 +29,9 @@ if (command === 'clone') {
   var repoCachePath = path.join(cachePath, repoUser, repoName);
 
   if (!fs.existsSync(repoCachePath)) {
-
-    var runCommand = args.join(' ');
-    var git = spawn('/usr/local/bin/git', [runCommand, repoUrl, repoCachePath]);
+    args.push(repoUrl);
+    args.push(repoCachePath);
+    var git = spawn('/usr/local/bin/git', args);
 
     git.on('exit', function() {
       copyRepo(repoCachePath, destPath);
