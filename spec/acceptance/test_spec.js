@@ -3,6 +3,7 @@ var fs = require('fs');
 var wrench = require('wrench');
 var _ = require('underscore');
 var ddp = require('ddp');
+var which = require('which');
 
 var utils = require('../lib/utils.js');
 var atmosphere = require('../lib/atmosphere.js');
@@ -15,6 +16,7 @@ var appDir = path.join(appHome, 'app');
 
 before(function(done){
   // ensure our "cached" CURL is in the path
+  process.env._METEORITE_REAL_GIT = which.sync('git');
   process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(':');
   
   // make sure Meteor doesn't try to install into our soon to be clean home dir

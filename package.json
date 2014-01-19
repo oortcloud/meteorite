@@ -18,6 +18,7 @@
 , "devDependencies":
   { "mocha": ">=1.2.2"
   , "connect": ">=2.3.6"
+  , "which": ">=1.0.5"
   }
 , "scripts":
   { "test": "mocha spec/unit spec/acceptance -t 240000 -R spec"
