@@ -18,6 +18,13 @@ var matchesSpecs = function(output, specs) {
 
 // kill the process family described by process, then send done the error
 var killProcessFamily = function(child, error, done) {
+  if (process.platform === 'win32') {
+    // We do not use /PID <pid>, because it will fail if process was already terminated
+    exec('taskkill /F /T /FI "PID eq ' + child.pid + '"', function(killErr) {
+      done(error || killErr);
+    });
+    return;
+  }
   // we need to grab a table of process ids and parent ids to form a tree out of
   exec('ps -opid -oppid', function(err, rawData) {
     // parse the list of process ids and parent ids
