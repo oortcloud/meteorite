@@ -21,8 +21,13 @@ before(function(done){
   process.env._METEORITE_REAL_CURL = which.sync('curl');
   process.env._METEORITE_REAL_METEOR = path.basename(which.sync('meteor'));
 
-  // make sure Meteor doesn't try to install into our soon to be clean home dir
-  process.env.METEOR_WAREHOUSE_DIR = path.join(process.env.HOME, '.meteor');
+  if (!process.env.METEOR_WAREHOUSE_DIR) {
+    // make sure Meteor doesn't try to install into our soon to be clean home dir
+    process.env.METEOR_WAREHOUSE_DIR = path.join(process.env.HOME, '.meteor');
+    if (process.platform == 'win32') {
+      process.env.METEOR_WAREHOUSE_DIR = path.join(process.env.LOCALAPPDATA || process.env.APPDATA, '.meteor');
+    }
+  }
   
   // set our home dir so we can easily blow away meteorite installs
   wrench.mkdirSyncRecursive(appHome);
