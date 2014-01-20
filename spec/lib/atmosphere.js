@@ -6,7 +6,7 @@ var async = require('async');
 var assert = require('assert');
 
 
-var baseCommand = 'mrt --repoHost localhost --repoPort 3333 --repoUsername test --repoPassword testtest'
+var baseCommand = path.resolve(path.join('bin', 'mrt.js')) + '  --repoHost localhost --repoPort 3333 --repoUsername test --repoPassword testtest';
 
 var packagesNeeded = {
   'mrt-test-pkg1': ['0.1.0', '0.2.0'],
