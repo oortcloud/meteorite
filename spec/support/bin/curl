@@ -8,6 +8,7 @@ var wrench = require('wrench');
 var args = process.argv;
 var fileNameParts = args[args.length - 1].split('/');
 var fileName = fileNameParts[fileNameParts.length - 1];
+var REAL_CURL = process.env._METEORITE_REAL_CURL;
 
 console.error('CURL called for ', fileName);
 
@@ -15,7 +16,7 @@ if (! fileName.match(/^dev_bundle_/)) {
   
   // if it's not the dev bundle we are looking for, bail out to standard curl
   console.error('skipping...')
-  spawn('/usr/bin/curl', process.argv.slice(2));
+  spawn(REAL_CURL, process.argv.slice(2));
 
 } else {
   // it's a dev bundle, so cache it
@@ -35,7 +36,7 @@ if (! fileName.match(/^dev_bundle_/)) {
 
     var url = process.argv[process.argv.length - 1];
 
-    var curlCache = spawn('/usr/bin/curl', ['-O', url], { cwd: cachePath }, function() {});
+    var curlCache = spawn(REAL_CURL, ['-O', url], { cwd: cachePath }, function() {});
 
     curlCache.on('exit', outputFile);  
 

@@ -15,6 +15,12 @@ var copyRepo = function(from, to) {
   spawn('cp', ['-r', from, to]);
 };
 
+var REAL_GIT = process.env._METEORITE_REAL_GIT;
+if (!REAL_GIT) {
+  console.error('No _METEORITE_REAL_GIT specified');
+  process.exit(1);
+}
+
 if (command === 'clone') {
   var cachePath = path.join(__dirname, '..', 'cache');
 
@@ -31,7 +37,7 @@ if (command === 'clone') {
   if (!fs.existsSync(repoCachePath)) {
     args.push(repoUrl);
     args.push(repoCachePath);
-    var git = spawn('/usr/local/bin/git', args);
+    var git = spawn(REAL_GIT, args);
 
     git.on('exit', function() {
       copyRepo(repoCachePath, destPath);
@@ -44,7 +50,7 @@ if (command === 'clone') {
 
 } else if (command !== 'pull') { // we will skip pulls, expensive and redudant.
   
-  var git = spawn('/usr/local/bin/git', args);
+  var git = spawn(REAL_GIT, args);
 
   git.stderr.pipe(process.stderr);
   git.stdout.pipe(process.stdout);

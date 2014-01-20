@@ -3,6 +3,7 @@ var fs = require('fs');
 var wrench = require('wrench');
 var _ = require('underscore');
 var ddp = require('ddp');
+var which = require('which');
 
 var utils = require('../lib/utils.js');
 var atmosphere = require('../lib/atmosphere.js');
@@ -15,8 +16,11 @@ var appDir = path.join(appHome, 'app');
 
 before(function(done){
   // ensure our "cached" CURL is in the path
+  process.env._METEORITE_REAL_GIT = which.sync('git');
   process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(':');
-  
+  process.env._METEORITE_REAL_CURL = which.sync('curl');
+  process.env._METEORITE_REAL_METEOR = path.basename(which.sync('meteor'));
+
   // make sure Meteor doesn't try to install into our soon to be clean home dir
   process.env.METEOR_WAREHOUSE_DIR = path.join(process.env.HOME, '.meteor');
   
@@ -27,7 +31,7 @@ before(function(done){
   console.log("Preparing..")
   // ensure we have the latest dev bundle cached
   console.log("  Ensuring we have the dev bundle for system meteor");
-  utils.downloadDevBundle('meteor', function() {
+  utils.downloadDevBundle(process.env._METEORITE_REAL_METEOR, function() {
     // ensure we have dev bundles for all our meteor forks
     // XXX:
     // for meteor in meteors/
