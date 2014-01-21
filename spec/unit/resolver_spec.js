@@ -2,6 +2,7 @@ var _ = require('underscore');
 var assert = require('assert');
 var Meteorite = require('../../lib/meteorite');
 var Dependencies = require('../../lib/dependencies/dependencies');
+var path = require('path');
 require('../lib/mocks/package_mock');
 require('../lib/mocks/atmosphere_mock');
 
@@ -33,41 +34,41 @@ var testConflict = function(pkgDefns, fn) {
 
 describe('The Resolver', function() {
   describe('with two local dependencies', function() {
-    testConflict({A: {path: '/A'}, B: {path: '/B'}}, 
+    testConflict({A: {path: path.resolve('/A')}, B: {path: path.resolve('/B')}},
       function(dependencies, done) {
-        assert.equal(dependencies.packages['C'].source.path, '/C.path.A');
+        assert.equal(dependencies.packages['C'].source.path, path.resolve('/C.path.A'));
         done();
       });
   });
   
   describe('with a local dependency vs a git one', function() {
-    testConflict({A: {path: '/A'}, B: {git: 'B'}}, 
+    testConflict({A: {path: path.resolve('/A')}, B: {git: 'B'}},
       function(dependencies, done) {
-        assert.equal(dependencies.packages['C'].source.path, '/C.path.A');
+        assert.equal(dependencies.packages['C'].source.path, path.resolve('/C.path.A'));
         done();
       });
   });
   
   describe('with a git dependency vs a local one', function() {
-    testConflict({A: {git: 'A'}, B: {path: '/B'}}, 
+    testConflict({A: {git: 'A'}, B: {path: path.resolve('/B')}},
       function(dependencies, done) {
-        assert.equal(dependencies.packages['C'].source.path, '/C.path.B');
+        assert.equal(dependencies.packages['C'].source.path, path.resolve('/C.path.B'));
         done();
       });
   });
   
   describe('with a local dependency vs an atmos one', function() {
-    testConflict({A: {path: '/A'}, B: {}}, 
+    testConflict({A: {path: path.resolve('/A')}, B: {}},
       function(dependencies, done) {
-        assert.equal(dependencies.packages['C'].source.path, '/C.path.A');
+        assert.equal(dependencies.packages['C'].source.path, path.resolve('/C.path.A'));
         done();
       });
   });
   
   describe('with a atmos dependency vs a local one', function() {
-    testConflict({A: {}, B: {path: '/B'}}, 
+    testConflict({A: {}, B: {path: path.resolve('/B')}},
       function(dependencies, done) {
-        assert.equal(dependencies.packages['C'].source.path, '/C.path.B');
+        assert.equal(dependencies.packages['C'].source.path, path.resolve('/C.path.B'));
         done();
       });
   });
