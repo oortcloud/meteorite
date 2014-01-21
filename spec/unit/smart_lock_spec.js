@@ -2,6 +2,7 @@ var _ = require('underscore');
 var assert = require('assert');
 var Meteorite = require('../../lib/meteorite');
 var Dependencies = require('../../lib/dependencies/dependencies');
+var path = require('path');
 require('../lib/mocks/package_mock');
 require('../lib/mocks/project_mock');
 
@@ -126,17 +127,17 @@ describe('Writing smart.lock', function() {
       expected = {
         packages: {
           "mrt-test-pkg2": {
-            "path": "../../mrt-test-pkg2"
+            "path": path.normalize("../../mrt-test-pkg2")
           },
           "mrt-test-pkg1": {
             // pkg2 has a link to ../mrt-test-pkg1, so when it resolves, it
             // should be two levels up
-            "path": "../../mrt-test-pkg1"
+            "path": path.normalize("../../mrt-test-pkg1")
           }
         }, 
         basePackages: {
           "mrt-test-pkg2": {
-            "path": "../../mrt-test-pkg2"
+            "path": path.normalize("../../mrt-test-pkg2")
           }
         }
       };
