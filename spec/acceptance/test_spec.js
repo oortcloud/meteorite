@@ -17,9 +17,9 @@ var appDir = path.join(appHome, 'app');
 before(function(done){
   // ensure our "cached" CURL is in the path
   process.env._METEORITE_REAL_GIT = which.sync('git');
-  process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(path.delimiter);
   process.env._METEORITE_REAL_CURL = which.sync('curl');
   process.env._METEORITE_REAL_METEOR = path.basename(which.sync('meteor'));
+  process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(path.delimiter);
 
   if (!process.env.METEOR_WAREHOUSE_DIR) {
     // make sure Meteor doesn't try to install into our soon to be clean home dir
