@@ -6,6 +6,7 @@ var ddp = require('ddp');
 var which = require('which');
 
 var utils = require('../lib/utils.js');
+var env = require('../../lib/utils/env.js');
 var atmosphere = require('../lib/atmosphere.js');
 
 // this is our home dir for running mrt against
@@ -23,10 +24,7 @@ before(function(done){
 
   if (!process.env.METEOR_WAREHOUSE_DIR) {
     // make sure Meteor doesn't try to install into our soon to be clean home dir
-    process.env.METEOR_WAREHOUSE_DIR = path.join(process.env.HOME, '.meteor');
-    if (process.platform == 'win32') {
-      process.env.METEOR_WAREHOUSE_DIR = path.join(process.env.LOCALAPPDATA || process.env.APPDATA, '.meteor');
-    }
+    process.env.METEOR_WAREHOUSE_DIR = env.buildFromHomePath('.meteor');
   }
   
   // set our home dir so we can easily blow away meteorite installs

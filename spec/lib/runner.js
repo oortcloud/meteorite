@@ -6,9 +6,11 @@ var exec = require('child_process').exec;
 var _ = require('underscore');
 var utils = require('./utils.js');
 var wrench = require('wrench');
+var which = require('which');
 var fstream = require('fstream');
 
-var meteoriteExecutable = path.resolve(path.join('bin', 'mrt.js'));
+//var meteoriteExecutable = path.resolve(path.join('bin', 'mrt.js'));
+var meteoriteExecutable = which.sync('meteorite');
 
 var matchesSpecs = function(output, specs) {
   return _.all(specs, function(spec) {
