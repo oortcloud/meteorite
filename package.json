@@ -14,11 +14,12 @@
   , "colors": "0.6.0-1"
   , "async": "0.2.9"
   , "rolling_timeout_exec": ">=0.0.1"
-  , "which": ">=1.0.5"
+  , "which": ">=1.5.5"
   }
 , "devDependencies":
   { "mocha": ">=1.2.2"
   , "connect": ">=2.3.6"
+  , "which": ">=1.5.5"
   }
 , "scripts":
   { "test": "mocha spec/unit spec/acceptance -t 240000 -R spec"
