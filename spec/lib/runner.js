@@ -9,9 +9,6 @@ var wrench = require('wrench');
 var which = require('which');
 var fstream = require('fstream');
 
-//var meteoriteExecutable = path.resolve(path.join('bin', 'mrt.js'));
-var meteoriteExecutable = which.sync('meteorite');
-
 var matchesSpecs = function(output, specs) {
   return _.all(specs, function(spec) {
     return output.indexOf(spec) > -1;
@@ -118,7 +115,7 @@ var invokeMrt = function(directory, args, options, done) {
   args.push('--repoHost=localhost');
   args.push('--port=4444');
   
-  spawnAndWait(meteoriteExecutable, args, options, done);
+  spawnAndWait(require('./env').meteoriteExecutable, args, options, done);
 }
 
 var invokeMrtInApp = function(appName, args, options, done) {
