@@ -68,7 +68,7 @@ $ npm install
 
 ### 2. Git path
 
-You'll need to ensure you have a git executable available at `/usr/local/bin/git` (see #229). You can just symlink from whereever.
+You'll need to ensure you have a git executable available at your PATH so `which git` can find it.
 
 You can find out where your current git command is being executed like this:
 
