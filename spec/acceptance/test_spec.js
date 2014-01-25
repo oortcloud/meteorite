@@ -16,7 +16,7 @@ var appHome = utils.appHome;
 var appDir = path.join(appHome, 'app');
 
 before(function(done){
-  // ensure our "cached" CURL is in the path
+  // ensure our "cached" git is in the path
   process.env._METEORITE_REAL_GIT = which.sync('git');
   process.env._METEORITE_REAL_CURL = which.sync('curl');
   process.env._METEORITE_REAL_METEOR = path.basename(which.sync('meteor'));
