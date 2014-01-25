@@ -30,6 +30,7 @@ before(function(done){
   // set our home dir so we can easily blow away meteorite installs
   wrench.mkdirSyncRecursive(appHome);
   process.env.HOME = appHome;
+  process.env.LOCALAPPDATA = appHome;
   
   console.log("Preparing..")
   // ensure we have the latest dev bundle cached
