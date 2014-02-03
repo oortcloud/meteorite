@@ -13,8 +13,9 @@ var command = _.first(args);
 
 var copyRepo = function(from, to) {
   wrench.mkdirSyncRecursive(path.dirname(to));
-  // -T is required because 'to' directory may be already created
-  spawn('cp', ['-Tr', from, to]);
+  wrench.copyDirSyncRecursive(from, to, {
+    forceDelete: true // Directory 'to' may already exists
+  });
 };
 
 var REAL_GIT = process.env._METEORITE_REAL_GIT;
