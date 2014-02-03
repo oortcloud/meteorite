@@ -6,7 +6,7 @@ var async = require('async');
 var assert = require('assert');
 
 
-var baseCommand = require('./env').meteoriteExecutable + ' --repoHost localhost --repoPort 3333 --repoUsername test --repoPassword testtest'
+var baseCommand = '"' + require('./env').meteoriteExecutable + '" --repoHost localhost --repoPort 3333 --repoUsername test --repoPassword testtest'
 
 var packagesNeeded = {
   'mrt-test-pkg1': ['0.1.0', '0.2.0'],
