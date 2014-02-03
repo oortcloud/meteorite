@@ -5,6 +5,7 @@ var path = require('path');
 var fs = require('../../../lib/utils/fs');
 var wrench = require('wrench');
 var _ = require('underscore');
+var exit = require('exit');
 
 var args = process.argv.slice(2);
 
@@ -19,7 +20,8 @@ var copyRepo = function(from, to) {
 var REAL_GIT = process.env._METEORITE_REAL_GIT;
 if (!REAL_GIT) {
   console.error('No _METEORITE_REAL_GIT specified');
-  process.exit(1);
+  exit(1);
+  return;
 }
 
 if (command === 'clone') {
