@@ -1,1 +1,1 @@
-@node %~dp0\git %*
+@node "%~dp0\git" %*
