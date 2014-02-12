@@ -16,6 +16,7 @@
   , "rolling_timeout_exec": ">=0.0.1"
   , "which": ">=1.0.5"
   , "exit": ">=0.1.2"
+  , "spawn-cmd": ">=0.0.2"
   }
 , "devDependencies":
   { "mocha": ">=1.2.2"

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var spawn = require('child_process').spawn;
+var spawn = require('spawn-cmd').spawn;
 var path = require('path');
 var fs = require('../../../lib/utils/fs');
 var wrench = require('wrench');

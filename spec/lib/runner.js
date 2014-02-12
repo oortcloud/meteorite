@@ -1,7 +1,7 @@
 // run mrt against a certain app and wait for given output
 
 var path = require('path');
-var spawn = require('child_process').spawn;
+var spawn = require('spawn-cmd').spawn;
 var exec = require('child_process').exec;
 var _ = require('underscore');
 var utils = require('./utils.js');

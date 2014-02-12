@@ -1,5 +1,5 @@
 // basic filesystem utils for our tests
-var spawn = require('child_process').spawn;
+var spawn = require('spawn-cmd').spawn;
 var path = require('path');
 var fs = require('fs');
 var _ = require('underscore');
