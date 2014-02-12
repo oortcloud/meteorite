@@ -18,7 +18,7 @@ var appDir = path.join(appHome, 'app');
 before(function(done){
   // ensure our "cached" git is in the path
   process.env._METEORITE_REAL_GIT = which.sync('git');
-  process.env._METEORITE_REAL_METEOR = path.basename(which.sync('meteor'));
+  process.env._METEORITE_REAL_METEOR = which.sync('meteor');
   process.env.PATH = [path.resolve(path.join('spec', 'support', 'bin')), process.env.PATH].join(path.delimiter);
 
   if (!process.env.METEOR_WAREHOUSE_DIR) {
