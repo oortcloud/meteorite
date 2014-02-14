@@ -146,6 +146,8 @@ Meteorite writes to a `smart.lock` file in the app's root directory to track the
 
 The `meteor` property is not required: apps will depend on Meteor's master branch by default. You can specify `meteor.branch`, `meteor.tag` or `meteor.git` to use alternate branches, tags and forks respectively. Note that `meteor.git` expects an actual URL, use `ssh://git@github.com/meteor/meteor.git` instead of `git@github.com:meteor/meteor.git`.
 
+Keep in mind that main Meteor repository doesn't work well on Windows yet and Meteor pinning is explicitly disabled for Windows users of Meteorite (default Meteor is always used). If you still want Meteorite to run your custom Meteor that works both on Windows and Linux, add `meteor.force-on-windows: true` parameter to `smart.json`.
+
 ``` json
 {
   "packages": {
