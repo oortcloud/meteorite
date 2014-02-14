@@ -104,29 +104,33 @@ describe('invoking `mrt run`', function() {
       });
     });
     
-    describe('and the smart.json specifies a meteor fork pinned to a branch', function() {
-      it("should run the forked meteor checked out to the branch", function(done) {
-        runner.invokeMrtInApp('app-with-meteor-pinned-to-branch', ['run'], {
-          waitForOutput: "Meteor is instrumented for meteorite test (branch/mrt-branch-test)"
-        }, done);
+    if (process.platform == 'win32') {
+      console.log('Skipping Meteor pinning tests because this is not expected to work on Windows'.yellow.bold);
+    } else {
+      describe('and the smart.json specifies a meteor fork pinned to a branch', function() {
+        it("should run the forked meteor checked out to the branch", function(done) {
+          runner.invokeMrtInApp('app-with-meteor-pinned-to-branch', ['run'], {
+            waitForOutput: "Meteor is instrumented for meteorite test (branch/mrt-branch-test)"
+          }, done);
+        });
       });
-    });
 
-    describe('and the smart.json specifies a meteor fork pinned to a tag', function() {
-      it("should run the forked meteor checked out to the branch", function(done) {
-        runner.invokeMrtInApp('app-with-meteor-pinned-to-tag', ['run'], {
-          waitForOutput: "Meteor is instrumented for meteorite test (tag/mrt-test-tag)"
-        }, done);
+      describe('and the smart.json specifies a meteor fork pinned to a tag', function() {
+        it("should run the forked meteor checked out to the branch", function(done) {
+          runner.invokeMrtInApp('app-with-meteor-pinned-to-tag', ['run'], {
+            waitForOutput: "Meteor is instrumented for meteorite test (tag/mrt-test-tag)"
+          }, done);
+        });
       });
-    });
 
-    describe('and the smart.json specifies a meteor fork pinned to a ref', function() {
-      it("should run the forked meteor checked out to the branch", function(done) {
-        runner.invokeMrtInApp('app-with-meteor-pinned-to-ref', ['run'], {
-          waitForOutput: "Meteor is instrumented for meteorite test (ref)"
-        }, done);
+      describe('and the smart.json specifies a meteor fork pinned to a ref', function() {
+        it("should run the forked meteor checked out to the branch", function(done) {
+          runner.invokeMrtInApp('app-with-meteor-pinned-to-ref', ['run'], {
+            waitForOutput: "Meteor is instrumented for meteorite test (ref)"
+          }, done);
+        });
       });
-    });
+    }
   });
 
 });
