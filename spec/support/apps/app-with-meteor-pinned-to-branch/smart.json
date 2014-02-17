@@ -1,6 +1,6 @@
 {
   "meteor": {
-    "git": "https://github.com/possibilities/meteor",
+    "git": "https://github.com/oortcloud/meteor.git",
     "branch": "mrt-branch-test"
   },
   "packages": {}
