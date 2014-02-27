@@ -21,7 +21,6 @@ if (!meteorite[subCommandName])
   throw("Subcommand " + subCommandName + " does not exist!");
 
 // Run user's subcommand
-meteorite[subCommandName](function(code, signal) {
+meteorite[subCommandName](function() {
   Atmosphere.disconnect();
-  process.exit(-signal || code);
 });
