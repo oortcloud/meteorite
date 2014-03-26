@@ -2,7 +2,8 @@
 
 Meteorite is a Meteor version manager and package manager. It provides an easy way to run different versions of meteor, use non-core packages, and to install packages from the [Atmosphere package repository](https://atmosphere.meteor.com/). 
 
-Meteorite provides the command `mrt`, which can be used to add and install smart packages from atmosphere.
+Meteorite provides two commands: `mrt` and `meteorite` (the latter was added to avoid naming conflict with Microsoft Malicious Software Removal Tool on Windows), which can be used to add and install smart packages from atmosphere.
+These commands are absolutely identical, but if you're going to call Meteorite from your scripts, you'd better use `meteorite`, as it works both on Windows and Linux.
 
 ``` sh
 # Create an app based on Meteor's devel branch.
@@ -37,10 +38,20 @@ Subsequently, you can simply use `meteor` to run your development server, and ju
 
 ### NOTES
 
-- Meteor is not officially supported on windows; you can run it thanks to [Tom Wijman's excellent work](http://win.meteor.com). However, meteorite's git based approach runs counter to the MSI installation that's required to get it working. So meteorite *does not* work under windows right now. Pull Requests which change this would be gladly accepted! Also, see [this blog post](http://www.discovermeteor.com/2013/03/20/using-meteor-and-atmopshere-on-windows/) for some information about how to use it.
-
 - You'll also need to ensure you have [git](http://git-scm.com) installed and available in your path. Also, you'll need to make sure that `mrt`'s install location (usually `/usr/local/bin/`) is on your path.
 
+
+### Meteorite on Windows
+
+Meteor is not officially supported on windows; you can run it thanks to [Tom Wijman's excellent work](http://win.meteor.com).
+
+Meteorite can be installed and run as any NPM package. Several things are useful to know:
+
+- Meteor release pinning does not work on Windows, see example below for details.
+- Meteorite keeps its files under `<your user>\AppData\Local\.meteorite`, just like Meteor do.
+- Directory junctions are used as the best alternative to Linux's symlinks. This automatically implies that Meteorite won't work on FAT32 drives (but will on NTFS).
+- Explorer in older Windows and another file managers may handle removal of directory junctions inaccurate, which may lead to deletion of all files inside the junction instead of just
+breaking the link. Please be careful: if this happens, you will have to manually remove empty package folder from Meteorite's cache to make it re-download all files.
 
 ## Usage
 
