@@ -100,7 +100,7 @@ var loadPackages = function(done) {
               if (output.match(/user not found/i))
                 return done(new Error("Ensure you've added the test user (with password testtest) to your local atmosphere server"));
               
-              return done(new Error("Problem checking publishing package: " + name + " " + version + " :\n"  + err + '\n' + output));
+              return done(new Error("Problem publishing package: " + name + " " + version + " :\n"  + err + '\n' + output));
             }
             
             next();
