@@ -1,3 +1,6 @@
+0.7.3 - 2014-04-04
+  - die loudly if there's a problem with the meteor process. Thanks @mitar
+
 0.7.1 - 2014-01-02
   - fixed issue with smart.lock being written incorrectly
 
