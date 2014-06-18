@@ -5,8 +5,7 @@ Meteorite is a Meteor version manager and package manager. It provides an easy w
 Meteorite provides the command `mrt`, which can be used to add and install smart packages from atmosphere.
 
 ``` sh
-# Create an app based on Meteor's devel branch.
-$ mrt create my-app --branch devel
+$ mrt create my-app
 $ cd my-app
 # Install an Atmosphere package, recursively fetching dependencies.
 $ mrt add router
