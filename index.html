@@ -32,10 +32,9 @@
 
 <p>Meteorite is a Meteor version manager and package manager. It provides an easy way to run different versions of meteor, use non-core packages, and to install packages from the <a href="https://atmosphere.meteor.com/">Atmosphere package repository</a>. </p>
 
-<p>Meteorite provides the <code>mrt</code> that can be used to add and install smart packages from atmosphere.</p>
+<p>Meteorite provides the command <code>mrt</code>, which can be used to add and install smart packages from atmosphere.</p>
 
-<div class="highlight"><pre><span class="c"># Create an app based on Meteor's devel branch.</span>
-<span class="nv">$ </span>mrt create my-app --branch devel
+<div class="highlight highlight-sh"><pre><span class="nv">$ </span>mrt create my-app
 <span class="nv">$ </span><span class="nb">cd </span>my-app
 <span class="c"># Install an Atmosphere package, recursively fetching dependencies.</span>
 <span class="nv">$ </span>mrt add router
@@ -48,7 +47,7 @@
 
 <p>Meteorite can be installed via <a href="https://npmjs.org/">npm</a>.</p>
 
-<div class="highlight"><pre><span class="nv">$ </span>npm install -g meteorite
+<div class="highlight highlight-sh"><pre><span class="nv">$ </span>npm install -g meteorite
 </pre></div>
 
 <h3>
@@ -56,7 +55,7 @@
 
 <p>If your system requires root access to install global npm packages, make sure you use the <code>-H</code> flag:</p>
 
-<div class="highlight"><pre><span class="nv">$ </span>sudo -H npm install -g meteorite
+<div class="highlight highlight-sh"><pre><span class="nv">$ </span>sudo -H npm install -g meteorite
 </pre></div>
 
 <h2>
@@ -83,12 +82,18 @@
 
 <p>Unlike <code>meteor add</code>, only one package can be added at a time with <code>mrt add</code>.</p>
 
-<div class="highlight"><pre><span class="c"># Add the latest version of the moment package on Atmosphere.</span>
+<div class="highlight highlight-sh"><pre><span class="c"># Add the latest version of the moment package on Atmosphere.</span>
 <span class="nv">$ </span>mrt add moment
 <span class="c"># Add a specific version of a package.</span>
-<span class="nv">$ </span>mrt add router --version 0.3.4
+<span class="nv">$ </span>mrt add router --pkg-version 0.3.4
 <span class="c"># Meteorite will install page.js too, because router depends on it.</span>
 </pre></div>
+
+<h3>
+<a name="mrt-remove-package" class="anchor" href="#mrt-remove-package"><span class="octicon octicon-link"></span></a><code>mrt remove &lt;package&gt;</code>
+</h3>
+
+<p>Similarly, removes a package from <code>smart.json</code>, and unlinks it from your project (as well as telling Meteor not to use it).</p>
 
 <h3>
 <a name="mrt-install" class="anchor" href="#mrt-install"><span class="octicon octicon-link"></span></a><code>mrt install</code>
@@ -101,6 +106,49 @@
 </h3>
 
 <p>Installs any available updates to the app's desired Meteor version and packages.</p>
+
+<h3>
+<a name="mrt-create-name" class="anchor" href="#mrt-create-name"><span class="octicon octicon-link"></span></a><code>mrt create &lt;name&gt;</code>
+</h3>
+
+<p>Works like <code>meteor create</code>, but you can specify the desired branch, tag or reference of <a href="https://github.com/meteor/meteor">Meteor's git repository</a> that the app should be based on.</p>
+
+<div class="highlight highlight-sh"><pre><span class="c"># By default, apps are based on Meteor's master branch.</span>
+<span class="nv">$ </span>mrt create cool-app
+<span class="c"># You can create apps based on a branch of Meteor's repo.</span>
+<span class="nv">$ </span>mrt create risky-app --branch devel
+<span class="c"># Or, on a tag (such as version numbers).</span>
+<span class="nv">$ </span>mrt create safe-app --tag v0.5.4
+<span class="c"># Or, or on a commit.</span>
+<span class="nv">$ </span>mrt create choosy-app --ref a9a717
+</pre></div>
+
+<h3>
+<a name="mrt-create-package-pathtofoo" class="anchor" href="#mrt-create-package-pathtofoo"><span class="octicon octicon-link"></span></a><code>mrt create-package [path/to/]foo</code>
+</h3>
+
+<p>Puts the basic building blocks down for creating a package named <code>foo</code>, (potentially in a sub directory, usually <code>packages/</code>).</p>
+
+<h3>
+<a name="mrt-link-package-pathtofoo" class="anchor" href="#mrt-link-package-pathtofoo"><span class="octicon octicon-link"></span></a><code>mrt link-package path/to/foo</code>
+</h3>
+
+<p>Links <code>packages/foo</code> to <code>path/to/foo</code> so that you can use a local version without changing <code>smart.json</code>. Useful for quick changes to a package you maintain when developing an application. </p>
+
+<p>Note that <code>mrt install</code> or <code>mrt</code> will <em>overwrite</em> this link if you also have <code>foo</code> in your <code>smart.json</code> (which you probably will). This may change in the future.</p>
+
+<h2>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h2>
+
+<p>Options can be passed at the very end of the command.</p>
+
+<h3>
+<a name="--verbose" class="anchor" href="#--verbose"><span class="octicon octicon-link"></span></a><code>--verbose</code>
+</h3>
+
+<p>Log debug information to the console.</p>
+
+<p>Example: <code>mrt add crypto-sha1 --verbose</code></p>
 
 <h2>
 <a name="deprecated-commands" class="anchor" href="#deprecated-commands"><span class="octicon octicon-link"></span></a>Deprecated commands</h2>
@@ -117,22 +165,6 @@ You can run any meteor executable you like (e.g. from a checkout somewhere on yo
 <p>If however you want to use a forked version of Meteor in your project, you can still list it in your <code>smart.json</code>, and Meteorite will run it via <code>mrt</code>. (Of course you could just run it directly from a checkout too, which may be simpler).</p>
 
 <h3>
-<a name="mrt-create-name" class="anchor" href="#mrt-create-name"><span class="octicon octicon-link"></span></a><code>mrt create &lt;name&gt;</code>
-</h3>
-
-<p>Works like <code>meteor create</code>, but you can specify the desired branch, tag or reference of <a href="https://github.com/meteor/meteor">Meteor's git repository</a> that the app should be based on.</p>
-
-<div class="highlight"><pre><span class="c"># By default, apps are based on Meteor's master branch.</span>
-<span class="nv">$ </span>mrt create cool-app
-<span class="c"># You can create apps based on a branch of Meteor's repo.</span>
-<span class="nv">$ </span>mrt create risky-app --branch devel
-<span class="c"># Or, on a tag (such as version numbers).</span>
-<span class="nv">$ </span>mrt create safe-app --tag v0.5.4
-<span class="c"># Or, or on a commit.</span>
-<span class="nv">$ </span>mrt create choosy-app --ref a9a717
-</pre></div>
-
-<h3>
 <a name="other-commands" class="anchor" href="#other-commands"><span class="octicon octicon-link"></span></a>Other commands</h3>
 
 <p>When Meteorite is executed for an app, it checks or installs the app's desired Meteor version, packages and dependencies, then does the required book-keeping (described below), and finally passes the command onto <code>meteor</code>.</p>
@@ -144,7 +176,7 @@ You can run any meteor executable you like (e.g. from a checkout somewhere on yo
 
 <p>To fix the problem, try cleaning up potentially "sudo-ed" files:</p>
 
-<div class="highlight"><pre>sudo mrt uninstall
+<div class="highlight highlight-bash"><pre>sudo mrt uninstall
 sudo mrt uninstall --system
 sudo chown -R <span class="sb">`</span>whoami<span class="sb">`</span> ~/.npm
 </pre></div>
@@ -164,10 +196,7 @@ sudo chown -R <span class="sb">`</span>whoami<span class="sb">`</span> ~/.npm
 
 <p>The <code>meteor</code> property is not required: apps will depend on Meteor's master branch by default. You can specify <code>meteor.branch</code>, <code>meteor.tag</code> or <code>meteor.git</code> to use alternate branches, tags and forks respectively. Note that <code>meteor.git</code> expects an actual URL, use <code>ssh://git@github.com/meteor/meteor.git</code> instead of <code>git@github.com:meteor/meteor.git</code>.</p>
 
-<div class="highlight"><pre><span class="p">{</span>
-  <span class="nt">"meteor"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">"tag"</span><span class="p">:</span> <span class="s2">"v0.5.4"</span>
-  <span class="p">},</span>
+<div class="highlight highlight-json"><pre><span class="p">{</span>
   <span class="nt">"packages"</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">"moment"</span><span class="p">:</span> <span class="p">{},</span>
     <span class="nt">"router"</span><span class="p">:</span> <span class="s2">"0.3.4"</span><span class="p">,</span>
@@ -180,6 +209,10 @@ sudo chown -R <span class="sb">`</span>whoami<span class="sb">`</span> ~/.npm
     <span class="nt">"normalize.css"</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">"git"</span><span class="p">:</span> <span class="s2">"https://github.com/rithis/meteor-normalize.css"</span><span class="p">,</span>
       <span class="nt">"tag"</span><span class="p">:</span> <span class="s2">"v2.0.1"</span>
+    <span class="p">},</span>
+    <span class="nt">"branch-of-package"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">"git"</span><span class="p">:</span> <span class="s2">"https://github.com/EventedMind/iron-router.git"</span><span class="p">,</span>
+      <span class="nt">"branch"</span><span class="p">:</span> <span class="s2">"dev"</span>
     <span class="p">},</span>
     <span class="nt">"my-experiment"</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">"path"</span><span class="p">:</span> <span class="s2">"/path/to/local/package"</span>
@@ -204,14 +237,22 @@ sudo chown -R <span class="sb">`</span>whoami<span class="sb">`</span> ~/.npm
 
 <p>Depending on where you installed Meteorite:</p>
 
-<div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -f /path/to/meteorite/completions/mrt.bash <span class="o">]</span>; <span class="k">then</span>
+<div class="highlight highlight-bash"><pre><span class="k">if</span> <span class="o">[</span> -f /path/to/meteorite/completions/mrt.bash <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
   . /path/to/meteorite/completions/mrt.bash
 <span class="k">fi</span>
 </pre></div>
 
 <p>Alternatively, you can create a symbolic link under bash_completion.d:</p>
 
-<div class="highlight"><pre>ln -s /path/to/meteorite/completions/mrt.bash /path/to/bash_completion.d/mrt
+<div class="highlight highlight-bash"><pre>ln -s /path/to/meteorite/completions/mrt.bash /path/to/bash_completion.d/mrt
+</pre></div>
+
+<h2>
+<a name="running-meteorite-in-a-git-hook-script" class="anchor" href="#running-meteorite-in-a-git-hook-script"><span class="octicon octicon-link"></span></a>Running Meteorite In a Git Hook Script</h2>
+
+<p>If you encounter checkout errors while running <code>mrt install</code> or <code>mrt update</code> within a Git hook script, it is because <code>GIT_DIR</code> is set to an unexpected value when running within a hook. The solution is to temporarily unset it just before running the <code>mrt</code> command.</p>
+
+<div class="highlight highlight-bash"><pre><span class="o">(</span><span class="nb">unset </span>GIT_DIR<span class="p">;</span> mrt update<span class="o">)</span>
 </pre></div>
 
 <h2>
