@@ -56,7 +56,7 @@ unless Dir.exists?(troposphere_name)
   raise "Package Migration Failed to create #{troposphere_name}"
 end
 
-# 5. publish to troposphere
+# 5. publish to troposphere ## XXX: should this bit be moved inside the `migrate-package` command?
 Dir.chdir troposphere_name
 begin # ugh. not sure there's a better way
   run_and_check "#{METEOR_EXECUTABLE} publish --create"
