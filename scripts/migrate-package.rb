@@ -68,10 +68,9 @@ if username != DEFAULT_USERNAME
   run_and_check "#{METEOR_EXECUTABLE} admin maintainers #{troposphere_name} --add #{username}"
 end
 
-# XXX: this doesn't seem to work
-# if package["homepage"]
-#   run_and_check "#{METEOR_EXECUTABLE} admin set-homepage #{troposphere_name} #{package["homepage"]}"
-# end
+if package["homepage"]
+  run_and_check "#{METEOR_EXECUTABLE} admin change-homepage #{troposphere_name} #{package["homepage"]}"
+end
 
 # 6. inform atmosphere
 run_and_check "ddp --host #{ATMOSPHERE_HOST} --port #{ATMOSPHERE_PORT} call " +
