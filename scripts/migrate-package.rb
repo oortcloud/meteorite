@@ -63,7 +63,8 @@ begin
   # 5. publish to troposphere ## XXX: should this bit be moved inside the `migrate-package` command?
   Dir.chdir troposphere_name
   stdout, stderr, status = Open3.capture3("#{METEOR_EXECUTABLE} publish --create")
-  if status.exitstatus == 2 # Meteor's exit code for package exists
+  # Meteor's exit code for package exists or server error (happen during races)
+  if status.exitstatus == 2 or status.exitstatus == 3
      run_and_check "#{METEOR_EXECUTABLE} publish"
   elsif status != 0
     raise "Publishing failed:\n" + stderr
