@@ -1,11 +1,6 @@
 #!/usr/bin/env ruby
 
-METEOR_EXECUTABLE = "~/Development/Meteor/meteor/meteor"
-ATMOSPHERE_HOST = 'localhost'
-ATMOSPHERE_PORT = 3000
-TROPOSPHERE_HOST = 'packages-atmosphere.meteor.com'
-DEFAULT_USERNAME = 'mrt'
-
+require File.join(File.dirname(__FILE__), 'config.rb')
 require 'json'
 require 'open3'
 
