@@ -60,10 +60,11 @@ begin
 
   # 5. publish to troposphere ## XXX: should this bit be moved inside the `migrate-package` command?
   Dir.chdir troposphere_name
-  begin # ugh. not sure there's a better way
-    run_and_check "#{METEOR_EXECUTABLE} publish --create"
-  rescue
-    run_and_check "#{METEOR_EXECUTABLE} publish"
+  stdout, stderr, status = Open3.capture3("#{METEOR_EXECUTABLE} publish --create")
+  if status.exitstatus == 2 # Meteor's exit code for package exists
+     run_and_check "#{METEOR_EXECUTABLE} publish"
+  elsif status != 0
+    raise "Publishing failed:\n" + stderr
   end
 
   if username != DEFAULT_USERNAME
