@@ -1,15 +1,9 @@
 #!/usr/bin/env ruby
 
-PROCESSES=4
-
-MIGRATION_SCRIPT = File.join(File.dirname(__FILE__), 'migrate-package.rb')
-DEFAULT_USERNAME = 'mrt'
+require File.join(File.dirname(__FILE__), 'config.rb')
 SOURCE_NAME = 'source'
+MIGRATION_SCRIPT = File.join(File.dirname(__FILE__), 'migrate-package.rb')
 
-MONGO_HOST = 'localhost'
-MONGO_PORT = 3011
-MONGO_DB = 'meteor'
-MONGO_COLLECTION = 'versions'
 require 'mongo'
 include Mongo
 
@@ -31,7 +25,7 @@ end
 require 'parallel'
 
 versions = $versions.find({complete: {'$exists' => false}}).to_a
-Parallel.each(versions) do |version|
+Parallel.each(versions, :in_processes => PROCESSES, :in_threads => THREADS) do |version|
   # 1. clone the package into the right directory
   top_dir_name = File.join(version['name'], version['version'])
   source_dir_name = File.join(top_dir_name, SOURCE_NAME)

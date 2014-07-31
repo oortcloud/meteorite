@@ -1,12 +1,6 @@
 #!/usr/bin/env ruby
 
-ATMOSPHERE_HOST = 'localhost'
-ATMOSPHERE_PORT = 3000
-
-MONGO_HOST = 'localhost'
-MONGO_PORT = 3011
-MONGO_DB = 'meteor'
-MONGO_COLLECTION = 'versions'
+require File.join(File.dirname(__FILE__), 'config.rb')
 
 require 'json'
 require 'mongo'
