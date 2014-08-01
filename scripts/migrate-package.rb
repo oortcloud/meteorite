@@ -49,7 +49,7 @@ begin
   # lowercase, alphanum and '-.', can't start with '.' [not handled]
   sanitized_package_name = package_name.downcase.gsub(/[^a-z0-9.\-]/, '-')
   troposphere_name = "#{username}:#{sanitized_package_name}"
-  run_and_check "mrt --repoHost #{ATMOSPHERE_HOST} --repoPort #{ATMOSPHERE_PORT} migrate-package #{dir} #{username}"
+  run_and_check "mrt --repoHost #{ATMOSPHERE_HOST} --repoPort #{ATMOSPHERE_PORT} migrate-package #{dir} #{troposphere_name}"
 
   unless Dir.exists?(troposphere_name)
     raise "Package Migration Failed to create #{troposphere_name}"
