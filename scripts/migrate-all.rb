@@ -15,8 +15,12 @@ def run_and_report(command, version, opts={})
   stdout, stderr, status = Open3.capture3(command, opts)
   if (status != 0)
     error = stderr + "\n" + stdout
-    $versions.update({_id: version['_id']}, {'$set' => {error: error}})
     puts ">> ERROR for #{version['name']}/#{version['version']}"
+    begin
+      $versions.update({_id: version['_id']}, {'$set' => {error: error}})
+    rescue Exception => e
+      STDERR.puts "Failed to log error for #{version['name']}/#{version['version']}\n" + e.to_s
+    end
     return false
   end
   return true
