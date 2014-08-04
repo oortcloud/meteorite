@@ -23,4 +23,7 @@ if (!meteorite[subCommandName])
 // Run user's subcommand
 meteorite[subCommandName](function() {
   Atmosphere.disconnect();
+  
+  // no idea how it can get here and not exit but it seems to at times
+  process.exit(0)
 });
