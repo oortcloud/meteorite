@@ -9,7 +9,7 @@ $versions = mongo_client[MONGO_DB][MONGO_COLLECTION]
 
 require 'parallel'
 require 'json'
-versions = $versions.find({complete: true, addedGit: {"$unset" => true}}).to_a
+versions = $versions.find({complete: true, addedGit: {"$exists" => false}}).to_a
 Parallel.each(versions, :in_processes => PROCESSES, :in_threads => THREADS) do |version|
   package_name = version['name']
   sanitized_package_name = package_name.downcase.gsub(/[^a-z0-9.\-]/, '-')
