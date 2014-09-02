@@ -1,8 +1,8 @@
 TROPOSPHERE_HOST = 'packages-atmosphere.meteor.com'
 DEFAULT_USERNAME = 'mrt'
 
-ATMOSPHERE_HOST = 'localhost'
-ATMOSPHERE_PORT = 3000
+ATMOSPHERE_HOST = 'atmosphere.meteor.com'
+ATMOSPHERE_PORT = 80
 
 MONGO_HOST = 'localhost'
 MONGO_PORT = 3011
