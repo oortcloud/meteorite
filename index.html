@@ -30,17 +30,13 @@
         <h1>
 <a name="meteorite" class="anchor" href="#meteorite"><span class="octicon octicon-link"></span></a>Meteorite</h1>
 
-<p>Meteorite is a Meteor version manager and package manager. It provides an easy way to run different versions of meteor, use non-core packages, and to install packages from the <a href="https://atmosphere.meteor.com/">Atmosphere package repository</a>. </p>
+<p><em>NOTE: As of <a href="https://www.meteor.com/blog/2014/08/26/meteor-090-new-packaging-system">Meteor 0.9.0</a>, Meteorite is no longer required! You can now install <a href="https://atmospherejs.com">Atmosphere packages</a> directly via the <code>meteor</code> tool.</em></p>
 
-<p>Meteorite provides the command <code>mrt</code>, which can be used to add and install smart packages from atmosphere.</p>
+<p>Meteorite is a Meteor package installer.</p>
 
-<div class="highlight highlight-sh"><pre><span class="nv">$ </span>mrt create my-app
-<span class="nv">$ </span><span class="nb">cd </span>my-app
-<span class="c"># Install an Atmosphere package, recursively fetching dependencies.</span>
-<span class="nv">$ </span>mrt add router
-<span class="c"># Check for and install any updates, and run the app.</span>
-<span class="nv">$ </span>mrt
-</pre></div>
+<p>It provides an easy way to install Meteor packages into your project from sources such as git and the filesystem. </p>
+
+<p>It also gives a (now deprecated) method of publishin and installing packages from the <a href="http://old-atmosphere.meteor.com">Old Atmosphere Server</a>. Please note that the latest and greatest packages are on the <a href="https://atmospherejs.com">Real Atmosphere Server</a> and can be installed directly with Meteor.</p>
 
 <h2>
 <a name="installing-meteorite" class="anchor" href="#installing-meteorite"><span class="octicon octicon-link"></span></a>Installing Meteorite</h2>
@@ -58,13 +54,6 @@
 <div class="highlight highlight-sh"><pre><span class="nv">$ </span>sudo -H npm install -g meteorite
 </pre></div>
 
-<h2>
-<a name="updating-from-pre-060-meteorite" class="anchor" href="#updating-from-pre-060-meteorite"><span class="octicon octicon-link"></span></a>Updating from pre-0.6.0 Meteorite</h2>
-
-<p>Meteorite now symlinks packages into the <code>packages/</code> directory of your app, so it's no longer necessary to run <code>mrt</code> when you want to start a server. Just make sure you <code>mrt install</code> in your app, and delete the <code>"meteor"</code> section from your <code>smart.json</code>. </p>
-
-<p>Subsequently, you can simply use <code>meteor</code> to run your development server, and just <code>mrt install</code> to ensure all packages are installed from atmosphere.</p>
-
 <h3>
 <a name="notes" class="anchor" href="#notes"><span class="octicon octicon-link"></span></a>NOTES</h3>
 
@@ -75,59 +64,34 @@
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <h3>
-<a name="mrt-add-package" class="anchor" href="#mrt-add-package"><span class="octicon octicon-link"></span></a><code>mrt add &lt;package&gt;</code>
+<a name="smartjson" class="anchor" href="#smartjson"><span class="octicon octicon-link"></span></a><code>smart.json</code>
 </h3>
 
-<p>Works like <code>meteor add</code>, but if the package isn't one of Meteor's included packages, it installs it from <a href="https://atmosphere.meteor.com">Atmosphere</a>.</p>
+<p>List your packages in a <code>smart.json</code> file in the top level of the project. There are two (non-deprecated) ways to include packages:</p>
 
-<p>Unlike <code>meteor add</code>, only one package can be added at a time with <code>mrt add</code>.</p>
-
-<div class="highlight highlight-sh"><pre><span class="c"># Add the latest version of the moment package on Atmosphere.</span>
-<span class="nv">$ </span>mrt add moment
-<span class="c"># Add a specific version of a package.</span>
-<span class="nv">$ </span>mrt add router --pkg-version 0.3.4
-<span class="c"># Meteorite will install page.js too, because router depends on it.</span>
-</pre></div>
-
-<h3>
-<a name="mrt-remove-package" class="anchor" href="#mrt-remove-package"><span class="octicon octicon-link"></span></a><code>mrt remove &lt;package&gt;</code>
-</h3>
-
-<p>Similarly, removes a package from <code>smart.json</code>, and unlinks it from your project (as well as telling Meteor not to use it).</p>
+<pre><code>{
+  "packages": {
+    "my:fork": {
+      "git": "https://github.com/my/fork.git"
+    },
+    "local:version": {
+      "path": "to/the/package/"
+    }
+  }
+}
+</code></pre>
 
 <h3>
 <a name="mrt-install" class="anchor" href="#mrt-install"><span class="octicon octicon-link"></span></a><code>mrt install</code>
 </h3>
 
-<p>Install all packages listed in <code>smart.json</code> that aren't already installed on your machine. Use this command if you are working collaboratively and your colleagues install new packages.</p>
+<p>Install all packages listed in <code>smart.json</code> that aren't already installed on your machine. Use this command if you are working collaboratively and your colleagues install new packages (<code>smart.lock</code> changes).</p>
 
 <h3>
 <a name="mrt-update" class="anchor" href="#mrt-update"><span class="octicon octicon-link"></span></a><code>mrt update</code>
 </h3>
 
-<p>Installs any available updates to the app's desired Meteor version and packages.</p>
-
-<h3>
-<a name="mrt-create-name" class="anchor" href="#mrt-create-name"><span class="octicon octicon-link"></span></a><code>mrt create &lt;name&gt;</code>
-</h3>
-
-<p>Works like <code>meteor create</code>, but you can specify the desired branch, tag or reference of <a href="https://github.com/meteor/meteor">Meteor's git repository</a> that the app should be based on.</p>
-
-<div class="highlight highlight-sh"><pre><span class="c"># By default, apps are based on Meteor's master branch.</span>
-<span class="nv">$ </span>mrt create cool-app
-<span class="c"># You can create apps based on a branch of Meteor's repo.</span>
-<span class="nv">$ </span>mrt create risky-app --branch devel
-<span class="c"># Or, on a tag (such as version numbers).</span>
-<span class="nv">$ </span>mrt create safe-app --tag v0.5.4
-<span class="c"># Or, or on a commit.</span>
-<span class="nv">$ </span>mrt create choosy-app --ref a9a717
-</pre></div>
-
-<h3>
-<a name="mrt-create-package-pathtofoo" class="anchor" href="#mrt-create-package-pathtofoo"><span class="octicon octicon-link"></span></a><code>mrt create-package [path/to/]foo</code>
-</h3>
-
-<p>Puts the basic building blocks down for creating a package named <code>foo</code>, (potentially in a sub directory, usually <code>packages/</code>).</p>
+<p>Installs any available updates to the app's desired Meteor version and packages -- use this if a new version is available on git, for instance.</p>
 
 <h3>
 <a name="mrt-link-package-pathtofoo" class="anchor" href="#mrt-link-package-pathtofoo"><span class="octicon octicon-link"></span></a><code>mrt link-package path/to/foo</code>
@@ -163,6 +127,29 @@ You can run any meteor executable you like (e.g. from a checkout somewhere on yo
 <p>Works like <code>meteor</code>, but checks and installs the app's desired Meteor version and package dependencies before running the app. You may still want to use this, but it's no longer the official way to use Meteorite.</p>
 
 <p>If however you want to use a forked version of Meteor in your project, you can still list it in your <code>smart.json</code>, and Meteorite will run it via <code>mrt</code>. (Of course you could just run it directly from a checkout too, which may be simpler).</p>
+
+<h3>
+<a name="mrt-add-package" class="anchor" href="#mrt-add-package"><span class="octicon octicon-link"></span></a><code>mrt add &lt;package&gt;</code>
+</h3>
+
+<p>Works like <code>meteor add</code>, but if the package isn't one of Meteor's included packages, it installs it from <a href="https://old-atmosphere.meteor.com">Old Atmosphere</a>.</p>
+
+<p>Unlike <code>meteor add</code>, only one package can be added at a time with <code>mrt add</code>.</p>
+
+<div class="highlight highlight-sh"><pre><span class="c"># Add the latest version of the moment package on Atmosphere.</span>
+<span class="nv">$ </span>mrt add moment
+<span class="c"># Add a specific version of a package.</span>
+<span class="nv">$ </span>mrt add router --pkg-version 0.3.4
+<span class="c"># Meteorite will install page.js too, because router depends on it.</span>
+</pre></div>
+
+<p>Note the packages on the old site are only likely to work with Meteor &lt; 0.9.0.</p>
+
+<h3>
+<a name="mrt-remove-package" class="anchor" href="#mrt-remove-package"><span class="octicon octicon-link"></span></a><code>mrt remove &lt;package&gt;</code>
+</h3>
+
+<p>Similarly, removes a package from <code>smart.json</code>, and unlinks it from your project (as well as telling Meteor not to use it).</p>
 
 <h3>
 <a name="other-commands" class="anchor" href="#other-commands"><span class="octicon octicon-link"></span></a>Other commands</h3>
@@ -220,15 +207,6 @@ sudo chown -R <span class="sb">`</span>whoami<span class="sb">`</span> ~/.npm
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
-
-<h2>
-<a name="writing-meteorite-packages" class="anchor" href="#writing-meteorite-packages"><span class="octicon octicon-link"></span></a>Writing Meteorite packages</h2>
-
-<p>Meteorite packages include a <code>smart.json</code> file in their root directory to provide information about the package, and to list their dependencies. For an example, see <a href="https://github.com/tmeasday/meteor-router/blob/master/smart.json">Meteor Router's <code>smart.json</code></a>.</p>
-
-<p>Meteorite packages also include a <code>package.js</code> file in their root directory to tell Meteorite how it should be installed. For an example, see <a href="https://github.com/alanning/meteor-roles/blob/master/roles/package.js">Meteor Roles' <code>package.js</code></a>.</p>
-
-<p>See <a href="https://atmosphere.meteor.com/wtf/package">Atmosphere's documentation on writing packages</a> for more information.</p>
 
 <h2>
 <a name="bash-completion" class="anchor" href="#bash-completion"><span class="octicon octicon-link"></span></a>Bash Completion</h2>
