@@ -1,17 +1,14 @@
 # Meteorite
 
-Meteorite is a Meteor version manager and package manager. It provides an easy way to run different versions of meteor, use non-core packages, and to install packages from the [Atmosphere package repository](https://atmosphere.meteor.com/). 
+*NOTE: As of [Meteor 0.9.0](https://www.meteor.com/blog/2014/08/26/meteor-090-new-packaging-system), Meteorite is no longer required! You can now install [Atmosphere packages](https://atmospherejs.com) directly via the `meteor` tool.*
 
-Meteorite provides the command `mrt`, which can be used to add and install smart packages from atmosphere.
 
-``` sh
-$ mrt create my-app
-$ cd my-app
-# Install an Atmosphere package, recursively fetching dependencies.
-$ mrt add router
-# Check for and install any updates, and run the app.
-$ mrt
-```
+Meteorite is a Meteor package installer.
+
+It provides an easy way to install Meteor packages into your project from sources such as git and the filesystem. 
+
+It also gives a (now deprecated) method of publishin and installing packages from the [Old Atmosphere Server](http://old-atmosphere.meteor.com). Please note that the latest and greatest packages are on the [Real Atmosphere Server](https://atmospherejs.com) and can be installed directly with Meteor.
+
 
 ## Installing Meteorite
 
@@ -28,11 +25,6 @@ If your system requires root access to install global npm packages, make sure yo
 $ sudo -H npm install -g meteorite
 ```
 
-## Updating from pre-0.6.0 Meteorite
-
-Meteorite now symlinks packages into the `packages/` directory of your app, so it's no longer necessary to run `mrt` when you want to start a server. Just make sure you `mrt install` in your app, and delete the `"meteor"` section from your `smart.json`. 
-
-Subsequently, you can simply use `meteor` to run your development server, and just `mrt install` to ensure all packages are installed from atmosphere.
 
 ### NOTES
 
@@ -43,56 +35,42 @@ Subsequently, you can simply use `meteor` to run your development server, and ju
 
 ## Usage
 
-### `mrt add <package>`
+### `smart.json`
 
-Works like `meteor add`, but if the package isn't one of Meteor's included packages, it installs it from [Atmosphere](https://atmosphere.meteor.com).
+List your packages in a `smart.json` file in the top level of the project. There are two (non-deprecated) ways to include packages:
 
-Unlike `meteor add`, only one package can be added at a time with `mrt add`.
-
-``` sh
-# Add the latest version of the moment package on Atmosphere.
-$ mrt add moment
-# Add a specific version of a package.
-$ mrt add router --pkg-version 0.3.4
-# Meteorite will install page.js too, because router depends on it.
+```
+{
+  "packages": {
+    "my:fork": {
+      "git": "https://github.com/my/fork.git"
+    },
+    "local:version": {
+      "path": "to/the/package/"
+    }
+  }
+}
 ```
 
-### `mrt remove <package>`
-
-Similarly, removes a package from `smart.json`, and unlinks it from your project (as well as telling Meteor not to use it).
 
 ### `mrt install`
 
-Install all packages listed in `smart.json` that aren't already installed on your machine. Use this command if you are working collaboratively and your colleagues install new packages.
+Install all packages listed in `smart.json` that aren't already installed on your machine. Use this command if you are working collaboratively and your colleagues install new packages (`smart.lock` changes).
 
 ### `mrt update`
 
-Installs any available updates to the app's desired Meteor version and packages.
+Installs any available updates to the app's desired Meteor version and packages -- use this if a new version is available on git, for instance.
 
-### `mrt create <name>`
-
-Works like `meteor create`, but you can specify the desired branch, tag or reference of [Meteor's git repository](https://github.com/meteor/meteor) that the app should be based on.
-
-``` sh
-# By default, apps are based on Meteor's master branch.
-$ mrt create cool-app
-# You can create apps based on a branch of Meteor's repo.
-$ mrt create risky-app --branch devel
-# Or, on a tag (such as version numbers).
-$ mrt create safe-app --tag v0.5.4
-# Or, or on a commit.
-$ mrt create choosy-app --ref a9a717
-```
-
-### `mrt create-package [path/to/]foo`
-
-Puts the basic building blocks down for creating a package named `foo`, (potentially in a sub directory, usually `packages/`).
 
 ### `mrt link-package path/to/foo`
 
 Links `packages/foo` to `path/to/foo` so that you can use a local version without changing `smart.json`. Useful for quick changes to a package you maintain when developing an application. 
 
 Note that `mrt install` or `mrt` will _overwrite_ this link if you also have `foo` in your `smart.json` (which you probably will). This may change in the future.
+
+
+
+
 
 ## Options
 
@@ -114,6 +92,29 @@ You can run any meteor executable you like (e.g. from a checkout somewhere on yo
 Works like `meteor`, but checks and installs the app's desired Meteor version and package dependencies before running the app. You may still want to use this, but it's no longer the official way to use Meteorite.
 
 If however you want to use a forked version of Meteor in your project, you can still list it in your `smart.json`, and Meteorite will run it via `mrt`. (Of course you could just run it directly from a checkout too, which may be simpler).
+
+
+
+### `mrt add <package>`
+
+Works like `meteor add`, but if the package isn't one of Meteor's included packages, it installs it from [Old Atmosphere](https://old-atmosphere.meteor.com).
+
+Unlike `meteor add`, only one package can be added at a time with `mrt add`.
+
+``` sh
+# Add the latest version of the moment package on Atmosphere.
+$ mrt add moment
+# Add a specific version of a package.
+$ mrt add router --pkg-version 0.3.4
+# Meteorite will install page.js too, because router depends on it.
+```
+
+Note the packages on the old site are only likely to work with Meteor < 0.9.0.
+
+### `mrt remove <package>`
+
+Similarly, removes a package from `smart.json`, and unlinks it from your project (as well as telling Meteor not to use it).
+
 
 ### Other commands
 
@@ -170,14 +171,6 @@ The `meteor` property is not required: apps will depend on Meteor's master branc
   }
 }
 ```
-
-## Writing Meteorite packages
-
-Meteorite packages include a `smart.json` file in their root directory to provide information about the package, and to list their dependencies. For an example, see [Meteor Router's `smart.json`](https://github.com/tmeasday/meteor-router/blob/master/smart.json).
-
-Meteorite packages also include a `package.js` file in their root directory to tell Meteorite how it should be installed. For an example, see [Meteor Roles' `package.js`](https://github.com/alanning/meteor-roles/blob/master/roles/package.js).
-
-See [Atmosphere's documentation on writing packages](https://atmosphere.meteor.com/wtf/package) for more information.
 
 ## Bash Completion
 
