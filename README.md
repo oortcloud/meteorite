@@ -7,7 +7,7 @@ Meteorite is a Meteor package installer.
 
 It provides an easy way to install Meteor packages into your project from sources such as git and the filesystem. 
 
-It also gives a (now deprecated) method of publishin and installing packages from the [Old Atmosphere Server](http://old-atmosphere.meteor.com). Please note that the latest and greatest packages are on the [Real Atmosphere Server](https://atmospherejs.com) and can be installed directly with Meteor.
+It also gives a (now deprecated) method of publishing and installing packages from the [Old Atmosphere Server](http://old-atmosphere.meteor.com). Please note that the latest and greatest packages are on the [Real Atmosphere Server](https://atmospherejs.com) and can be installed directly with Meteor.
 
 
 ## Installing Meteorite
