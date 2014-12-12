@@ -140,7 +140,7 @@ If possible, try not to install Meteorite as root either. If you have permission
 
 Apps tell Meteorite the Meteor version and packages they want with a file called `smart.json` in their root directory. Meteorite will install those dependencies the next time it is executed within that app.
 
-Meteorite writes to a `smart.lock` file in the app's root directory to track the exact versions of its dependencies, even when it's set up in a fresh environment. You should check the `smart.lock` file into your app's version control, to ensure that other developers are running the same versions of the dependencies. Any changes in `smart.json` take precendency over `smart.lock`. The `smart.lock` file is reset with the `mrt update` command.
+Meteorite writes to a `smart.lock` file in the app's root directory to track the exact versions of its dependencies, even when it's set up in a fresh environment. You should check the `smart.lock` file into your app's version control, to ensure that other developers are running the same versions of the dependencies. Any changes in `smart.json` take precendence over `smart.lock`. The `smart.lock` file is reset with the `mrt update` command.
 
 ### Example `smart.json`
 
