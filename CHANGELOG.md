@@ -1,3 +1,6 @@
+0.9.3 - 2015-02-10
+  - support `mrt shell`, thanks @gsuess
+
 0.7.3 - 2014-04-04
   - die loudly if there's a problem with the meteor process. Thanks @mitar
 
